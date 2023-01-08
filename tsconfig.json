@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "strict": true, //이거 true안하면 ts의 의미가 많이 퇴색됨
+    "lib": ["ES5", "ES2015", "DOM"],
+    "jsx": "react"
+    //"esModuleInterop": true, 이걸키면 * as 없앨수있지만 추천하지않음
+  }
+}
