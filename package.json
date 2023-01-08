@@ -1,0 +1,19 @@
+{
+  "name": "tshopping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marrtil/TShopping.git"
+  },
+  "author": "marrtil,dudghks1045",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marrtil/TShopping/issues"
+  },
+  "homepage": "https://github.com/marrtil/TShopping#readme"
+}
