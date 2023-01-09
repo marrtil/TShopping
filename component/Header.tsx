@@ -1,7 +1,12 @@
 import * as React from "react";
+import StyledHeader from "../styles/StyledHeader";
 
 const Header = () => {
-  return <div>header</div>;
+  return (
+    <>
+      <StyledHeader>header</StyledHeader>
+    </>
+  );
 };
 
 export default Header;
