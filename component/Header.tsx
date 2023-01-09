@@ -1,10 +1,10 @@
 import * as React from "react";
-import StyledHeader from "../styles/StyledHeader";
+import StyledHeader from "./styles/StyledHeader";
 
 const Header = () => {
   return (
     <>
-      <StyledHeader>header</StyledHeader>
+      <StyledHeader>header - 카테고리 or 메뉴</StyledHeader>
     </>
   );
 };

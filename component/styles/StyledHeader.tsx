@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.div`
-  background-color: blue;
+  background-color: skyblue;
 `;
 
 export default StyledHeader;
