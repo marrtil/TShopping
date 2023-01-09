@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 // import { ThemeProvider } from "styled-components";
-// import { theme } from "./styles/theme";
+// import { theme } from ".component/styles/theme";
 import App from "./App";
 
 // ReactDOM.render(
