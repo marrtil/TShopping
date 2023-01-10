@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledBody = styled.div`
   background-color: rgb(255, 255, 255);
-  height: 1000px;
   width: 1000px;
   img {
     width: 500px;
@@ -26,6 +25,8 @@ const StyledBody = styled.div`
     background-color: black;
     position: absolute;
   }
+  background-color: rgb(100, 100, 100);
+  height: 1300px;
 `;
 
 export default StyledBody;
