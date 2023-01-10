@@ -2,7 +2,8 @@
   "compilerOptions": {
     "strict": true, //이거 true안하면 ts의 의미가 많이 퇴색됨
     "lib": ["ES5", "ES2015", "es2016", "es2017", "es2020", "DOM"],
-    "jsx": "react"
+    "jsx": "react",
     //"esModuleInterop": true, 이걸키면 * as 없앨수있지만 추천하지않음
+    "typeRoots": ["./node_modules/@types", "@types"]
   }
 }

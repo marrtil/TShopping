@@ -30,6 +30,10 @@ const config: Configuration = {
         loader: "ts-loader",
         exclude: path.join(__dirname, "node_modules"),
       },
+      {
+        test: /\.(jpeg|gif|png)?$/,
+        loader: "file-loader",
+      },
     ],
   },
   plugins: [new ReactRefreshPlugin(), new ForkTsCheckerWebpackPlugin()],
