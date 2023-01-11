@@ -1,16 +1,16 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import StyledBody from "./styles/StyledBody";
-import moomin1 from "../upload/moomin1.jpeg";
-import moomin2 from "../upload/moomin2.jpeg";
 import Banner from "./Banner";
 import RecomendProduct from "./RecomendProduct";
+import ProductGrid from "./ProductGrid";
 
 const Body = () => {
   return (
     <StyledBody>
       <Banner />
-      <RecomendProduct />
+      {/* <RecomendProduct /> */}
+      <ProductGrid sort="recomend" />
+      {/* 새제품,인기상품 통합 - props로 구분할 수 있게 */}
     </StyledBody>
   );
 };

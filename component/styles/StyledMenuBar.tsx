@@ -15,7 +15,7 @@ const StyledMenuBar = styled.div`
     background-color: skyblue;
     height: 300px;
     width: 300px;
-    // z-index: 4;
+    z-index: 4;
   }
   .menu:hover {
     background-color: rgb(200, 200, 200);

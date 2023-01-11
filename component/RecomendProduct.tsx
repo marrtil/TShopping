@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import product1 from "../upload/product1.jpeg";
 import product2 from "../upload/product2.jpeg";
