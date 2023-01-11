@@ -23,6 +23,7 @@ const StyledBody = styled.div`
     color: white;
     background-color: black;
     position: absolute;
+    text-align: center;
   }
   #btn3 {
     left: 484px;
@@ -56,6 +57,40 @@ const StyledBody = styled.div`
   #RecomendLink {
     text-decoration-line: none;
     color: white;
+  }
+
+  #cartTitle {
+    text-align: center;
+  }
+
+  .cartList input {
+    width: 15px;
+  }
+  .cartList button {
+    text-align: center;
+  }
+
+  .cartPrice {
+    width: 100px;
+    text-align: center;
+  }
+  .cartCount {
+    width: 100px;
+    text-align: center;
+  }
+
+  .cartImage {
+    display: flex;
+    height: 300px;
+    vertical-align: middle;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cartImage img {
+    width: 200px;
+    height: 200px;
+    vertical-align: middle;
   }
 `;
 

@@ -10,9 +10,6 @@ const RecomendProduct = () => {
 
   return (
     <div className="Recomend">
-      <Link to={"/RecomendList"} id="RecomendLink">
-        <h2>추천상품</h2>
-      </Link>
       <div>
         {productSrc.map((value, index) => {
           return (
