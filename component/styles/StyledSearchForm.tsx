@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 const StyledSearchForm = styled.form`
+  position: absolute;
+  top: 170px;
+  right: 30px;
   width: 300px;
   display: flex;
   float: right;
-  margin: 140px 0 0 0;
+  // margin: 140px 0 0 0;
   text-align: center;
   vertical-align: middle;
 

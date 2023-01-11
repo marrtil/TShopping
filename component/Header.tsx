@@ -1,6 +1,6 @@
 import * as React from "react";
 import SearchForm from "./SearchForm";
-import StyledBanner from "./styles/StyledBanner";
+import StyledTitleBanner from "./styles/StyledTitleBanner";
 import StyledHeader from "./styles/StyledHeader";
 import StyledLoginBar from "./styles/StyledLoginBar";
 import StyledMenuBar from "./styles/StyledMenuBar";
@@ -31,9 +31,10 @@ const Header = () => {
           </ul>
           <hr></hr>
         </StyledLoginBar>
-        <StyledBanner>
-          <SearchForm />
-        </StyledBanner>
+        <a href="/">
+          <StyledTitleBanner />
+        </a>
+        <SearchForm />
         <StyledMenuBar>
           <ul>
             <li className="menu">
