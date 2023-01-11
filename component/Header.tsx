@@ -41,10 +41,10 @@ const Header = () => {
               <div className="menuDiv"> menuDiv </div>
             </li>
             <li>
-              <Link to="/newProduction">신제품</Link>
+              <Link to="/newGoods">신제품</Link>
             </li>
             <li>
-              <Link to="/majorProduction">인기상품</Link>
+              <Link to="/majorGoods">인기상품</Link>
             </li>
           </ul>
         </StyledMenuBar>

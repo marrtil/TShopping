@@ -4,9 +4,9 @@ import Body from "./Body";
 import CartForm from "./CartForm";
 import JoinForm from "./JoinForm";
 import LoginForm from "./LoginForm";
-import MajorProdForm from "./MajorProdForm";
+import MajorProdForm from "./MajorGoodsForm";
 import MyPageForm from "./MyPageForm";
-import NewProdForm from "./NewProdForm";
+import NewGoodsForm from "./NewGoodsForm";
 const LinkMatcher = () => {
   const location = useLocation();
   let urlSearchParams = new URLSearchParams(location.search.slice(1));
@@ -17,8 +17,8 @@ const LinkMatcher = () => {
       <Route path="join" element={<JoinForm />} />
       <Route path="cart" element={<CartForm />} />
       <Route path="myPage" element={<MyPageForm />} />
-      <Route path="newProduction" element={<NewProdForm />} />
-      <Route path="majorProduction" element={<MajorProdForm />} />
+      <Route path="newGoods" element={<NewGoodsForm />} />
+      <Route path="majorGoods" element={<MajorProdForm />} />
       <Route path="*" element={<Body />} />
     </Routes>
   );
