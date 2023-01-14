@@ -1,0 +1,30 @@
+npm init
+npm i typescript
+ - tsconfig.json
+npm i @types/node
+npm i express @types/express
+npm i -D ts-node // ts실행기(개발용)
+
+npx tsc --traceResolution
+// 개발시 테스트용
+
+-d로 설치(개발용)으로 까는 이유는 package.json에 남겨야 하기때문
+개발중엔 ts-node를 쓰지만
+배포할땐 npx tsc를 통해 ts파일을 js파일로 변경 후 배포.
+
+npm i morgan cors cookie-parser express-session dotenv passport hpp helmet
+ >> 싹다 앞에 @types/ 붙여서 한번더
+npm i passport-local bcrypt @types/passport-local @types/bcrypt
+ 설치하고 types버전이랑 일반 버전이랑 비교체크. 크게 차이날경우 위험.
+
+npm i -D nodemon
+
+npm i sequelize mysql2
+npm i sequelize-cli
+npx sequelize init
+npx sequelize db:create
+
+*** .env에서 mysql 비밀번호 수정요망 ***
+
+models에서 저렇게 쪼개둔것은
+순환참조로 인한 에러를 막기 위함!
