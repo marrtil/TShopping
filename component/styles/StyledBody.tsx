@@ -47,11 +47,11 @@ const StyledBody = styled.div`
   }
 
   .cartPrice {
-    width: 100px;
+    width: 50px;
     text-align: center;
   }
   .cartCount {
-    width: 100px;
+    width: 50px;
     text-align: center;
   }
 
