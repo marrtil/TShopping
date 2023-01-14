@@ -68,6 +68,14 @@ const StyledBody = styled.div`
     height: 200px;
     vertical-align: middle;
   }
+
+  .center {
+    text-align: center;
+  }
+
+  .deleter:hover {
+    cursor: Pointer;
+  }
 `;
 
 export default StyledBody;
