@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledBody = styled.div`
-  width: 1000px;
+  width: 1200px;
   img {
     width: 500px;
     height: 300px;
@@ -35,6 +35,18 @@ const StyledBody = styled.div`
   }
   height: 1300px;
 
+  #cartForm {
+    display: flex;
+  }
+
+  #cartTable {
+    width: 700px;
+  }
+  #bill {
+    width: 350px;
+    bottom: 100px;
+  }
+
   #cartTitle {
     text-align: center;
   }
@@ -47,11 +59,11 @@ const StyledBody = styled.div`
   }
 
   .cartPrice {
-    width: 50px;
+    width: 80px;
     text-align: center;
   }
   .cartCount {
-    width: 50px;
+    width: 80px;
     text-align: center;
   }
 
@@ -75,6 +87,40 @@ const StyledBody = styled.div`
 
   .deleter:hover {
     cursor: Pointer;
+  }
+
+  #bill {
+    margin-top: 50px;
+  }
+
+  .space,
+  .price {
+    display: inline-block;
+    width: 100px;
+  }
+
+  .price2 {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+  }
+
+  .billMenu {
+    margin-bottom: 10px;
+  }
+
+  .bill-border {
+    width: 300px;
+    margin-left: 1px;
+  }
+
+  #payButton {
+    width: 200px;
+    margin-left: 50px;
+    height: 50px;
+    backgroud-color: beige;
+    border-style: none;
+    border-radius: 10px;
   }
 `;
 

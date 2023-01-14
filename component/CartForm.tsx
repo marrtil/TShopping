@@ -57,69 +57,91 @@ const CartForm = () => {
     <StyledBody>
       <h1 id="cartTitle">장바구니</h1>
       <hr color="beige" />
-      <table>
-        <thead>
-          <tr>
-            <th>상품</th>
-            <th>가격</th>
-            <th>수량</th>
-            <th>합계</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {cartInfo.map((info, index) => {
-            return (
-              <tr className="cartList">
-                <td className="cartImage">
-                  <img src={info.src} alt={info.name} width="200" />
-                  {info.name}
-                </td>
-                <td className="cartPrice">{info.price}</td>
-                <td className="cartCount">
-                  {" "}
-                  <button id={`minus${info.id}`} onClick={btnPM} value={index}>
-                    -
-                  </button>
-                  <input
-                    type="text"
-                    id={`count${info.count}`}
-                    value={info.count}
-                  />
-                  <button id={`plus${info.id}`} onClick={btnPM} value={index}>
-                    +
-                  </button>
-                </td>
-                <td width="200" className="center">
-                  {info.count * info.price}
-                </td>
-                <td width="100">
-                  <label
-                    id={String(index)}
-                    onClick={delInfo}
-                    className="deleter"
-                  >
-                    x
-                  </label>
-                </td>
+      <div id="cartForm">
+        <div id="cartTable">
+          <table>
+            <thead>
+              <tr>
+                <th>상품</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>합계</th>
+                <th></th>
               </tr>
-            );
-          })}
-          <td width="200" className="center">
-            합계
-          </td>
-          <td rowSpan={3} className="center" width="400">
-            {sumPrice}
-          </td>
-          <td width="200" className="center">
-            배송비
-          </td>
-          <td rowSpan={3} className="center" width="400">
-            {sumPrice > 30000 ? 0 : 3000}
-          </td>
-        </tbody>
-      </table>
+            </thead>
+
+            <tbody>
+              {cartInfo.map((info, index) => {
+                return (
+                  <tr className="cartList">
+                    <td className="cartImage">
+                      <img src={info.src} alt={info.name} width="200" />
+                      {info.name}
+                    </td>
+                    <td className="cartPrice">{info.price}</td>
+                    <td className="cartCount">
+                      {" "}
+                      <button
+                        id={`minus${info.id}`}
+                        onClick={btnPM}
+                        value={index}
+                      >
+                        -
+                      </button>
+                      <input
+                        type="text"
+                        id={`count${info.count}`}
+                        value={info.count}
+                      />
+                      <button
+                        id={`plus${info.id}`}
+                        onClick={btnPM}
+                        value={index}
+                      >
+                        +
+                      </button>
+                    </td>
+                    <td width="150" className="center">
+                      {info.count * info.price}
+                    </td>
+                    <td width="100">
+                      <label
+                        id={String(index)}
+                        onClick={delInfo}
+                        className="deleter"
+                      >
+                        x
+                      </label>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div id="bill">
+          <div className="billMenu">
+            <div className="price">총 주문금액</div>
+            <div className="space"></div>
+            <div className="price2">{sumPrice}</div>
+          </div>
+          <div className="billMenu">
+            <div className="price">배송비</div>
+            <div className="space"></div>
+            <div className="price2">{sumPrice > 30000 ? 0 : 3000}</div>
+            <hr className="bill-border" />
+          </div>
+          <div className="billMenu">
+            <div className="price">합계</div>
+            <div className="space"></div>
+            <div className="price2">
+              {sumPrice > 30000 ? sumPrice : sumPrice + 3000}
+            </div>
+          </div>
+          <hr className="bill-border" />
+          <button id="payButton">결제하기</button>
+        </div>
+      </div>
     </StyledBody>
   );
 };
