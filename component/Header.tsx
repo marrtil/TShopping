@@ -6,8 +6,13 @@ import StyledLoginBar from "./styles/StyledLoginBar";
 import StyledMenuBar from "./styles/StyledMenuBar";
 import { Route, Routes, Link, BrowserRouter } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
+import { test } from "./api";
 
 const Header = () => {
+  const testClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    // console.log(e.currentTarget.value);
+    await test();
+  };
   return (
     <BrowserRouter>
       <StyledHeader>
@@ -35,6 +40,9 @@ const Header = () => {
           <StyledTitleBanner />
         </a>
         <SearchForm />
+        <button value="test" onClick={testClick}>
+          testClick
+        </button>
         <StyledMenuBar>
           <ul>
             <li className="menu">
