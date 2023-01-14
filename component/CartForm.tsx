@@ -41,7 +41,7 @@ const CartForm = () => {
         setCartInfo(modInfo);
       }
     } else if (a.innerHTML == "-") {
-      if (modInfo[Number(a.value)].count == 0) return;
+      if (modInfo[Number(a.value)].count == 1) return;
       modInfo[Number(a.value)].count -= 1;
       setCartInfo(modInfo);
     }
@@ -79,7 +79,7 @@ const CartForm = () => {
                 <td className="cartPrice">{info.price}</td>
                 <td className="cartCount">
                   {" "}
-                  <button id={`minus${info.id}`} value={index}>
+                  <button id={`minus${info.id}`} onClick={btnPM} value={index}>
                     -
                   </button>
                   <input
