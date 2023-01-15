@@ -39,7 +39,8 @@ exports.__esModule = true;
 var passport = require("passport");
 var bcrypt = require("bcrypt");
 var passport_local_1 = require("passport-local");
-var user_1 = require("../models/user");
+// import User from "../models/user";
+var User = require("../models").User;
 exports["default"] = (function () {
     passport.use("local", new passport_local_1.Strategy({
         usernameField: "userId",
@@ -52,7 +53,7 @@ exports["default"] = (function () {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, user_1["default"].findOne({ where: { userId: userId } })];
+                    return [4 /*yield*/, User.findOne({ where: { userId: userId } })];
                 case 1:
                     user = _a.sent();
                     if (!user) {

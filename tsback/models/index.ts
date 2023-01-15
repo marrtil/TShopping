@@ -1,15 +1,9 @@
-import User, { associate as associateUser } from "./user";
-// import Image, { associate as associateImage } from "./image";
-// import Post, { associate as associatePost } from "./post";
+import User from "./user";
 export * from "./sequelize";
+const Sequelize = require("sequelize");
 const db = {
   User,
-  // Image,
-  // Post,
 };
-
 export type dbType = typeof db;
 
 // associateUser(db);
-// associateImage(db);
-// associatePost(db);

@@ -1,41 +1,27 @@
 "use strict";
-// import * as dotenv from "dotenv";
-// dotenv.config();
 exports.__esModule = true;
-// type Config = {
-//   username: string;
-//   password: string;
-//   database: string;
-//   host: string;
-//   dialect: string;
-// };
-// interface IConfigGroup {
-//   development: Config;
-//   test: Config;
-//   production: Config;
-// }
-// const config: IConfigGroup = {
-var config = {
+var dotenv = require("dotenv");
+dotenv.config();
+module.exports = {
     development: {
         username: "root",
-        password: "mysql",
-        database: "tsback",
+        password: process.env.DB_PASSWORD,
+        database: "tshop-dev",
         host: "127.0.0.1",
         dialect: "mysql"
     },
     test: {
         username: "root",
-        password: "mysql",
-        database: "tsback_test",
+        password: process.env.DB_PASSWORD,
+        database: "tshop-test",
         host: "127.0.0.1",
         dialect: "mysql"
     },
     production: {
         username: "root",
-        password: "mysql",
-        database: "tsback_pro",
+        password: process.env.DB_PASSWORD,
+        database: "tshop-pro",
         host: "127.0.0.1",
         dialect: "mysql"
     }
 };
-exports["default"] = config;

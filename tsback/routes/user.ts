@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt";
 import { isLoggedIn, isNotLoggedIn } from "./middleware";
 import User from "../models/user";
 import * as passport from "passport";
-import Post from "../models/post";
+// import Post from "../models/post";
 
 const router = express.Router();
 
@@ -14,9 +14,10 @@ router.get("/", isLoggedIn, async (req, res) => {
 });
 
 router.get("/test", async (req, res) => {
-  return res.json("test성공");
+  const test1 = await User.findAll();
+  // return res.json("test성공" + test1);
+  res.send(test1);
 });
-
 // router.post("/", async (req, res, next) => {
 //   try {
 //     const exUser = await User.findOne({

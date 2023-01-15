@@ -9,8 +9,10 @@ import * as cors from "cors";
 // import * as hpp from "hpp";
 // import helmet from "helmet";
 
-// import userRouter from "./routes/user";
+import userRouter from "./routes/user";
 
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
 // dotenv.config();
 const app = express();
 const prod = process.env.NODE_ENV === "production";
@@ -56,7 +58,7 @@ app.use(cors());
 // );
 // app.use(passport.initialize());
 // app.use(passport.session());
-// app.use("/user", userRouter);
+app.use("/user", userRouter);
 // app.use('/post', postRouter);
 // app.use('/posts', postsRouter);
 // app.use('/hashtag', hashtagRouter);
