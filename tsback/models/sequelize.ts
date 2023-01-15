@@ -1,23 +1,15 @@
 import { Sequelize } from "sequelize";
-import config from "../config/config";
+// import config from '../config/config';
 
 const env = (process.env.NODE_ENV as "production" | "test" | "development") || "development";
-const { database, username, password, host, dialect } = config[env];
+const config = require("../config/config")[env];
+const { username, password, database, host, dialect } = config;
 const sequelize = new Sequelize(database, username, password, {
   host,
-  dialect: "mysql",
+  dialect,
 });
-// const {
-//     //config.json객체의 정보를 변수에 저장
-//     username,
-//     password,
-//     database,
-//     host,
-//     dialect,
-//   } = config;
-// const sequelize = new Sequelize(database, username, password, {
-//     host, dialect,
-// });
+// const { database, username, password } = config[env];
+// const sequelize = new Sequelize(database, username, password, config[env]);
 
 export { sequelize };
 export default sequelize;

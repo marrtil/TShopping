@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt";
 import { isLoggedIn, isNotLoggedIn } from "./middleware";
 import User from "../models/user";
 import * as passport from "passport";
-import Post from "../models/post";
+// import Post from "../models/post";
 
 const router = express.Router();
 

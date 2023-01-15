@@ -2,12 +2,13 @@
 exports.__esModule = true;
 exports.sequelize = void 0;
 var sequelize_1 = require("sequelize");
-var config_1 = require("../config/config");
+// import config from '../config/config';
 var env = process.env.NODE_ENV || "development";
-var _a = config_1["default"][env], database = _a.database, username = _a.username, password = _a.password, host = _a.host, dialect = _a.dialect;
+var config = require("../config/config")[env];
+var username = config.username, password = config.password, database = config.database, host = config.host, dialect = config.dialect;
 var sequelize = new sequelize_1.Sequelize(database, username, password, {
     host: host,
-    dialect: "mysql"
+    dialect: dialect
 });
 exports.sequelize = sequelize;
 exports["default"] = sequelize;

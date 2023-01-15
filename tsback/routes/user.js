@@ -51,6 +51,7 @@ var express = require("express");
 var middleware_1 = require("./middleware");
 var user_1 = require("../models/user");
 var passport = require("passport");
+// import Post from "../models/post";
 var router = express.Router();
 router.get("/", middleware_1.isLoggedIn, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user;
