@@ -14,9 +14,10 @@ router.get("/", isLoggedIn, async (req, res) => {
 });
 
 router.get("/test", async (req, res) => {
-  return res.json("test성공");
+  const test1 = await User.findAll();
+  // return res.json("test성공" + test1);
+  res.send(test1);
 });
-
 // router.post("/", async (req, res, next) => {
 //   try {
 //     const exUser = await User.findOne({

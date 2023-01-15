@@ -24,3 +24,9 @@
  - 파일 여러개 만들어서 테이블 여러개 한번에 만드는 방법도 있는데 나중에...
 
 4. npx sequelize db:seed:all
+
+5. 테스트
+ - npm run dev로 서버실행
+ - localhost:3001/user/test에 접속
+ - seed로 넣은 정보가 나온다 - 성공
+
