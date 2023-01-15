@@ -6,7 +6,7 @@ type Config = {
   password: string;
   database: string;
   host: string;
-  [key: string]: string;
+  dialect: string;
 };
 interface IConfigGroup {
   development: Config;
@@ -14,24 +14,25 @@ interface IConfigGroup {
   production: Config;
 }
 const config: IConfigGroup = {
+  // const config = {
   development: {
     username: "root",
-    password: process.env.DB_PASSWORD!,
+    password: process.env.DB_PASSWORD || "mysql",
     database: "tsback",
     host: "127.0.0.1",
     dialect: "mysql",
   },
   test: {
     username: "root",
-    password: process.env.DB_PASSWORD!,
-    database: "tsback",
+    password: process.env.DB_PASSWORD || "mysql",
+    database: "tsback_test",
     host: "127.0.0.1",
     dialect: "mysql",
   },
   production: {
     username: "root",
-    password: process.env.DB_PASSWORD!,
-    database: "tsback",
+    password: process.env.DB_PASSWORD || "mysql",
+    database: "tsback_pro",
     host: "127.0.0.1",
     dialect: "mysql",
   },

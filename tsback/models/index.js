@@ -15,14 +15,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 exports.__esModule = true;
 var user_1 = require("./user");
-var image_1 = require("./image");
-var post_1 = require("./post");
+// import Image, { associate as associateImage } from "./image";
+// import Post, { associate as associatePost } from "./post";
 __exportStar(require("./sequelize"), exports);
 var db = {
-    User: user_1["default"],
-    Image: image_1["default"],
-    Post: post_1["default"]
+    User: user_1["default"]
 };
-(0, user_1.associate)(db);
-(0, image_1.associate)(db);
-(0, post_1.associate)(db);
+// associateUser(db);
+// associateImage(db);
+// associatePost(db);

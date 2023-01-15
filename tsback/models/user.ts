@@ -1,4 +1,3 @@
-import { userInfo } from "os";
 import { Model, DataTypes } from "sequelize";
 import { dbType } from ".";
 import { sequelize } from "./sequelize";
