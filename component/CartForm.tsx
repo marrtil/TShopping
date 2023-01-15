@@ -1,5 +1,5 @@
 import * as React from "react";
-import StyledBody from "./styles/StyledBody";
+import StyledCartForm from "./styles/StyledCartForm";
 import product1 from "../upload/product1.jpeg";
 import product2 from "../upload/product2.jpeg";
 
@@ -54,7 +54,7 @@ const CartForm = () => {
     setCartInfo(delinfo);
   };
   return (
-    <StyledBody>
+    <StyledCartForm>
       <h1 id="cartTitle">장바구니</h1>
       <hr color="beige" />
       <div id="cartForm">
@@ -142,7 +142,7 @@ const CartForm = () => {
           <button id="payButton">결제하기</button>
         </div>
       </div>
-    </StyledBody>
+    </StyledCartForm>
   );
 };
 
