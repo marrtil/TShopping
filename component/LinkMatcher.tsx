@@ -6,6 +6,7 @@ import JoinForm from "./JoinForm";
 import LoginForm from "./LoginForm";
 import MyPageForm from "./MyPageForm";
 import ProductGrid from "./ProductGrid";
+import ProductForm from "./ProductForm";
 const LinkMatcher = () => {
   const location = useLocation();
   let urlSearchParams = new URLSearchParams(location.search.slice(1));
@@ -18,6 +19,7 @@ const LinkMatcher = () => {
       <Route path="myPage" element={<MyPageForm />} />
       <Route path="newGoods" element={<ProductGrid sort="new" />} />
       <Route path="majorGoods" element={<ProductGrid sort="major" />} />
+      <Route path="productForm/:id" element={<ProductForm />} />
       <Route path="*" element={<Body />} />
     </Routes>
   );

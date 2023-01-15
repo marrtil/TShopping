@@ -4,6 +4,24 @@ const StyleCartForm = styled.div`
   #cartForm {
     display: flex;
   }
+  th {
+    border-bottom: 1px;
+  }
+  .tdSpace {
+    height: 100px;
+  }
+
+  .cartName {
+    width: 130px;
+    padding-bottom: 30px;
+  }
+  .productName {
+    padding-bottom: 50px;
+  }
+
+  #productInfo {
+    text-align: center;
+  }
 
   #cartTable {
     width: 700px;
@@ -29,13 +47,13 @@ const StyleCartForm = styled.div`
     text-align: center;
   }
   .cartCount {
-    width: 80px;
+    width: 90px;
     text-align: center;
   }
 
   .cartImage {
     display: flex;
-    height: 300px;
+    height: 200px;
     vertical-align: middle;
     flex-direction: column;
     text-align: center;
@@ -87,6 +105,7 @@ const StyleCartForm = styled.div`
     backgroud-color: beige;
     border-style: none;
     border-radius: 10px;
+    display: block;
   }
 `;
 
