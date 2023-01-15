@@ -23,6 +23,7 @@ const StyledProductForm = styled.div`
     border-style: none;
     border-radius: 10px;
     display: block;
+    margin-top: 10px;
   }
 `;
 

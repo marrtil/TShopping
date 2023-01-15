@@ -3,7 +3,7 @@ import { useState, FunctionComponent } from "react";
 import StyledProductForm from "./styles/StyledProductForm";
 import moomin1 from "../upload/moomin1.jpeg";
 
-const productForm = () => {
+const ProductForm = () => {
   const [product, setProduct] = useState({
     id: 1,
     name: "무민",
@@ -66,4 +66,4 @@ const productForm = () => {
   );
 };
 
-export default productForm;
+export default ProductForm;
