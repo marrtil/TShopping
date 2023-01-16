@@ -1,18 +1,49 @@
 import * as React from "react";
 import { useState, FunctionComponent } from "react";
+import { useParams } from "react-router";
 import StyledProductForm from "./styles/StyledProductForm";
-import moomin1 from "../upload/moomin1.jpeg";
+import moomin1 from "../upload/product1.jpeg";
+import moomin2 from "../upload/product2.jpeg";
+import moomin3 from "../upload/product3.png";
 
 const ProductForm = () => {
-  const [product, setProduct] = useState({
-    id: 1,
-    name: "무민",
-    size: "M",
-    color: "네이비",
-    src: moomin1,
-    price: 10000,
-    count: 1,
-  });
+  const initialList = [
+    {
+      id: 1,
+      name: "무민",
+      kind: "남성 맨투맨",
+      size: "M",
+      color: "네이비",
+      src: moomin1,
+      price: 10000,
+      count: 1,
+    },
+    {
+      id: 2,
+      name: "무민2",
+      size: "L",
+      kind: "남성 티셔츠",
+      color: "베이지",
+      src: moomin2,
+      price: 15000,
+      count: 1,
+    },
+    {
+      id: 3,
+      name: "무민3",
+      size: "XL",
+      kind: "여성 재킷",
+      color: "그린",
+      src: moomin3,
+      price: 20000,
+      count: 1,
+    },
+  ];
+  const { id } = useParams();
+
+  const [product, setProduct] = useState(
+    initialList.filter((value) => value.id == Number(id))[0]
+  );
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, size } = e.target;
     setProduct((prevValue) => ({ ...prevValue, [name]: size }));
@@ -26,38 +57,41 @@ const ProductForm = () => {
           <img src={product.src} />
         </div>
         <div className="productInfo">
-          <h2>{product.name}</h2>
-          <h3>₩{product.price}</h3>
+          <div className="infoDetail">
+            <h1>{product.name}</h1>
+            <p className="productKind">{product.kind}</p>
+            <h3>₩{product.price.toLocaleString("ko-KR")}</h3>
 
-          <select name="color" onChange={optionChange}>
-            <option key="블랙" value="블랙">
-              블랙
-            </option>
-            <option key="화이트" value="화이트">
-              화이트
-            </option>
-            <option key="네이비" value="네이비">
-              네이비
-            </option>
-            <option key="베이지" value="베이지">
-              베이지
-            </option>
-          </select>
+            <select name="color" onChange={optionChange}>
+              <option key="블랙" value="블랙">
+                블랙
+              </option>
+              <option key="화이트" value="화이트">
+                화이트
+              </option>
+              <option key="네이비" value="네이비">
+                네이비
+              </option>
+              <option key="베이지" value="베이지">
+                베이지
+              </option>
+            </select>
 
-          <select name="size" onChange={optionChange}>
-            <option key="S" value="S">
-              S
-            </option>
-            <option key="M" value="M">
-              M
-            </option>
-            <option key="L" value="L">
-              L
-            </option>
-            <option key="XL" value="XL">
-              XL
-            </option>
-          </select>
+            <select name="size" onChange={optionChange}>
+              <option key="S" value="S">
+                S
+              </option>
+              <option key="M" value="M">
+                M
+              </option>
+              <option key="L" value="L">
+                L
+              </option>
+              <option key="XL" value="XL">
+                XL
+              </option>
+            </select>
+          </div>
           <button className="payButton">결제하기</button>
           <button className="payButton">장바구니</button>
         </div>
