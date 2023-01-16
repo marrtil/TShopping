@@ -1,14 +1,14 @@
 import * as React from "react";
 import StyledBody from "./styles/StyledBody";
 import { useEffect, useState } from "react";
-// import { getUser } from "../api";
-interface LOGIN_INFO {
-  id: string;
+import { getUser } from "./api";
+export interface LOGIN_INFO {
+  // id: string;
   userId: string;
   password: string;
 }
 const LOGIN_INFO: LOGIN_INFO = {
-  id: "",
+  // id: "",
   userId: "",
   password: "",
 };
@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // setLogin(await getUser({ userId: loginInfo.userId, password: loginInfo.password }));
+    setLogin(await getUser({ userId: loginInfo.userId, password: loginInfo.password }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,11 +36,12 @@ const LoginForm = () => {
 
   // handleLoad();
   useEffect(() => {
+    // console.log(await test());
     if (login) {
       if (typeof login !== "boolean") {
         sessionStorage.setItem("userId", login.userId);
         setLogin2(sessionStorage.getItem("userId"));
-        sessionStorage.setItem("userInfo", login.id);
+        // sessionStorage.setItem("userInfo", login.id);
         // onLogin(sessionStorage.getItem("userId"));
       }
     }

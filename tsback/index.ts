@@ -18,6 +18,11 @@ const app = express();
 const prod = process.env.NODE_ENV === "production";
 app.use(express.json());
 app.use(cors());
+const path = require("path");
+app.use(express.static(path.join(__dirname, "../")));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../", "index.html"));
+});
 // const prod: boolean
 
 // if (prod) {

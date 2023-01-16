@@ -1,3 +1,5 @@
+import { LOGIN_INFO } from "./LoginForm";
+
 const URL = "http://localhost:3001";
 
 export async function test() {
@@ -7,12 +9,13 @@ export async function test() {
   return res;
 }
 
-export async function getUserInfo(userId: string) {
-  const res = await fetch(`${URL}/api/members/${userId}`);
+export async function getUser(userInfo: LOGIN_INFO) {
+  console.log(userInfo);
+  const res = await fetch(`${URL}/user/login/${userInfo.userId}`);
   if (!res) throw new Error("회원 조회에 실패했습니다");
   const body = await res.json();
-
-  return body;
+  console.log(body);
+  return body as LOGIN_INFO;
 }
 
 export async function joinMember(formData: FormData) {
