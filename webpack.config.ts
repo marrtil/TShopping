@@ -43,6 +43,7 @@ const config: Configuration = {
     publicPath: "/dist/",
   },
   devServer: {
+    historyApiFallback: true,
     devMiddleware: { publicPath: "/dist" },
     static: { directory: path.resolve(__dirname) },
     hot: true,

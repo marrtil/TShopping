@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { formatDiagnostic } from "typescript";
+import { InputName } from "./Types";
 // import { getUserInfo, joinMember } from "../api";
 const INITIAL_VALUES = {
   userId: "",
@@ -8,14 +9,7 @@ const INITIAL_VALUES = {
   name: "",
   email: "",
 };
-interface inputName {
-  [userId: string]: string;
-  name: string;
-  password: string;
-  passwordCheck: string;
-  email: string;
-}
-const inputName: inputName = {
+const inputName: InputName = {
   userId: "아이디",
   name: "이름",
   password: "비밀번호",
@@ -36,9 +30,6 @@ function JoinForm() {
 
   const handleJoinSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const inputs = document.querySelectorAll(".joinInput") as NodeListOf<HTMLInputElement>;
-    console.log(inputs);
-    console.log(inputs[0]);
-    console.log(inputs[1].value);
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].value == "") {
         alert(`${inputName[inputs[i].name]}을 입력해주세요`);

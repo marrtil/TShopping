@@ -3,10 +3,10 @@ import { LOGIN_INFO } from "./LoginForm";
 const URL = "http://localhost:3001";
 
 export async function test() {
-  const res = await fetch(URL);
-  // const body = await res.json();
-  console.log(res);
-  return res;
+  const res = await fetch(`${URL}/user/test`);
+  const body = await res.json();
+  console.log(body);
+  return body;
 }
 
 export async function getUser(userInfo: LOGIN_INFO) {
