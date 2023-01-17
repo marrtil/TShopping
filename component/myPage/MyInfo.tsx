@@ -1,150 +1,42 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // import { modMember } from "../api";
 import FileInput from "../FileInput";
-// import "./ModForm.css";
-import axios from "axios";
 import { InputName } from "../Types";
-
-interface SetUser {
-  password: string;
-  name: string;
-  email: string;
-  imageUrl: string | any;
-  imageFile: string | any;
-}
-
-const INITIAL_VALUES: SetUser = {
-  password: "",
-  name: "",
-  email: "",
-  imageUrl: null,
-  imageFile: null,
-};
-
-const inputName: InputName = {
-  userId: "아이디",
-  name: "이름",
-  password: "비밀번호",
-  passwordCheck: "비밀번호 확인",
-  email: "이메일",
-};
+import StyledMyInfo from "./StyledMyInfo";
 
 function MyInfo() {
-  const [modData, setModData] = useState(INITIAL_VALUES);
-  const [user, setUser] = useState<SetUser>(INITIAL_VALUES);
-  const [passConfirm, setPassConfirm] = useState(false);
-  const userId = window.sessionStorage.getItem("userId") as string;
-  useEffect(() => {
-    axios
-      .get(`https://ozitest.herokuapp.com/api/members/${userId}`) //로그인 아이디를 통해 해당 아이디 유저를 불러옴
-      .then((response) => {
-        setUser(response.data);
-      });
-  }, []);
-
-  const handleChange = (name: string, value: string) => {
-    setModData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    handleChange(name, value);
-  };
-
-  const handleModify = async (e: React.FormEvent<HTMLFormElement>) => {
-    var inputs = document.querySelectorAll(".modInput") as NodeListOf<HTMLInputElement>;
-    for (let i = 0; i < inputs.length; i++) {
-      if (inputs[i].value == "") {
-        alert(`${inputName[inputs[i].name]}을 입력해주세요`);
-        e.preventDefault();
-        return;
-      }
-    }
-    if (!passConfirm) {
-      alert("비밀번호를 확인해 주세요!!");
-      e.preventDefault();
-    } else if (modData.password == user.password) {
-      alert("비밀번호가 현재와 똑같습니다");
-      e.preventDefault();
-    } else {
-      const formData = new FormData();
-      formData.append("password", modData.password);
-      formData.append("name", modData.name);
-      formData.append("email", modData.email);
-      formData.append("tag", "Front");
-      if (modData.imageUrl != "") {
-        formData.append("imageUrl", modData.imageUrl);
-      }
-      //   await modMember(userId, formData);
-    }
-  };
-
-  const passCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    var labelFont = document.getElementById("passConfirm") as HTMLLabelElement;
-
-    if (e.target.value == "") labelFont.innerText = "";
-    else if (e.target.value == modData.password) {
-      labelFont.innerText = "비밀번호가 일치합니다.";
-      setPassConfirm(true);
-      labelFont.style.color = "lightGreen";
-    } else {
-      labelFont.innerText = "비밀번호가 일치하지 않습니다!!";
-      setPassConfirm(false);
-      labelFont.style.color = "red";
-    }
-  };
+  // let l1 = document.getElementById("myInfoLink");
+  // l1!.style.color = "black";
   return (
-    <div id="back">
-      <form onSubmit={handleModify} action="/" id="modForm" encType="multipart/form-data">
-        <FileInput name="imageUrl" value={modData.imageUrl} onChange={handleChange} initialPreview={user.imageUrl} />
-        프로필 이미지 등록
-        <br />
-        &nbsp; 아이디{" "}
-        <input
-          name="userId"
-          value={userId}
-          onChange={handleInputChange}
-          id="idInput"
-          className="modInput"
-          //   disabled="readonly"
-        />
-        <br />
-        &nbsp; 비밀번호{" "}
-        <input
-          name="password"
-          type="password"
-          onChange={handleInputChange}
-          value={modData.password}
-          id="passInput"
-          placeholder="새 비밀번호"
-          className="modInput"
-        />
-        <br />
-        <input
-          name="passwordCheck"
-          onChange={passCheck}
-          className="modInput"
-          placeholder="새 비밀번호 확인"
-          id="passCheck"
-        />
-        <br />
-        <label id="passConfirm"></label>
-        <br />
-        &nbsp; 이름{" "}
-        <input name="name" onChange={handleInputChange} value={modData.name} id="nameInput" className="modInput" />
-        <br />
-        &nbsp; 이메일{" "}
-        <input name="email" onChange={handleInputChange} value={modData.email} id="emailInput" className="modInput" />
-        <br />
-        <button type="submit" id="modSubmit">
-          수정하기
-        </button>
-      </form>
-    </div>
+    <StyledMyInfo>
+      <table>
+        <tr>
+          <td className="infoName">아이디</td>
+          <td className="infoSlash">|</td>
+          <td className="infoValue">idvalue</td>
+        </tr>
+        <tr>
+          <td className="infoName">닉네임</td>
+          <td className="infoSlash">|</td>
+          <td className="infoValue">nicknamevalue</td>
+        </tr>
+        <tr>
+          <td className="infoName">이메일</td>
+          <td className="infoSlash">|</td>
+          <td className="infoValue">emailvalue</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td className="toModFormLink">
+            <Link to="/modForm">정보변경</Link>
+          </td>
+        </tr>
+      </table>
+      <hr />
+    </StyledMyInfo>
   );
 }
 
