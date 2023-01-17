@@ -13,7 +13,7 @@ const StyleCartForm = styled.div`
 
   .cartName {
     width: 130px;
-    padding-bottom: 30px;
+    padding-bottom: 70px;
   }
   .productName {
     padding-bottom: 50px;

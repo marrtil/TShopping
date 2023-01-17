@@ -127,13 +127,6 @@ const CartForm = () => {
                         </label>
                       </td>
                     </tr>
-                    <tr>
-                      <td className="tdSpace"></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
                   </>
                 );
               })}
