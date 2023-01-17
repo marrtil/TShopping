@@ -100,11 +100,7 @@ const CartForm = () => {
                         <button onClick={btnPM} value={index} className="btnPM">
                           -
                         </button>
-                        <input
-                          type="text"
-                          className="countInput"
-                          value={info.count}
-                        />
+                        <input type="text" className="countInput" value={info.count} />
                         <button onClick={btnPM} value={index} className="btnPM">
                           +
                         </button>
@@ -113,11 +109,7 @@ const CartForm = () => {
                         {info.count * info.price}
                       </td>
                       <td width="100">
-                        <label
-                          id={String(index)}
-                          onClick={delInfo}
-                          className="deleter"
-                        >
+                        <label id={String(index)} onClick={delInfo} className="deleter">
                           x
                         </label>
                       </td>
@@ -143,9 +135,7 @@ const CartForm = () => {
           <div className="billMenu">
             <div className="price">합계</div>
             <div className="space"></div>
-            <div className="price2">
-              {sumPrice > 30000 ? sumPrice : sumPrice + 3000}
-            </div>
+            <div className="price2">{sumPrice > 30000 ? sumPrice : sumPrice + 3000}</div>
           </div>
           <hr className="bill-border" />
           <button id="payButton">결제하기</button>

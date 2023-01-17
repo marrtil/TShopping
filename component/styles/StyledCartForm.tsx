@@ -24,13 +24,10 @@ const StyleCartForm = styled.div`
   }
 
   #cartTable {
-    width: 700px;
+    table {
+      width: 1500px;
+    }
     margin-left: 120px;
-  }
-  #bill {
-    width: 350px;
-    bottom: 100px;
-    margin-left: 50px;
   }
 
   #cartTitle {
@@ -38,7 +35,7 @@ const StyleCartForm = styled.div`
   }
 
   .cartList input {
-    width: 15px;
+    // width: 15px;
   }
   .cartList button {
     text-align: center;
@@ -49,7 +46,7 @@ const StyleCartForm = styled.div`
     text-align: center;
   }
   .cartCount {
-    width: 120px;
+    width: 200px;
     text-align: center;
   }
 
@@ -76,41 +73,6 @@ const StyleCartForm = styled.div`
     cursor: Pointer;
   }
 
-  #bill {
-    margin-top: 50px;
-  }
-
-  .space,
-  .price {
-    display: inline-block;
-    width: 100px;
-  }
-
-  .price2 {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
-  }
-
-  .billMenu {
-    margin-bottom: 10px;
-  }
-
-  .bill-border {
-    width: 300px;
-    margin-left: 1px;
-  }
-
-  #payButton {
-    width: 200px;
-    margin-left: 50px;
-    height: 50px;
-    backgroud-color: beige;
-    border-style: none;
-    border-radius: 10px;
-    display: block;
-  }
-
   .btnPM {
     background-color: beige;
     border: 0.5px solid;
@@ -118,7 +80,43 @@ const StyleCartForm = styled.div`
     width: 25px;
   }
 
-  .countInput {
+  ///////////////////// bill ///////////////////////
+
+  #bill {
+    width: 350px;
+    bottom: 100px;
+    margin-top: 50px;
+    margin-left: 50px;
+    .billMenu {
+      margin-bottom: 10px;
+    }
+
+    .bill-border {
+      width: 300px;
+      margin-left: 1px;
+    }
+
+    .space,
+    .price {
+      display: inline-block;
+      width: 100px;
+    }
+
+    .price2 {
+      display: inline-block;
+      width: 100px;
+      text-align: right;
+    }
+
+    #payButton {
+      width: 200px;
+      margin-left: 50px;
+      height: 50px;
+      backgroud-color: beige;
+      border-style: none;
+      border-radius: 10px;
+      display: block;
+    }
   }
 `;
 
