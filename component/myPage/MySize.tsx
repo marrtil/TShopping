@@ -1,6 +1,6 @@
 import * as React from "react";
 const MySize = () => {
-  return <></>;
+  return <div>MYSIZE</div>;
 };
 
 export default MySize;

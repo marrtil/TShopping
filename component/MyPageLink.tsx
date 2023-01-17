@@ -9,11 +9,11 @@ import MyPageForm from "./MyPageForm";
 const MyPageLink = () => {
   return (
     <Routes>
-      <Route path="/myinfo" element={<MyInfo />} />
-      <Route path="/myorder" element={<MyOrderRecord />} />
-      <Route path="/myreview" element={<MyReview />} />
-      <Route path="/mysize" element={<MySize />} />
-      {/* <Route path="/" element={<MyPageForm />} /> */}
+      {/* <Route path="/myinfo" element={<MyInfo />} /> */}
+      <Route path="myorder" element={<MyOrderRecord />} />
+      <Route path="myreview" element={<MyReview />} />
+      <Route path="mysize" element={<MySize />} />
+      <Route path="*" element={<MyInfo />} />
     </Routes>
   );
 };

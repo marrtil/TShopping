@@ -11,14 +11,14 @@ interface User {
 }
 
 const MyOrderRecord = () => {
-  const [data, setData] = React.useState<User>();
-  const handleLoad = async () => {
-    setData(await test());
-  };
-  React.useEffect(() => {
-    handleLoad();
-    console.log(data);
-  }, []);
+  //   const [data, setData] = React.useState<User>();
+  //   const handleLoad = async () => {
+  //     setData(await test());
+  //   };
+  //   React.useEffect(() => {
+  //     handleLoad();
+  //     console.log(data);
+  //   }, []);
   return <div>MYORDERRECORD</div>;
 };
 
