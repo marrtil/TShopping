@@ -1,5 +1,6 @@
 import * as React from "react";
 import StyledCartForm from "./styles/StyledCartForm";
+import { Link } from "react-router-dom";
 import product1 from "../upload/product1.jpeg";
 import product2 from "../upload/product2.jpeg";
 
@@ -82,7 +83,9 @@ const CartForm = () => {
                   <>
                     <tr className="cartList">
                       <td className="cartImage" rowSpan={2}>
-                        <img src={info.src} alt={info.name} width="200" />
+                        <Link to={`/ProductForm/${info.id}`}>
+                          <img src={info.src} alt={info.name} width="200" />
+                        </Link>
                       </td>
                       <td className="cartName">
                         <div className="productName">{info.name}</div>
@@ -94,23 +97,15 @@ const CartForm = () => {
                       <td className="cartPrice">{info.price}</td>
                       <td className="cartCount">
                         {" "}
-                        <button
-                          id={`minus${info.id}`}
-                          onClick={btnPM}
-                          value={index}
-                        >
+                        <button onClick={btnPM} value={index} className="btnPM">
                           -
                         </button>
                         <input
                           type="text"
-                          id={`count${info.count}`}
+                          className="countInput"
                           value={info.count}
                         />
-                        <button
-                          id={`plus${info.id}`}
-                          onClick={btnPM}
-                          value={index}
-                        >
+                        <button onClick={btnPM} value={index} className="btnPM">
                           +
                         </button>
                       </td>

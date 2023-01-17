@@ -12,7 +12,7 @@ const StyleCartForm = styled.div`
   }
 
   .cartName {
-    width: 130px;
+    width: 200px;
     padding-bottom: 70px;
   }
   .productName {
@@ -25,10 +25,12 @@ const StyleCartForm = styled.div`
 
   #cartTable {
     width: 700px;
+    margin-left: 120px;
   }
   #bill {
     width: 350px;
     bottom: 100px;
+    margin-left: 50px;
   }
 
   #cartTitle {
@@ -47,7 +49,7 @@ const StyleCartForm = styled.div`
     text-align: center;
   }
   .cartCount {
-    width: 90px;
+    width: 120px;
     text-align: center;
   }
 
@@ -57,6 +59,7 @@ const StyleCartForm = styled.div`
     vertical-align: middle;
     flex-direction: column;
     text-align: center;
+    cursor: pointer;
   }
 
   .cartImage img {
@@ -106,6 +109,16 @@ const StyleCartForm = styled.div`
     border-style: none;
     border-radius: 10px;
     display: block;
+  }
+
+  .btnPM {
+    background-color: beige;
+    border: 0.5px solid;
+    height: 21px;
+    width: 25px;
+  }
+
+  .countInput {
   }
 `;
 
