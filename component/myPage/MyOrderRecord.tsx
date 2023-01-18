@@ -1,5 +1,4 @@
 import * as React from "react";
-import { test } from "../api";
 
 interface User {
   createdAt: Date;
