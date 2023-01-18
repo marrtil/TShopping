@@ -6,6 +6,7 @@ import StyledLoginBar from "./styles/StyledLoginBar";
 import StyledMenuBar from "./styles/StyledMenuBar";
 import { Route, Routes, Link, BrowserRouter } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
+import MyPageForm from "./MyPageForm";
 const Header = () => {
   return (
     <BrowserRouter>
@@ -50,8 +51,9 @@ const Header = () => {
         </StyledMenuBar>
       </StyledHeader>
       <Routes>
-        <Route path="/" element={<LinkMatcher />} />
         <Route path="/*" element={<LinkMatcher />} />
+        {/* <Route path="/myPage/" element={<MyPageForm />} /> */}
+        <Route path="/myPage//*" element={<MyPageForm />} />
       </Routes>
     </BrowserRouter>
   );

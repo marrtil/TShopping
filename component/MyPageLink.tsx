@@ -4,7 +4,6 @@ import MyInfo from "./myPage/MyInfo";
 import MyOrderRecord from "./myPage/MyOrderRecord";
 import MyReview from "./myPage/MyReview";
 import MySize from "./myPage/MySize";
-import MyPageForm from "./MyPageForm";
 
 const MyPageLink = () => {
   return (

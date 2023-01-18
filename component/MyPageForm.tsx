@@ -1,16 +1,20 @@
 import * as React from "react";
 import StyledMyPage from "./styles/StyledMyPage";
 import { Route, Routes, Link, useLocation } from "react-router-dom";
-import MyPageLink from "./MyPageLink";
-interface MatchParams {
-  postId: string;
-}
+// import MyPageLink from "./MyPageLink";
+import MyInfo from "./myPage/MyInfo";
+import MyOrderRecord from "./myPage/MyOrderRecord";
+import MyReview from "./myPage/MyReview";
+import MySize from "./myPage/MySize";
+// interface MatchParams {
+//   postId: string;
+// }
 const MyPageForm = () => {
-  const [menu, setMenu] = React.useState<string>();
-  const location = useLocation();
-  React.useEffect(() => {
-    setMenu(location.pathname.split("/")[1]);
-  }, []);
+  // const [menu, setMenu] = React.useState<string>();
+  // const location = useLocation();
+  // React.useEffect(() => {
+  //   setMenu(location.pathname.split("/")[1]);
+  // }, []);
 
   return (
     <StyledMyPage>
@@ -18,7 +22,7 @@ const MyPageForm = () => {
       <div id="myPageMenuDiv">
         <ul>
           <li>
-            <Link id="myInfoLink" to="/myPage/">
+            <Link id="myInfoLink" to="/myPage">
               내 정보
             </Link>
           </li>
@@ -40,8 +44,12 @@ const MyPageForm = () => {
         </ul>
       </div>
       <Routes>
-        <Route path="/" element={<MyPageLink />} />
-        <Route path="/*" element={<MyPageLink />} />
+        <Route path="/myorder" element={<MyOrderRecord />} />
+        <Route path="/myreview" element={<MyReview />} />
+        <Route path="/mysize" element={<MySize />} />
+        <Route path="/" element={<MyInfo />} />
+        {/* <Route path="/" element={<MyPageLink />} />
+        <Route path="/*" element={<MyPageLink />} /> */}
       </Routes>
     </StyledMyPage>
   );
