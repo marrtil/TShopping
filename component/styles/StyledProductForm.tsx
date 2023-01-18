@@ -8,12 +8,13 @@ const StyledProductForm = styled.div`
   .productImage {
     width: 500px;
     height: 500px;
+    padding: 30px;
   }
   .productImage img {
     width: 400px;
     height: 400px;
   }
-
+  ////////////////////////////
   .productInfo {
     width: 500px;
     height: 500px;

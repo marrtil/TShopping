@@ -13,10 +13,15 @@ const StyleCartForm = styled.div`
 
   .cartName {
     width: 200px;
-    padding-bottom: 70px;
+    font-weight:800;
   }
   .productName {
-    padding-bottom: 50px;
+
+  }
+  .cartExplain{
+    color:grey;
+    font-weight:100;
+    font-size:14px;
   }
 
   #productInfo {
@@ -24,9 +29,6 @@ const StyleCartForm = styled.div`
   }
 
   #cartTable {
-    table {
-      width: 1500px;
-    }
     margin-left: 120px;
   }
 
@@ -34,25 +36,46 @@ const StyleCartForm = styled.div`
     text-align: center;
   }
 
+
+
   .cartList input {
-    // width: 15px;
+    width: 20px;
+    height:20px;
+    text-align:center;
+    border:2px solid beige;
+    font-size:17px;
+    font-weight:50;
   }
-  .cartList button {
-    text-align: center;
+  .btnPM {
+    background-color: beige;
+    border:1px solid beige;
+    height: 25px;
+    width: 40px;
+    font-size:17px;
   }
+
 
   .cartPrice {
     width: 80px;
     text-align: center;
+    font-weight:600;
   }
+
+  .total{
+    text-align:center;
+    font-weight:600;
+  }
+
+
   .cartCount {
     width: 200px;
     text-align: center;
+    vertical-align:middle;
   }
 
   .cartImage {
     display: flex;
-    height: 200px;
+    height: 165px;
     vertical-align: middle;
     flex-direction: column;
     text-align: center;
@@ -60,8 +83,8 @@ const StyleCartForm = styled.div`
   }
 
   .cartImage img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     vertical-align: middle;
   }
 
@@ -73,12 +96,7 @@ const StyleCartForm = styled.div`
     cursor: Pointer;
   }
 
-  .btnPM {
-    background-color: beige;
-    border: 0.5px solid;
-    height: 21px;
-    width: 25px;
-  }
+  
 
   ///////////////////// bill ///////////////////////
 
@@ -86,7 +104,8 @@ const StyleCartForm = styled.div`
     width: 350px;
     bottom: 100px;
     margin-top: 50px;
-    margin-left: 50px;
+    
+  }
     .billMenu {
       margin-bottom: 10px;
     }

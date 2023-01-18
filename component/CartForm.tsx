@@ -90,26 +90,37 @@ const CartForm = () => {
                       <td className="cartName">
                         <div className="productName">{info.name}</div>
 
-                        <div>
+                        <div className="cartExplain">
                           {info.color}&nbsp;&nbsp;사이즈:{info.size}
                         </div>
                       </td>
-                      <td className="cartPrice">{info.price}</td>
+                      <td className="cartPrice">
+                        {"￦" + info.price.toLocaleString("ko-KR")}
+                      </td>
                       <td className="cartCount">
                         {" "}
                         <button onClick={btnPM} value={index} className="btnPM">
                           -
                         </button>
-                        <input type="text" className="countInput" value={info.count} />
+                        <input
+                          type="text"
+                          className="countInput"
+                          value={info.count}
+                        />
                         <button onClick={btnPM} value={index} className="btnPM">
                           +
                         </button>
                       </td>
-                      <td width="150" className="center">
-                        {info.count * info.price}
+                      <td width="150" className="total">
+                        {"￦" +
+                          (info.count * info.price).toLocaleString("ko-KR")}
                       </td>
                       <td width="100">
-                        <label id={String(index)} onClick={delInfo} className="deleter">
+                        <label
+                          id={String(index)}
+                          onClick={delInfo}
+                          className="deleter"
+                        >
                           x
                         </label>
                       </td>
@@ -124,18 +135,24 @@ const CartForm = () => {
           <div className="billMenu">
             <div className="price">총 주문금액</div>
             <div className="space"></div>
-            <div className="price2">{sumPrice}</div>
+            <div className="price2">{"￦" + sumPrice}</div>
           </div>
           <div className="billMenu">
             <div className="price">배송비</div>
             <div className="space"></div>
-            <div className="price2">{sumPrice > 30000 ? 0 : 3000}</div>
+            <div className="price2">
+              {sumPrice > 30000 ? "￦" + 0 : "￦" + 3000}
+            </div>
             <hr className="bill-border" />
           </div>
           <div className="billMenu">
             <div className="price">합계</div>
             <div className="space"></div>
-            <div className="price2">{sumPrice > 30000 ? sumPrice : sumPrice + 3000}</div>
+            <div className="price2">
+              {sumPrice > 30000
+                ? "￦" + sumPrice.toLocaleString("ko-KR")
+                : "￦" + (sumPrice + 3000).toLocaleString("ko-KR")}
+            </div>
           </div>
           <hr className="bill-border" />
           <button id="payButton">결제하기</button>
