@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledMyPage = styled.div`
-  width: 100%;
+  width: 1300px;
   height: 1200px;
   display: flex;
 

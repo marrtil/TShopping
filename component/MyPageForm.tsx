@@ -6,6 +6,7 @@ import MyInfo from "./myPage/MyInfo";
 import MyOrderRecord from "./myPage/MyOrderRecord";
 import MyReview from "./myPage/MyReview";
 import MySize from "./myPage/MySize";
+import ModForm from "./myPage/ModForm";
 // interface MatchParams {
 //   postId: string;
 // }
@@ -47,9 +48,8 @@ const MyPageForm = () => {
         <Route path="/myorder" element={<MyOrderRecord />} />
         <Route path="/myreview" element={<MyReview />} />
         <Route path="/mysize" element={<MySize />} />
+        <Route path="/modForm" element={<ModForm />} />
         <Route path="/" element={<MyInfo />} />
-        {/* <Route path="/" element={<MyPageLink />} />
-        <Route path="/*" element={<MyPageLink />} /> */}
       </Routes>
     </StyledMyPage>
   );

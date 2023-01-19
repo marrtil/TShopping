@@ -9,7 +9,7 @@ const StyledMyInfo = styled.div`
   }
   .infoName {
     // text-align: center;
-    width: 20%;
+    width: 200px;
     font-size: 18px;
     padding: 10px;
   }
@@ -17,9 +17,12 @@ const StyledMyInfo = styled.div`
   }
   .infoValue {
     text-align: left;
-    width: 75%;
+    // width: 75%;
     font-size: 18px;
-    padding: 10px;
+    padding: 10px 10px 10px 30px;
+    input {
+      margin-right: 10px;
+    }
   }
   .toModFormLink {
     text-align: left;
@@ -31,6 +34,11 @@ const StyledMyInfo = styled.div`
     a: hover {
       color: rgb(60, 60, 250);
     }
+  }
+  #passwordCheckDiv {
+    font-size: 15px;
+    color: rgb(100, 100, 100);
+    display: inline-block;
   }
 `;
 
