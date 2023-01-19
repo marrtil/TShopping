@@ -31,7 +31,7 @@ function MyInfo() {
           <td></td>
           <td></td>
           <td className="toModFormLink">
-            <Link to="/modForm">정보변경</Link>
+            <Link to="modForm">정보변경</Link>
           </td>
         </tr>
       </table>
