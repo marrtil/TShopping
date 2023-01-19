@@ -15,7 +15,8 @@ const ProductForm = () => {
       size: "M",
       color: "네이비",
       src: moomin1,
-      price: 10000,
+      price: 20000,
+      sale: 0.1,
       count: 1,
     },
     {
@@ -25,7 +26,8 @@ const ProductForm = () => {
       kind: "남성 티셔츠",
       color: "베이지",
       src: moomin2,
-      price: 15000,
+      price: 35000,
+      sale: 0.2,
       count: 1,
     },
     {
@@ -35,7 +37,8 @@ const ProductForm = () => {
       kind: "여성 재킷",
       color: "그린",
       src: moomin3,
-      price: 20000,
+      price: 30000,
+      sale: 0.15,
       count: 1,
     },
   ];
@@ -60,7 +63,19 @@ const ProductForm = () => {
           <div className="infoDetail">
             <h1>{product.name}</h1>
             <p className="productKind">{product.kind}</p>
-            <h3>₩{product.price.toLocaleString("ko-KR")}</h3>
+            <h3>
+              {product.sale > 0 ? (
+                <>
+                  <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>&nbsp;
+                  {"₩" +
+                    (product.price * (1 - product.sale)).toLocaleString(
+                      "ko-KR"
+                    )}
+                </>
+              ) : (
+                product.price.toLocaleString("ko-KR")
+              )}
+            </h3>
 
             <select name="color" onChange={optionChange}>
               <option key="블랙" value="블랙">

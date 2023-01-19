@@ -135,7 +135,9 @@ const CartForm = () => {
           <div className="billMenu">
             <div className="price">총 주문금액</div>
             <div className="space"></div>
-            <div className="price2">{"￦" + sumPrice}</div>
+            <div className="price2">
+              {"￦" + sumPrice.toLocaleString("ko-KR")}
+            </div>
           </div>
           <div className="billMenu">
             <div className="price">배송비</div>

@@ -44,6 +44,10 @@ const StyledProductForm = styled.div`
     display: block;
     margin-top: 10px;
   }
+  del {
+    color: grey;
+    font-weight: 200;
+  }
 `;
 
 export default StyledProductForm;
