@@ -7,7 +7,7 @@ import StyledTr from "./StyledTr";
 //   item: string[];
 // }
 
-const OrderItem: React.FC<Order> = ({ name, price, count, orderNum, orderDate, orderState }) => {
+const ReviewItem: React.FC<Review> = ({ name, rating, content, reviewDate }) => {
   const navigate = useNavigate();
   const navigateToPoduct = () => {
     navigate(`/ProductForm/1`);
@@ -16,14 +16,11 @@ const OrderItem: React.FC<Order> = ({ name, price, count, orderNum, orderDate, o
   return (
     <StyledTr onClick={() => navigateToPoduct()}>
       <td>{name}</td>
-      <td>
-        {price} * {count}
-      </td>
-      <td>{orderDate}</td>
-      <td>{orderNum}</td>
-      <td>{orderState}</td>
+      <td>{rating}</td>
+      <td>{content}</td>
+      <td>{reviewDate}</td>
     </StyledTr>
   );
 };
 
-export default OrderItem;
+export default ReviewItem;

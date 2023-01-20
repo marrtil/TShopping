@@ -4,6 +4,11 @@ const StyledOrder = styled.div`
   .alignRight {
     text-align: right;
   }
+  .displayFlexBetween {
+    display: flex;
+    justify-content: space-between;
+  }
+
   a {
     color: rgb(80, 80, 80);
     text-decoration: none;

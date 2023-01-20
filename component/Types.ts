@@ -36,3 +36,12 @@ export interface Order {
   orderNum: number;
   orderState: orderState;
 }
+
+export interface Review {
+  name: string;
+  userId: string;
+  orderNum: number;
+  rating: number;
+  content: string;
+  reviewDate: string;
+}
