@@ -1,10 +1,13 @@
 import * as React from "react";
 import { useState, FunctionComponent } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import StyledProductForm from "./styles/StyledProductForm";
 import moomin1 from "../upload/product1.jpeg";
 import moomin2 from "../upload/product2.jpeg";
 import moomin3 from "../upload/product3.png";
+import moomin4 from "../upload/moomin1.jpeg";
+import moomin5 from "../upload/moomin2.jpeg";
 import StyledProductList from "./styles/StyledProductList";
 
 const ProductList = () => {
@@ -43,14 +46,25 @@ const ProductList = () => {
       count: 1,
     },
     {
-      id: 1,
-      name: "무민",
-      kind: "남성 맨투맨",
+      id: 4,
+      name: "무민4",
+      kind: "여성 청바지",
       size: "M",
-      color: "네이비",
-      src: moomin1,
-      price: 10000,
-      sale: 0.1,
+      color: "생지,샐비지,워싱",
+      src: moomin4,
+      price: 50000,
+      sale: 0.15,
+      count: 1,
+    },
+    {
+      id: 5,
+      name: "무민4",
+      kind: "남성 패딩",
+      size: "M",
+      color: "블랙,오렌지,네이비",
+      src: moomin5,
+      price: 130000,
+      sale: 0.25,
       count: 1,
     },
   ];
@@ -60,9 +74,13 @@ const ProductList = () => {
         {initialList.map((product) => {
           return (
             <div className="listProduct">
-              <img src={product.src} className="listImage" />
+              <Link to={`/ProductForm/${product.id}`}>
+                <img src={product.src} className="listImage" />
+              </Link>
               <div className="productInfo">
-                <div>{product.name}</div>
+                <Link to={`/ProductForm/${product.id}`}>
+                  <div>{product.name}</div>
+                </Link>
                 <div>
                   {" "}
                   {product.sale > 0 ? (

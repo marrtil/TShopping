@@ -13,7 +13,7 @@ const ProductForm = () => {
       name: "무민",
       kind: "남성 맨투맨",
       size: "M",
-      color: "네이비",
+      color: "블랙,네이비,화이트,베이지",
       src: moomin1,
       price: 20000,
       sale: 0.1,
@@ -24,7 +24,7 @@ const ProductForm = () => {
       name: "무민2",
       size: "L",
       kind: "남성 티셔츠",
-      color: "베이지",
+      color: "베이지,그린,블루",
       src: moomin2,
       price: 35000,
       sale: 0.2,
@@ -35,7 +35,7 @@ const ProductForm = () => {
       name: "무민3",
       size: "XL",
       kind: "여성 재킷",
-      color: "그린",
+      color: "블랙,화이트",
       src: moomin3,
       price: 30000,
       sale: 0.15,
@@ -52,7 +52,7 @@ const ProductForm = () => {
     setProduct((prevValue) => ({ ...prevValue, [name]: size }));
     console.log(product);
   };
-
+  console.log(product.color.split(","));
   return (
     <StyledProductForm>
       <div id="productForm">
@@ -78,18 +78,11 @@ const ProductForm = () => {
             </h3>
 
             <select name="color" onChange={optionChange}>
-              <option key="블랙" value="블랙">
-                블랙
-              </option>
-              <option key="화이트" value="화이트">
-                화이트
-              </option>
-              <option key="네이비" value="네이비">
-                네이비
-              </option>
-              <option key="베이지" value="베이지">
-                베이지
-              </option>
+              {product.color.split(",").map((colors) => (
+                <option key={colors} value={colors}>
+                  {colors}
+                </option>
+              ))}
             </select>
 
             <select name="size" onChange={optionChange}>

@@ -13,6 +13,7 @@ const CartForm = () => {
       id: 1, //상품번호로 하고싶은데 npx는 기본적으로 id로 들어가니까?
       name: "무민",
       size: "M",
+      kind: "남성 맨투맨",
       color: "네이비",
       src: product1,
       price: 10000,
@@ -23,6 +24,7 @@ const CartForm = () => {
       id: 2, //상품번호로 하고싶은데 npx는 기본적으로 id로 들어가니까?
       name: "무민2",
       size: "L",
+      kind: "남성 티셔츠",
       color: "베이지",
       src: product2,
       price: 15000,
