@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useLocation } from "react-router";
-import { useParams } from "react-router";
 import { Order } from "../Types";
 import OrderSearch from "./OrderSearch";
 import StyledOrder from "./StyledOrder";

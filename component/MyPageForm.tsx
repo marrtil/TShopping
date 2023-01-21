@@ -1,24 +1,22 @@
 import * as React from "react";
 import StyledMyPage from "./styles/StyledMyPage";
 import { Route, Routes, useLocation } from "react-router-dom";
-// import MyPageLink from "./MyPageLink";
 import MyInfo from "./myPage/MyInfo";
 import MyOrderRecord from "./myPage/MyOrderRecord";
 import MyReview from "./myPage/MyReview";
 import MySize from "./myPage/MySize";
 import ModForm from "./myPage/ModForm";
 import ViewedGoods from "./myPage/ViewedGoods";
-// interface MatchParams {
-//   postId: string;
-// }
 const MyPageForm = () => {
   const location = useLocation();
   const [menu, setMenu] = React.useState<string>(location.pathname.split("/")[2]);
   React.useEffect(() => {
     if (menu) {
       (document.querySelector(`#${menu}`) as HTMLAnchorElement).style.fontSize = "25px";
+      (document.querySelector(`#${menu}`) as HTMLAnchorElement).style.color = "rgb(20,20,20)";
     } else {
       (document.querySelector("#myPage") as HTMLAnchorElement).style.fontSize = "25px";
+      (document.querySelector(`#myPage`) as HTMLAnchorElement).style.color = "rgb(20,20,20)";
     }
   }, [menu]);
 

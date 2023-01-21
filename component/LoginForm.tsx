@@ -2,6 +2,7 @@ import * as React from "react";
 import StyledBody from "./styles/StyledBody";
 import { useEffect, useState } from "react";
 import { getUser } from "./api";
+import StyledLogin from "./styles/StyledLogin";
 export interface LOGIN_INFO {
   // id: string;
   userId: string;
@@ -52,16 +53,28 @@ const LoginForm = () => {
     };
   }, [login, sessionStorage]);
   return (
-    <StyledBody>
-      <form className="TopMenuItem" onSubmit={handleLogin}>
-        <span>아이디 </span>
-        <input type="text" name="userId" className="loginInput" onChange={handleChange} />
-        <span>비밀번호 </span>
-        <input type="password" name="password" className="loginInput" onChange={handleChange} />
-        <button type="submit">로그인</button>
-        <button>회원가입</button>
+    <StyledLogin>
+      <form className="loginForm" onSubmit={handleLogin}>
+        <div id="loginTitle">로그인</div>
+        <div>
+          <input placeholder="  아이디" type="text" name="userId" className="loginInput" onChange={handleChange} />
+          <input
+            placeholder="  비밀번호"
+            type="password"
+            name="password"
+            className="loginInput"
+            onChange={handleChange}
+          />
+        </div>
+        <button className="loginBtn" type="submit">
+          로그인
+        </button>
+        <hr></hr>
+        <a className="joinAnchor" href="#">
+          회원가입
+        </a>
       </form>
-    </StyledBody>
+    </StyledLogin>
   );
 };
 
