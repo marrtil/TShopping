@@ -55,7 +55,6 @@ const Header = () => {
       </StyledHeader>
       <Routes>
         <Route path="/*" element={<LinkMatcher />} />
-        {/* <Route path="/myPage/" element={<MyPageForm />} /> */}
         <Route path="/myPage//*" element={<MyPageForm />} />
       </Routes>
     </>
