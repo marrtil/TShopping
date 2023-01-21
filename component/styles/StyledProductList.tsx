@@ -7,6 +7,7 @@ const StyledProductList = styled.div`
     flex-wrap: wrap;
     margin-left: 150px;
     margin-top: 120px;
+    background-color: rgb(240, 240, 240);
   }
   a {
     text-decoration: none;
@@ -14,9 +15,13 @@ const StyledProductList = styled.div`
   }
   .listProduct {
     width: 250px;
-    height: 320px;
+    height: 350px;
     flex: 1 1 25%;
   }
+  .productInfo {
+    text-align: left;
+  }
+
   .listImage {
     width: 250px;
     height: 270px;
@@ -29,14 +34,16 @@ const StyledProductList = styled.div`
 
   #colors {
     list-style: none;
+    display: inline;
   }
 
   .color {
-    weight: 8px;
+    width: 8px;
     height: 8px;
     text-indent: -9999px;
     overflow: hidden;
     float: left;
+    margin-right: 1px;
   }
 `;
 

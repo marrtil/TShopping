@@ -39,7 +39,7 @@ type tableType = {
 const colorTable: tableType = {
   블랙: "black",
   화이트: "white",
-  네이비: "네이비",
+  네이비: "navy",
   그린: "green",
   블루: "blue",
   베이지: "beige",
@@ -143,7 +143,7 @@ const ProductList = () => {
                     };
                     return (
                       <li>
-                        <div className="color" style={style}></div>
+                        <a className="color" style={style}></a>
                       </li>
                     );
                   })}
