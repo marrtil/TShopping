@@ -8,18 +8,23 @@ import moomin4 from "../upload/moomin4.jpeg";
 
 const Banner = () => {
   const [num, setNum] = useState<number>(0);
-  const [thumbnail, setThumbnail] = useState<string[]>([moomin1, moomin2, moomin3, moomin4]); //지금은 state인데 어떻게될지모름
+  const [thumbnail, setThumbnail] = useState<string[]>([
+    moomin1,
+    moomin2,
+    moomin3,
+    moomin4,
+  ]); //지금은 state인데 어떻게될지모름
   const [stop, setStop] = useState<boolean>(false);
 
   const prevBtn = () => {
-    if (num == 0) {
+    if (num <= 0) {
       setNum(thumbnail.length - 1);
     } else setNum((prevNum) => prevNum - 1);
     setStop(true);
   };
 
   const nextBtn = () => {
-    if (num == thumbnail.length - 1) {
+    if (num >= thumbnail.length - 1) {
       setNum(0);
     } else setNum((prevNum) => prevNum + 1);
     setStop(true);
@@ -30,10 +35,9 @@ const Banner = () => {
       return;
     }
     setTimeout(() => {
-      if (num == thumbnail.length - 1) {
+      if (num >= thumbnail.length - 1) {
         setNum(0);
-      } else if (num >= thumbnail.length) setNum(thumbnail.length - 1);
-      else setNum((prevNum) => prevNum + 1);
+      } else setNum(num + 1);
     }, 4000);
   }, [num, stop]);
 
