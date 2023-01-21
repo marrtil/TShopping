@@ -1,16 +1,29 @@
 import * as React from "react";
 import { FC } from "react";
-import Body from "./component/Body";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
-import LinkMatcher from "./component/LinkMatcher";
+import JoinForm from "./component/JoinForm";
+import LoginForm from "./component/LoginForm";
 
 const App: FC = () => {
   return (
     <>
-      <Header />
-      {/* <LinkMatcher /> */}
-      <Footer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/join" element={<JoinForm />} />
+          <Route
+            path="/*"
+            element={
+              <>
+                <Header />
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

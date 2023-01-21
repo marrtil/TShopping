@@ -4,12 +4,12 @@ import StyledTitleBanner from "./styles/StyledTitleBanner";
 import StyledHeader from "./styles/StyledHeader";
 import StyledLoginBar from "./styles/StyledLoginBar";
 import StyledMenuBar from "./styles/StyledMenuBar";
-import { Route, Routes, Link, BrowserRouter } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
 const Header = () => {
   return (
-    <BrowserRouter>
+    <>
       <StyledHeader>
         <StyledLoginBar>
           <ul>
@@ -58,7 +58,7 @@ const Header = () => {
         {/* <Route path="/myPage/" element={<MyPageForm />} /> */}
         <Route path="/myPage//*" element={<MyPageForm />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 
