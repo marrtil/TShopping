@@ -7,7 +7,7 @@ const StyledProductList = styled.div`
     flex-wrap: wrap;
     margin-left: 150px;
     margin-top: 120px;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(230, 230, 230);
   }
   a {
     text-decoration: none;

@@ -16,7 +16,7 @@ type product = {
   kind: string;
   size: string;
   color: string;
-  src: any;
+  src: string | any;
   price: number;
   sale: number;
   count: number;
