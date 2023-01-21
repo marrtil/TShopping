@@ -10,6 +10,7 @@ const StyledProductList = styled.div`
   }
   a {
     text-decoration: none;
+    color: black;
   }
   .listProduct {
     width: 250px;
@@ -24,6 +25,18 @@ const StyledProductList = styled.div`
   del {
     color: grey;
     font-weight: 200;
+  }
+
+  #colors {
+    list-style: none;
+  }
+
+  .color {
+    weight: 8px;
+    height: 8px;
+    text-indent: -9999px;
+    overflow: hidden;
+    float: left;
   }
 `;
 

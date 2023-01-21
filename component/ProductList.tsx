@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductForm from "./styles/StyledProductForm";
@@ -10,14 +10,53 @@ import moomin4 from "../upload/moomin1.jpeg";
 import moomin5 from "../upload/moomin2.jpeg";
 import StyledProductList from "./styles/StyledProductList";
 
+type product = {
+  id: number;
+  name: string;
+  kind: string;
+  size: string;
+  color: string;
+  src: any;
+  price: number;
+  sale: number;
+  count: number;
+};
+
+type tableType = {
+  [index: string]: string;
+  블랙: string;
+  화이트: string;
+  네이비: string;
+  그린: string;
+  블루: string;
+  베이지: string;
+  오렌지: string;
+  생지: string;
+  샐비지: string;
+  워싱: string;
+};
+
+const colorTable: tableType = {
+  블랙: "black",
+  화이트: "white",
+  네이비: "네이비",
+  그린: "green",
+  블루: "blue",
+  베이지: "beige",
+  오렌지: "orange",
+  생지: "blue",
+  샐비지: "navy",
+  워싱: "skyblue",
+};
+
 const ProductList = () => {
-  const initialList = [
+  const [listProduct, setListProduct] = useState<product[]>([
     {
       id: 1,
       name: "무민",
       kind: "남성 맨투맨",
       size: "M",
-      color: "네이비",
+      color: "블랙,네이비,화이트,베이지",
       src: moomin1,
       price: 10000,
       sale: 0.1,
@@ -28,7 +67,7 @@ const ProductList = () => {
       name: "무민2",
       size: "L",
       kind: "남성 티셔츠",
-      color: "베이지",
+      color: "베이지,그린,블루",
       src: moomin2,
       price: 15000,
       sale: 0.2,
@@ -39,7 +78,7 @@ const ProductList = () => {
       name: "무민3",
       size: "XL",
       kind: "여성 재킷",
-      color: "그린",
+      color: "블랙,화이트",
       src: moomin3,
       price: 20000,
       sale: 0.15,
@@ -67,11 +106,12 @@ const ProductList = () => {
       sale: 0.25,
       count: 1,
     },
-  ];
+  ]);
+
   return (
     <StyledProductList>
       <div id="productList">
-        {initialList.map((product) => {
+        {listProduct.map((product: product) => {
           return (
             <div className="listProduct">
               <Link to={`/ProductForm/${product.id}`}>
@@ -96,6 +136,18 @@ const ProductList = () => {
                     product.price.toLocaleString("ko-KR")
                   )}
                 </div>
+                <ul id="colors">
+                  {product.color.split(",").map((colors: string) => {
+                    const style = {
+                      backgroundColor: colorTable[colors],
+                    };
+                    return (
+                      <li>
+                        <div className="color" style={style}></div>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
           );
