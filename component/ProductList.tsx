@@ -58,8 +58,8 @@ const initialProduct: product[] = [
     size: "M",
     color: "블랙,네이비,화이트,베이지",
     src: moomin1,
-    price: 10000,
-    sale: 0.1,
+    price: 20000,
+    sale: 0.15,
     count: 1,
   },
   {
@@ -69,8 +69,8 @@ const initialProduct: product[] = [
     kind: "남성 티셔츠",
     color: "베이지,그린,블루",
     src: moomin2,
-    price: 15000,
-    sale: 0.2,
+    price: 130000,
+    sale: 0.25,
     count: 1,
   },
   {
@@ -80,8 +80,8 @@ const initialProduct: product[] = [
     kind: "여성 재킷",
     color: "블랙,화이트",
     src: moomin3,
-    price: 20000,
-    sale: 0.15,
+    price: 10000,
+    sale: 0.1,
     count: 1,
   },
   {
@@ -97,19 +97,21 @@ const initialProduct: product[] = [
   },
   {
     id: 5,
-    name: "무민4",
+    name: "무민5",
     kind: "남성 패딩",
     size: "M",
     color: "블랙,오렌지,네이비",
     src: moomin5,
-    price: 130000,
-    sale: 0.25,
+    price: 15000,
+    sale: 0.2,
     count: 1,
   },
 ];
 
 const ProductList = () => {
-  const [listProduct, setListProduct] = useState<product[]>(initialProduct);
+  const [listProduct, setListProduct] = useState<product[]>(
+    initialProduct.sort((a, b) => b.id - a.id)
+  );
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -127,26 +129,29 @@ const ProductList = () => {
   };
   const changeOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    console.log("이건됨", value);
     if (value == "1") {
-      setListProduct((prevValue) =>
-        prevValue.sort((a, b) => a.price - b.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
     } else if (value == "2") {
       setListProduct((prevValue) =>
-        prevValue.sort((a, b) => b.price - a.price)
+        [...prevValue].sort((a, b) => a.price - b.price)
+      );
+    } else if (value == "3") {
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => b.price - a.price)
       );
     }
   };
-  console.log(listProduct);
-
+  const check = () => {
+    console.log(listProduct);
+  };
   return (
     <StyledProductList>
       <div id="productFilter">
         <select name="order" onChange={changeOrder} className="filter">
-          <option hidden>가격순</option>
-          <option value="1">낮은 가격순</option>
-          <option value="2">높은 가격순</option>
+          <option hidden>정렬 기준</option>
+          <option value="1">최신순</option>
+          <option value="2">낮은 가격순</option>
+          <option value="3">높은 가격순</option>
         </select>
         <select
           name="color"
@@ -205,6 +210,7 @@ const ProductList = () => {
           );
         })}
       </div>
+      <button onClick={check}>확인</button>
     </StyledProductList>
   );
 };
