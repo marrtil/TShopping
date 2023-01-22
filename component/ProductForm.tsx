@@ -48,11 +48,11 @@ const ProductForm = () => {
     initialList.filter((value) => value.id == Number(id))[0]
   );
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, size } = e.target;
-    setProduct((prevValue) => ({ ...prevValue, [name]: size }));
-    console.log(product);
+    const { name, value } = e.target;
+    setProduct((prevValue) => ({ ...prevValue, [name]: value }));
   };
-  console.log(product.color.split(","));
+  console.log(product);
+
   return (
     <StyledProductForm>
       <div id="productForm">

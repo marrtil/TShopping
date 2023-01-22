@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 const StyledProductList = styled.div`
+  background-color: rgb(230, 230, 230);
   #productList {
     display: flex;
+    flex-direction: row;
     width: 1050px;
     flex-wrap: wrap;
     margin-left: 150px;
-    margin-top: 120px;
     background-color: rgb(230, 230, 230);
   }
   a {
@@ -16,7 +17,6 @@ const StyledProductList = styled.div`
   .listProduct {
     width: 250px;
     height: 350px;
-    flex: 1 1 25%;
   }
   .productInfo {
     text-align: left;
@@ -44,6 +44,16 @@ const StyledProductList = styled.div`
     overflow: hidden;
     float: left;
     margin-right: 1px;
+  }
+
+  #productFilter {
+    margin-left: 150px;
+    margin-bottom: 30px;
+  }
+  .filter {
+    background-color: rgb(230, 230, 230);
+    border: none;
+    padding: 0.8em 0.5em;
   }
 `;
 
