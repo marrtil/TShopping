@@ -10,7 +10,8 @@ const MyOrderRecord = () => {
   const [order_state, setOrder_state] = React.useState(search.split("=")[1]);
   const [orders, setOrders] = React.useState<Order[]>([
     { name: "상품정보1", price: 20000, count: 2, orderNum: 112, orderDate: "20230119", orderState: "입금/결제" },
-    { name: "상품정보2", price: 10000, count: 3, orderNum: 66, orderDate: "20230104", orderState: "환불완료" },
+    { name: "상품정보2", price: 10000, count: 3, orderNum: 66, orderDate: "20230104", orderState: "환불" },
+    { name: "상품정보2", price: 10000, count: 3, orderNum: 66, orderDate: "20220904", orderState: "환불완료" },
   ]);
   React.useEffect(() => {
     if (order_state) {

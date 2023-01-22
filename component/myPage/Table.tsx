@@ -3,6 +3,11 @@ import { Order, Review } from "../Types";
 import OrderItem from "./OrderItem";
 
 const Table: React.FC<Order[]> = (arr) => {
+  const nowDate = new Date();
+  const nowMonth = nowDate.getMonth() + 1;
+  const nowYear = nowDate.getFullYear() - 2000;
+  const sort = 1;
+
   console.log(arr);
   return (
     <table>
@@ -22,7 +27,10 @@ const Table: React.FC<Order[]> = (arr) => {
           </td>
         </tr>
         {Object.values(arr).map((item) => {
-          return <OrderItem key={item.orderNum} {...item} />;
+          console.log(nowMonth + " |" + sort + " | " + Number(item.orderDate.slice(4, 6)));
+          const diff = nowMonth - Number(item.orderDate.slice(4, 6));
+
+          if (diff <= 1) return <OrderItem key={item.orderNum} {...item} />;
         })}
       </tbody>
       <tfoot></tfoot>
