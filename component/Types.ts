@@ -23,10 +23,12 @@ export type orderState =
   | "입금/결제"
   | "배송중/픽업대기"
   | "배송완료/픽업완료"
+  | "구매확정"
   | "교환"
   | "교환완료"
   | "환불"
-  | "환불완료";
+  | "환불완료"
+  | "전체보기";
 
 export interface Order {
   name: string;

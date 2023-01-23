@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useParams } from "react-router";
 import { Order, Review } from "../Types";
-import OrderSearch from "./OrderSearch";
 import ReviewTable from "./ReviewTable";
 import StyledOrder from "./StyledOrder";
 import Table from "./Table";
@@ -40,17 +39,15 @@ const MyReview = () => {
       <div>
         <div id="orderTitle">구매후기</div>
         <div>
-          <a id="write-review" href="/myPage/myreview/write-review">
+          <a id="write-review" href="/myPage/myreview/write-review?sort=">
             후기 작성
           </a>{" "}
           /{" "}
-          <a id="review-history" href="/myPage/myreview/review-history">
+          <a id="review-history" href="/myPage/myreview/review-history?sort=">
             후기 내역
           </a>
         </div>
       </div>
-      <hr></hr>
-      <OrderSearch />
       <hr></hr>
       {reviewState === "write-review" ? <Table {...orders} /> : <ReviewTable {...reviews} />}
       <hr></hr>
