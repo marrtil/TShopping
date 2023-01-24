@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
 
 const StyledOrderSearch = styled.div`
@@ -19,24 +20,29 @@ const StyledOrderSearch = styled.div`
     margin: 0 10px 0 10px;
   }
 `;
-const OrderSearch = () => {
+type Props = {
+  onClick: (value: number) => void;
+};
+const OrderSearch: React.FC<Props> = ({ onClick }) => {
+  const { search } = useLocation();
+  let path = search.split("&sort=")[0];
+  if (!path) {
+    path = "?order_state=";
+  }
   return (
     <StyledOrderSearch>
       <div>
-        <button>
-          <a href="#">1주일</a>
+        <button onClick={() => onClick(0)}>
+          <a href={`${path}&sort=0`}>1주일</a>
         </button>
-        <button>
-          {" "}
-          <a href="#">1개월</a>
+        <button onClick={() => onClick(1)}>
+          <a href={`${path}&sort=1`}>1개월</a>
         </button>
-        <button>
-          {" "}
-          <a href="#">3개월</a>
+        <button onClick={() => onClick(2)}>
+          <a href={`${path}&sort=3`}>3개월</a>
         </button>
-        <button>
-          {" "}
-          <a href="#">전체</a>
+        <button onClick={() => onClick(-1)}>
+          <a href={`${path}&sort=-1`}>전체</a>
         </button>
       </div>
       <div>날짜선택</div>
