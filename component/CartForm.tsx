@@ -9,25 +9,25 @@ import { useState, useMemo } from "react";
 const CartForm = () => {
   const [cartInfo, setCartInfo] = useState([
     {
-      //나중에 서버에서 받아올 데이터
-      id: 1, //상품번호로 하고싶은데 npx는 기본적으로 id로 들어가니까?
-      name: "무민",
-      size: "M",
-      kind: "남성 맨투맨",
-      color: "네이비",
-      src: product1,
-      price: 10000,
-      count: 1,
-    },
-    {
-      //나중에 서버에서 받아올 데이터
-      id: 2, //상품번호로 하고싶은데 npx는 기본적으로 id로 들어가니까?
+      id: 2,
       name: "무민2",
       size: "L",
       kind: "남성 티셔츠",
-      color: "베이지",
+      color: "베이지,그린,블루",
+      src: product1,
+      price: 130000,
+      sale: 0.25,
+      count: 1,
+    },
+    {
+      id: 3,
+      name: "무민3",
+      size: "XL",
+      kind: "여성 재킷",
+      color: "블랙,화이트",
       src: product2,
-      price: 15000,
+      price: 10000,
+      sale: 0.1,
       count: 1,
     },
   ]);
@@ -97,7 +97,23 @@ const CartForm = () => {
                         </div>
                       </td>
                       <td className="cartPrice">
-                        {"￦" + info.price.toLocaleString("ko-KR")}
+                        <div>
+                          {" "}
+                          {info.sale > 0 ? (
+                            <>
+                              <del>
+                                {"₩" + info.price.toLocaleString("ko-KR")}
+                              </del>
+                              &nbsp;
+                              {"₩" +
+                                (info.price * (1 - info.sale)).toLocaleString(
+                                  "ko-KR"
+                                )}
+                            </>
+                          ) : (
+                            info.price.toLocaleString("ko-KR")
+                          )}
+                        </div>
                       </td>
                       <td className="cartCount">
                         {" "}
@@ -115,7 +131,11 @@ const CartForm = () => {
                       </td>
                       <td width="150" className="total">
                         {"￦" +
-                          (info.count * info.price).toLocaleString("ko-KR")}
+                          (
+                            info.count *
+                            info.price *
+                            (1 - info.sale)
+                          ).toLocaleString("ko-KR")}
                       </td>
                       <td width="100">
                         <label

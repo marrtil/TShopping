@@ -38,8 +38,10 @@ const Header = () => {
         <StyledMenuBar>
           <ul>
             <li className="menu">
-              메뉴
-              <div className="menuDiv"> menuDiv </div>
+              <a href="#">메뉴</a>
+              <ul className="menuUl">
+                <li>남자</li>
+              </ul>
             </li>
             <li>
               <Link to="/productList">전체상품</Link>

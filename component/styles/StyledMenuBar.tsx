@@ -7,20 +7,21 @@ const StyledMenuBar = styled.div`
   display: inline-block;
   //   display: table;
 
-  .menuDiv {
+  .menuUl {
     display: none;
     // display: block;
     position: absolute;
-    top: 297px;
+    top: 280px;
     background-color: skyblue;
     height: 300px;
     width: 300px;
     z-index: 4;
   }
+
   .menu:hover {
     background-color: rgb(200, 200, 200);
     color: black;
-    .menuDiv {
+    .menuUl {
       display: block;
     }
   }

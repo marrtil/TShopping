@@ -112,6 +112,7 @@ const ProductList = () => {
   const [listProduct, setListProduct] = useState<product[]>(
     initialProduct.sort((a, b) => b.id - a.id)
   );
+  const [order, setOrder] = useState<string>("0");
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -122,6 +123,20 @@ const ProductList = () => {
     return colors;
   }, [initialProduct]);
 
+  useEffect(() => {
+    if (order == "1") {
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
+    } else if (order == "2") {
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => a.price - b.price)
+      );
+    } else if (order == "3") {
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => b.price - a.price)
+      );
+    }
+  }, [listProduct, order]);
+
   const optionFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     const iniFilter = initialProduct;
@@ -129,21 +144,9 @@ const ProductList = () => {
   };
   const changeOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    if (value == "1") {
-      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
-    } else if (value == "2") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => a.price - b.price)
-      );
-    } else if (value == "3") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => b.price - a.price)
-      );
-    }
+    setOrder(value);
   };
-  const check = () => {
-    console.log(listProduct);
-  };
+
   return (
     <StyledProductList>
       <div id="productFilter">
@@ -153,12 +156,7 @@ const ProductList = () => {
           <option value="2">낮은 가격순</option>
           <option value="3">높은 가격순</option>
         </select>
-        <select
-          name="color"
-          onChange={optionFilter}
-          value="컬러"
-          className="filter"
-        >
+        <select name="color" onChange={optionFilter} className="filter">
           <option hidden>컬러</option>
           {colorList.map((colors) => (
             <option key={colors} value={colors}>
@@ -210,7 +208,6 @@ const ProductList = () => {
           );
         })}
       </div>
-      <button onClick={check}>확인</button>
     </StyledProductList>
   );
 };
