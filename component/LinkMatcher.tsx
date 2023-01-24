@@ -12,7 +12,7 @@ const LinkMatcher = () => {
       <Route path="/productList" element={<ProductList />} />
       <Route path="/newGoods" element={<ProductGrid sort="new" />} />
       <Route path="/majorGoods" element={<ProductGrid sort="major" />} />
-      <Route path="/productForm/:id" element={<ProductForm />} />
+      <Route path={`/productForm/:id`} element={<ProductForm />} />
       <Route path="/" element={<Body />} />
     </Routes>
   );

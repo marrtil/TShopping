@@ -11,11 +11,20 @@ const StyledMenuBar = styled.div`
     display: none;
     // display: block;
     position: absolute;
-    top: 280px;
-    background-color: skyblue;
-    height: 300px;
-    width: 300px;
+    top: 281px;
+    background-color: rgb(200, 200, 200);
+    height: 400px;
+    width: 400px;
     z-index: 4;
+    float: left;
+    text-align: center;
+  }
+
+  .gender {
+    display: inline-block;
+    text-align: center;
+    margin-right: 40px;
+    vertical-align: middle;
   }
 
   .menu:hover {
@@ -25,6 +34,13 @@ const StyledMenuBar = styled.div`
       display: block;
     }
   }
+
+  ul hr {
+    width: 30px;
+    height: 1px;
+    background-color: black;
+  }
+
   ul {
     // display: table-cell;
     margin-top: 12px;
