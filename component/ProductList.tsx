@@ -2,27 +2,10 @@ import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
 import { useParams, useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import StyledProductForm from "./styles/StyledProductForm";
-import moomin1 from "../upload/product1.jpeg";
-import moomin2 from "../upload/product2.jpeg";
-import moomin3 from "../upload/product3.png";
-import moomin4 from "../upload/moomin1.jpeg";
-import moomin5 from "../upload/moomin2.jpeg";
+
 import StyledProductList from "./styles/StyledProductList";
 import { productManT, productWomenT } from "./Types";
-
-type product = {
-  [index: string]: string | number | any;
-  id: number;
-  name: string;
-  kind: string;
-  size: string;
-  color: string;
-  src: string | any;
-  price: number;
-  sale: number;
-  count: number;
-};
+import { initialProduct, product } from "./product";
 
 type tableType = {
   [index: string]: string;
@@ -43,7 +26,7 @@ type genderFilter = {
   man: "남성";
   women: "여성";
 };
-const gender: genderFilter = {
+const genderCheck: genderFilter = {
   man: "남성",
   women: "여성",
 };
@@ -89,83 +72,14 @@ const productMan: productManT = {
   신발: "shoes",
 };
 
-const initialProduct: product[] = [
-  {
-    id: 1,
-    name: "무민",
-    gender: "남성",
-    kind: "맨투맨",
-    size: "M",
-    color: "블랙,네이비,화이트,베이지",
-    src: moomin1,
-    price: 20000,
-    sale: 0.15,
-    count: 1,
-  },
-  {
-    id: 2,
-    name: "무민2",
-    size: "L",
-    gender: "남성",
-    kind: "티셔츠",
-    color: "베이지,그린,블루",
-    src: moomin2,
-    price: 130000,
-    sale: 0.25,
-    count: 1,
-  },
-  {
-    id: 3,
-    name: "무민3",
-    size: "XL",
-    gender: "여성",
-    kind: "재킷",
-    color: "블랙,화이트",
-    src: moomin3,
-    price: 10000,
-    sale: 0.1,
-    count: 1,
-  },
-  {
-    id: 4,
-    name: "무민4",
-    gender: "여성",
-    kind: "청바지",
-    size: "M",
-    color: "생지,샐비지,워싱",
-    src: moomin4,
-    price: 50000,
-    sale: 0.15,
-    count: 1,
-  },
-  {
-    id: 5,
-    name: "무민5",
-    gender: "남성",
-    kind: "패딩",
-    size: "M",
-    color: "블랙,오렌지,네이비",
-    src: moomin5,
-    price: 15000,
-    sale: 0.2,
-    count: 1,
-  },
-];
-
 const ProductList = () => {
-  const { search } = useLocation();
-  const cond = search.split(/[?|=|&]/);
-  console.log(cond);
-  console.log(gender[cond[2]]);
-  //   const [listProduct, setListProduct] = useState<product[]>(
-  //     initialProduct
-  //       .sort((a, b) => b.id - a.id)
-  //       .filter((value) => value.gender == gender[cond[2]])
-  //   );
   const [listProduct, setListProduct] = useState<product[]>(
     initialProduct.sort((a, b) => b.id - a.id)
   );
+  const { search } = useLocation();
+  const [query, setQuery] = useState(search.split(/[?|=|&]/));
   const [order, setOrder] = useState<string>("0");
+  const [color, setColor] = useState<string>("");
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -175,6 +89,15 @@ const ProductList = () => {
     });
     return colors;
   }, [initialProduct]);
+
+  useEffect(() => {
+    if (color == "default") setListProduct(initialProduct);
+    else {
+      setListProduct(
+        initialProduct.filter((values) => values["color"].includes(color))
+      );
+    }
+  }, [color]);
 
   useEffect(() => {
     if (order == "1") {
@@ -188,12 +111,47 @@ const ProductList = () => {
         [...prevValue].sort((a, b) => b.price - a.price)
       );
     }
-  }, [listProduct, order]);
+  }, [order, color]);
 
-  const optionFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    const iniFilter = initialProduct;
-    setListProduct(iniFilter.filter((values) => values[name].includes(value)));
+  useEffect(() => {
+    if (query[2] && query[2] == "man") {
+      if (query[4]) {
+        const itemKey = Object.keys(productMan).find(
+          (key) => productMan[key] == query[4]
+        );
+        setListProduct((prevValue) =>
+          prevValue.filter(
+            (value) =>
+              value.kind == itemKey && value.gender == genderCheck[query[2]]
+          )
+        );
+        return;
+      } else
+        setListProduct((prevValue) =>
+          prevValue.filter((value) => value.gender == genderCheck[query[2]])
+        );
+    } else if (query[2] && query[2] == "women") {
+      if (query[4]) {
+        const itemKey = Object.keys(productWomen).find(
+          (key) => productMan[key] == query[4]
+        );
+        setListProduct((prevValue) =>
+          prevValue.filter(
+            (value) =>
+              value.kind == itemKey && value.gender == genderCheck[query[2]]
+          )
+        );
+        return;
+      } else
+        setListProduct((prevValue) =>
+          prevValue.filter((value) => value.gender == genderCheck[query[2]])
+        );
+    }
+  }, [query]);
+
+  const optionColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setColor(value);
   };
   const changeOrder = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
@@ -204,13 +162,14 @@ const ProductList = () => {
     <StyledProductList>
       <div id="productFilter">
         <select name="order" onChange={changeOrder} className="filter">
-          <option hidden>정렬 기준</option>
           <option value="1">최신순</option>
           <option value="2">낮은 가격순</option>
           <option value="3">높은 가격순</option>
         </select>
-        <select name="color" onChange={optionFilter} className="filter">
-          <option hidden>컬러</option>
+        <select name="color" onChange={optionColor} className="filter">
+          <option key="default" value="default">
+            전체 색상
+          </option>
           {colorList.map((colors) => (
             <option key={colors} value={colors}>
               {colors}
@@ -222,11 +181,11 @@ const ProductList = () => {
         {listProduct.map((product: product) => {
           return (
             <div className="listProduct">
-              <Link to={`/ProductForm/${product.id}`}>
+              <Link to={`/productForm/${product.id}`}>
                 <img src={product.src} className="listImage" />
               </Link>
               <div className="productInfo">
-                <Link to={`/ProductForm/${product.id}`}>
+                <Link to={`/productForm/${product.id}`}>
                   <div>{product.name}</div>
                 </Link>
                 <div>

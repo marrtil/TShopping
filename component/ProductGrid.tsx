@@ -48,7 +48,7 @@ const ProductGrid: React.FC<Props> = ({ sort }) => {
       <div>
         {productSrc.map((value, index) => {
           return (
-            <Link to={`/ProductForm/${productNum[index]}`}>
+            <Link to={`/productForm/${productNum[index]}`}>
               <div className="RecomendProduct">
                 <img src={value} width="200" alt={productNum[index]} />
                 <p>무민동화책{index + 1}</p>

@@ -1,8 +1,8 @@
 import * as React from "react";
 import StyledCartForm from "./styles/StyledCartForm";
 import { Link } from "react-router-dom";
-import product1 from "../upload/product1.jpeg";
-import product2 from "../upload/product2.jpeg";
+import moomin2 from "../upload/product1.jpeg";
+import moomin3 from "../upload/product2.jpeg";
 
 import { useState, useMemo } from "react";
 
@@ -12,9 +12,10 @@ const CartForm = () => {
       id: 2,
       name: "무민2",
       size: "L",
-      kind: "남성 티셔츠",
+      gender: "남성",
+      kind: "티셔츠",
       color: "베이지,그린,블루",
-      src: product1,
+      src: moomin2,
       price: 130000,
       sale: 0.25,
       count: 1,
@@ -23,9 +24,10 @@ const CartForm = () => {
       id: 3,
       name: "무민3",
       size: "XL",
-      kind: "여성 재킷",
+      gender: "여성",
+      kind: "재킷",
       color: "블랙,화이트",
-      src: product2,
+      src: moomin3,
       price: 10000,
       sale: 0.1,
       count: 1,
@@ -87,7 +89,7 @@ const CartForm = () => {
                   <>
                     <tr className="cartList">
                       <td className="cartImage" rowSpan={2}>
-                        <Link to={`/ProductForm/${info.id}`}>
+                        <Link to={`/productForm/${info.id}`}>
                           <img src={info.src} alt={info.name} width="200" />
                         </Link>
                       </td>
