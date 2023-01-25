@@ -33,7 +33,9 @@ const CartForm = () => {
   ]);
   const sumPrice = useMemo(() => {
     var sum = 0;
-    cartInfo.forEach((value) => (sum += value.price * value.count));
+    cartInfo.forEach(
+      (value) => (sum += value.price * value.count * (1 - value.sale))
+    );
     return sum;
   }, [cartInfo]);
 

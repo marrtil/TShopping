@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useState, useMemo, FunctionComponent, useEffect } from "react";
-import { useParams } from "react-router";
+import { useState, useMemo, useEffect } from "react";
+import { useParams, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductForm from "./styles/StyledProductForm";
 import moomin1 from "../upload/product1.jpeg";
@@ -9,6 +9,7 @@ import moomin3 from "../upload/product3.png";
 import moomin4 from "../upload/moomin1.jpeg";
 import moomin5 from "../upload/moomin2.jpeg";
 import StyledProductList from "./styles/StyledProductList";
+import { productManT, productWomenT } from "./Types";
 
 type product = {
   [index: string]: string | number | any;
@@ -37,6 +38,16 @@ type tableType = {
   워싱: string;
 };
 
+type genderFilter = {
+  [index: string]: string;
+  man: "남성";
+  women: "여성";
+};
+const gender: genderFilter = {
+  man: "남성",
+  women: "여성",
+};
+
 const colorTable: tableType = {
   블랙: "black",
   화이트: "white",
@@ -50,11 +61,40 @@ const colorTable: tableType = {
   워싱: "skyblue",
 };
 
+const productWomen: productWomenT = {
+  아우터: "outter",
+  가디건: "cardigan",
+  셔츠: "shirts",
+  블라우스: "blouse",
+  니트: "neat",
+  후드티: "hood",
+  티셔츠: "T-shirts",
+  팬츠: "pants",
+  스커트: "skirt",
+  언더웨어: "under-wear",
+  신발: "shoes",
+};
+
+const productMan: productManT = {
+  팬츠: "pants",
+  아우터: "outter",
+  수트: "suit",
+  후드티: "hood",
+  맨투맨: "manman",
+  니트: "neat",
+  가디건: "cardigan",
+  스웨터: "sweater",
+  셔츠: "shirts",
+  언더웨어: "under-wear",
+  신발: "shoes",
+};
+
 const initialProduct: product[] = [
   {
     id: 1,
     name: "무민",
-    kind: "남성 맨투맨",
+    gender: "남성",
+    kind: "맨투맨",
     size: "M",
     color: "블랙,네이비,화이트,베이지",
     src: moomin1,
@@ -66,7 +106,8 @@ const initialProduct: product[] = [
     id: 2,
     name: "무민2",
     size: "L",
-    kind: "남성 티셔츠",
+    gender: "남성",
+    kind: "티셔츠",
     color: "베이지,그린,블루",
     src: moomin2,
     price: 130000,
@@ -77,7 +118,8 @@ const initialProduct: product[] = [
     id: 3,
     name: "무민3",
     size: "XL",
-    kind: "여성 재킷",
+    gender: "여성",
+    kind: "재킷",
     color: "블랙,화이트",
     src: moomin3,
     price: 10000,
@@ -87,7 +129,8 @@ const initialProduct: product[] = [
   {
     id: 4,
     name: "무민4",
-    kind: "여성 청바지",
+    gender: "여성",
+    kind: "청바지",
     size: "M",
     color: "생지,샐비지,워싱",
     src: moomin4,
@@ -98,7 +141,8 @@ const initialProduct: product[] = [
   {
     id: 5,
     name: "무민5",
-    kind: "남성 패딩",
+    gender: "남성",
+    kind: "패딩",
     size: "M",
     color: "블랙,오렌지,네이비",
     src: moomin5,
@@ -109,6 +153,15 @@ const initialProduct: product[] = [
 ];
 
 const ProductList = () => {
+  const { search } = useLocation();
+  const cond = search.split(/[?|=|&]/);
+  console.log(cond);
+  console.log(gender[cond[2]]);
+  //   const [listProduct, setListProduct] = useState<product[]>(
+  //     initialProduct
+  //       .sort((a, b) => b.id - a.id)
+  //       .filter((value) => value.gender == gender[cond[2]])
+  //   );
   const [listProduct, setListProduct] = useState<product[]>(
     initialProduct.sort((a, b) => b.id - a.id)
   );
