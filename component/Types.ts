@@ -47,3 +47,35 @@ export interface Review {
   content: string;
   reviewDate: string;
 }
+
+///////////////상품리스트관련/////////////////
+
+export type productWomenT = {
+  [index: string]: string;
+  아우터: string;
+  가디건: string;
+  셔츠: string;
+  블라우스: string;
+  니트: string;
+  후드티: string;
+  티셔츠: string;
+  팬츠: string;
+  스커트: string;
+  언더웨어: string;
+  신발: string;
+};
+
+export type productManT = {
+  [index: string]: string;
+  팬츠: string;
+  아우터: string;
+  수트: string;
+  후드티: string;
+  맨투맨: string;
+  니트: string;
+  가디건: string;
+  스웨터: string;
+  셔츠: string;
+  언더웨어: string;
+  신발: string;
+};

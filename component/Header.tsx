@@ -7,34 +7,36 @@ import StyledMenuBar from "./styles/StyledMenuBar";
 import { Route, Routes, Link } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
+import { stringifyKey } from "mobx/dist/internal";
+import { productManT, productWomenT } from "./Types";
 const Header = () => {
-  const productWomen = [
-    "아우터",
-    "가디건",
-    "셔츠",
-    "블라우스",
-    "니트",
-    "후드티",
-    "티셔츠",
-    "팬츠",
-    "스커트",
-    "언더웨어",
-    "신발",
-  ];
-  const productMan = [
-    "팬츠",
-    "아우터",
-    "수트",
-    "후드티",
-    "맨투맨",
-    "니트",
-    "가디건",
-    "스웨터",
-    "셔츠",
-    "팬츠",
-    "언더웨어",
-    "신발",
-  ];
+  const productWomen: productWomenT = {
+    아우터: "outter",
+    가디건: "cardigan",
+    셔츠: "shirts",
+    블라우스: "blouse",
+    니트: "neat",
+    후드티: "hood",
+    티셔츠: "T-shirts",
+    팬츠: "pants",
+    스커트: "skirt",
+    언더웨어: "under-wear",
+    신발: "shoes",
+  };
+
+  const productMan: productManT = {
+    팬츠: "pants",
+    아우터: "outter",
+    수트: "suit",
+    후드티: "hood",
+    맨투맨: "manman",
+    니트: "neat",
+    가디건: "cardigan",
+    스웨터: "sweater",
+    셔츠: "shirts",
+    언더웨어: "under-wear",
+    신발: "shoes",
+  };
 
   return (
     <>
@@ -70,11 +72,15 @@ const Header = () => {
               <ul className="menuUl">
                 <li>
                   <div className="gender">
-                    <a href="/productList/남성">남성</a>
+                    <a href="/productList?gender=man">남성</a>
                     <hr />
-                    {productMan.map((value) => (
+                    {Object.keys(productMan).map((value) => (
                       <div>
-                        <a href={`/productList/${value}`}>{value}</a>
+                        <a
+                          href={`/productList?gender=man&kind=${productMan[value]}`}
+                        >
+                          {value}
+                        </a>
                       </div>
                     ))}
                   </div>
@@ -82,12 +88,14 @@ const Header = () => {
                 <li>
                   <div className="gender">
                     <div>
-                      <a href="/productList/여성">여성</a>
+                      <a href="/productList?gender=women">여성</a>
                     </div>
                     <hr />
-                    {productWomen.map((value) => (
+                    {Object.keys(productWomen).map((value) => (
                       <div>
-                        <a href={`/productList/${value}`}>{value}</a>
+                        <a href={`/productList?gender=women&kind=${value}`}>
+                          {value}
+                        </a>
                       </div>
                     ))}
                   </div>
