@@ -9,6 +9,38 @@ export async function test() {
   return body;
 }
 
+export async function login_process(userInfo: LOGIN_INFO) {
+  console.log("로그인 시도... ", JSON.stringify(userInfo));
+  const res = await fetch(`${URL}/user/login`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    credentials: "same-origin",
+    body: JSON.stringify(userInfo),
+  });
+  // console.log(res);
+  const body = await res.json();
+  console.log(body);
+  return body;
+}
+
+export async function join_process(userInfo: { userId: string; nickname: string; password: string }) {
+  console.log("회원가입 시도... ", JSON.stringify(userInfo));
+  const res = await fetch(`${URL}/user/join`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    credentials: "same-origin",
+    body: JSON.stringify(userInfo),
+  });
+  console.log(res);
+  const body = await res.json();
+  console.log(body);
+  // return body;
+}
+
 export async function getUser(userInfo: LOGIN_INFO) {
   console.log(userInfo);
   const res = await fetch(`${URL}/user/login/${userInfo.userId}`);

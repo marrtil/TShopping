@@ -19,15 +19,66 @@ router.get("/test", async (req, res) => {
   res.send(test1);
 });
 
-router.get("/login/:userId", async (req, res) => {
-  const { userId } = req.params;
-  console.log("router in");
-  const member = await User.findOne({ where: { userId } });
-  if (member) {
-    console.log(member);
-    res.send(member);
-  } else {
-    res.status(404).send({ message: "There is no such member" });
+// router.get("/login/:userId", async (req, res) => {
+//   const { userId } = req.params;
+//   console.log("router in");
+//   const member = await User.findOne({ where: { userId } });
+//   if (member) {
+//     console.log(member);
+//     res.send(member);
+//   } else {
+//     res.status(404).send({ message: "There is no such member" });
+//   }
+// });
+
+router.post("/login", isNotLoggedIn, (req, res, next) => {
+  console.log("post");
+  passport.authenticate("local", (authError, user, info) => {
+    if (authError) {
+      console.log(authError);
+      return next(authError);
+    }
+    if (info) {
+      return res.status(401).send(info.message);
+    }
+    return req.login(user, async (loginErr: Error) => {
+      try {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        const fullUser = await User.findOne({
+          where: { id: user.id },
+          attributes: {
+            exclude: ["password"],
+          },
+        });
+        return res.json(fullUser);
+      } catch (e) {
+        console.error(e);
+        return next(e);
+      }
+    });
+  })(req, res, next);
+});
+
+router.post("/join", isNotLoggedIn, async (req, res, next) => {
+  const { userId, nickname, password } = req.body;
+  try {
+    const existUser = await User.findOne({ where: { userId } });
+    if (existUser) {
+      return res.redirect("/join?error=exist");
+    }
+    // 두 번째 인수는 hash 반복 횟수, 12 이상을 추천하며 최대 31까지 가능
+    const hash = await bcrypt.hash(password, 12);
+    await User.create({
+      userId,
+      nickname,
+      password: hash,
+    });
+    return res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    return next(err);
   }
 });
 

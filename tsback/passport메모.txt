@@ -1,0 +1,7 @@
+필요조건
+ - body-parser: 브라우저에서 입력받은 정보에 접근 가능(필수x)
+ - cookie-parser, express-session: passport의 인증이 실행된 뒤 유저의 정보를 저장하는데 사용
+ - passport, passport-local
+
+index.ts 작성 시 주의사항
+ - session 이후에 passport.initialize()와 passport.session()이 위치해야함.

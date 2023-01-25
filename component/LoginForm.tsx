@@ -1,8 +1,8 @@
 import * as React from "react";
-import StyledBody from "./styles/StyledBody";
-import { useEffect, useState } from "react";
-import { getUser } from "./api";
+import { useState } from "react";
+import { login_process } from "./api";
 import StyledLogin from "./styles/StyledLogin";
+import { useNavigate } from "react-router";
 export interface LOGIN_INFO {
   // id: string;
   userId: string;
@@ -14,14 +14,12 @@ const LOGIN_INFO: LOGIN_INFO = {
   password: "",
 };
 const LoginForm = () => {
-  const [login, setLogin] = useState<LOGIN_INFO | boolean>(false);
   const [loginInfo, setLoginInfo] = useState(LOGIN_INFO);
-  let sessionStorage = window.sessionStorage;
-  const [login2, setLogin2] = useState<string | boolean | null>(sessionStorage.getItem("userId"));
+  const navi = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLogin(await getUser({ userId: loginInfo.userId, password: loginInfo.password }));
+    if (await login_process({ userId: loginInfo.userId, password: loginInfo.password })) navi("/");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,29 +27,9 @@ const LoginForm = () => {
   };
 
   const handleLogout = () => {
-    // onLoad();
     sessionStorage.clear();
-    setLogin(false);
-    setLogin2(false);
   };
 
-  // handleLoad();
-  useEffect(() => {
-    // console.log(await test());
-    if (login) {
-      if (typeof login !== "boolean") {
-        sessionStorage.setItem("userId", login.userId);
-        setLogin2(sessionStorage.getItem("userId"));
-        // sessionStorage.setItem("userInfo", login.id);
-        // onLogin(sessionStorage.getItem("userId"));
-      }
-    }
-
-    return () => {
-      // sessionStorage.clear();
-      // setLogin(false);
-    };
-  }, [login, sessionStorage]);
   return (
     <StyledLogin>
       <form className="loginForm" onSubmit={handleLogin}>

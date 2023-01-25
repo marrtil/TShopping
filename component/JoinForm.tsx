@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { formatDiagnostic } from "typescript";
+import { join_process } from "./api";
 import StyledJoin from "./styles/StyledJoin";
 import { InputName } from "./Types";
 // import { getUserInfo, joinMember } from "../api";
@@ -46,19 +47,19 @@ function JoinForm() {
         break;
       }
     }
-
-    const formData = new FormData();
-    formData.append("userId", joinData.userId);
-    formData.append("password", joinData.password);
-    formData.append("name", joinData.name);
-    formData.append("email", joinData.email);
-    formData.append("tag", "Front");
-    formData.append("imageUrl", "");
-    try {
-      // await joinMember(formData);
-    } catch (error) {
-      console.log(error);
-    }
+    await join_process({ userId: joinData.userId, nickname: joinData.name, password: joinData.password });
+    // const formData = new FormData();
+    // formData.append("userId", joinData.userId);
+    // formData.append("password", joinData.password);
+    // formData.append("name", joinData.name);
+    // formData.append("email", joinData.email);
+    // formData.append("tag", "Front");
+    // formData.append("imageUrl", "");
+    // try {
+    //   // await joinMember(formData);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   function checkSpace(str: string) {
     if (str.search(/\s/) != -1) {

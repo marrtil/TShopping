@@ -1,8 +1,8 @@
 import * as passport from "passport";
 import * as bcrypt from "bcrypt";
 import { Strategy } from "passport-local";
-// import User from "../models/user";
-const { User } = require("../models");
+import User from "../models/user";
+// const { User } = require("../models");
 
 export default () => {
   passport.use(

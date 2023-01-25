@@ -9,6 +9,7 @@ export interface InputName {
 }
 export interface UserInfo {
   [userId: string]: string;
+  nickname: string;
   name: string;
   password: string;
   passwordCheck: string;
