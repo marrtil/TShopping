@@ -20,9 +20,17 @@ const MyPageForm = () => {
     }
   }, [menu]);
 
+  const testId = () => {
+    fetch("http://localhost:3001/user").then((res) => {
+      console.log(res.json());
+    });
+    // .then(() => {console.log({ user })});
+  };
+
   return (
     <StyledMyPage>
       <div id="myPageMenuDiv">
+        <button onClick={testId}>test</button>
         <ul>
           <li>
             <a id="myPage" href="/myPage">

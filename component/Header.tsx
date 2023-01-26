@@ -7,8 +7,8 @@ import StyledMenuBar from "./styles/StyledMenuBar";
 import { Route, Routes, Link } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
-import { stringifyKey } from "mobx/dist/internal";
 import { productManT, productWomenT } from "./Types";
+import { loginCheck_process } from "./api";
 const Header = () => {
   const productWomen: productWomenT = {
     아우터: "outter",
@@ -43,19 +43,29 @@ const Header = () => {
       <StyledHeader>
         <StyledLoginBar>
           <ul>
-            <li>
-              <Link to="/login">로그인</Link>
+            <li key="login">
+              <Link
+                to="/login"
+                onClick={async (e) => {
+                  if (await loginCheck_process()) {
+                    console.log("로그인된 상태입니다.");
+                    e.preventDefault();
+                  } else console.log("로그인 ㄱ");
+                }}
+              >
+                로그인
+              </Link>
             </li>
-            <li>|</li>
-            <li>
+            <li key="hr1">|</li>
+            <li key="join">
               <Link to="/join">회원가입</Link>
             </li>
-            <li>|</li>
-            <li>
+            <li key="hr2">|</li>
+            <li key="cart">
               <Link to="/cart">장바구니</Link>
             </li>
-            <li>|</li>
-            <li>
+            <li key="hr3">|</li>
+            <li key="mypage">
               <Link to="/myPage">마이페이지</Link>
             </li>
           </ul>
@@ -76,11 +86,7 @@ const Header = () => {
                     <hr />
                     {Object.keys(productMan).map((value) => (
                       <div>
-                        <a
-                          href={`/productList?gender=man&kind=${productMan[value]}`}
-                        >
-                          {value}
-                        </a>
+                        <a href={`/productList?gender=man&kind=${productMan[value]}`}>{value}</a>
                       </div>
                     ))}
                   </div>
@@ -93,9 +99,7 @@ const Header = () => {
                     <hr />
                     {Object.keys(productWomen).map((value) => (
                       <div>
-                        <a href={`/productList?gender=women&kind=${value}`}>
-                          {value}
-                        </a>
+                        <a href={`/productList?gender=women&kind=${value}`}>{value}</a>
                       </div>
                     ))}
                   </div>

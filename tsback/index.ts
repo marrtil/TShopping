@@ -2,44 +2,68 @@ import * as express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as cors from "cors";
 import * as cookieParser from "cookie-parser";
-import * as expressSession from "express-session";
-import * as passport from "passport";
-import passportConfig from "./passport";
+import * as session from "express-session";
+
 import userRouter from "./routes/user";
+import * as dotenv from "dotenv";
+import * as hpp from "hpp"; // 배포시 보안용
+import * as morgan from "morgan";
+import helmet from "helmet"; // 배포시 보안용
+var FileStore = require("session-file-store")(session);
 
-passportConfig();
-
-const sequelize = require("sequelize");
-const Op = sequelize.Op;
-
+dotenv.config();
 const app = express();
-
 const prod = process.env.NODE_ENV === "production";
 
-app.use(express.json());
+import { sequelize } from "./models";
 
-app.use(cors());
+app.set("port", prod ? process.env.PORT : 3001);
 
-const path = require("path");
-app.use(express.static(path.join(__dirname, "../")));
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../", "index.html"));
-});
-
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(
-  expressSession({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET!,
-    cookie: {
-      httpOnly: true,
-      secure: false, // https -> true
-      domain: prod ? ".tshopping.com" : undefined,
-    },
-    name: "rnbck",
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("데이터베이스 연결 성공");
   })
-); // 이 뒤에 passport.initialize()와 passport.session()이 들어와야함.
+  .catch((err: Error) => {
+    console.error(err);
+  });
+
+app.use(morgan("dev"));
+app.use(cors({ origin: true, credentials: true }));
+
+app.use("/", express.static("uploads"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
+// const path = require("path");
+
+// var SQLiteStore = require("connect-sqlite3")(session);
+// app.use(express.static(path.join(__dirname, "public")));
+// app.use(
+//   session({
+//     secret: process.env.COOKIE_SECRET!,
+//     resave: false,
+//     saveUninitialized: false,
+//     store: new SQLiteStore({ db: "sessions.db", dir: "./db" }),
+//   })
+// );
+
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.COOKIE_SECRET!,
+    store: new FileStore(),
+  })
+);
+// app.use(passport.authenticate("session"));
+
+// 세션 설정 뒤에 passport.initialize()와 passport.session()이 들어와야함.
+import * as passport from "passport";
+import passportConfig from "./passport";
+var LocalStrategy = require("passport-local").Strategy;
+passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
 // app.set("port", prod ? process.env.PORT : 3065);
