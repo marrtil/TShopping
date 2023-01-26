@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         nickname: "김정남",
-        userId: "testid",
+        userId: "jungnam",
         password: "qwer1234",
         createdAt: new Date(),
         updatedAt: new Date(),

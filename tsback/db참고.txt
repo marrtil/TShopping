@@ -30,3 +30,8 @@
  - localhost:3001/user/test에 접속
  - seed로 넣은 정보가 나온다 - 성공
 
+
+
+옷 db속성
+ - 색상, 성별, 종류
+ - id, name, color, gender, kind, size, discount, stock, image

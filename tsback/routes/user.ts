@@ -8,8 +8,10 @@ import * as passport from "passport";
 const router = express.Router();
 
 router.get("/", isLoggedIn, async (req, res) => {
+  console.log(req.session);
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
   const user = req.user;
+  console.log(req.user);
   return res.json({ ...user, password: null });
 });
 
@@ -35,28 +37,18 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
   console.log("post");
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
-      console.log(authError);
+      console.error(authError);
       return next(authError);
     }
-    if (info) {
-      return res.status(401).send(info.message);
+    if (!user) {
+      return res.redirect(`/?loginError=${info.message}`);
     }
-    return req.login(user, async (loginErr: Error) => {
-      try {
-        if (loginErr) {
-          return next(loginErr);
-        }
-        const fullUser = await User.findOne({
-          where: { id: user.id },
-          attributes: {
-            exclude: ["password"],
-          },
-        });
-        return res.json(fullUser);
-      } catch (e) {
-        console.error(e);
-        return next(e);
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        console.error(loginError);
+        return next(loginError);
       }
+      return res.redirect("/");
     });
   })(req, res, next);
 });
@@ -81,7 +73,12 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     return next(err);
   }
 });
-
+// router.post("/logout", isLoggedIn, (req, res) => {
+//   req.logout();
+//   req.session!.destroy(() => {
+//     res.send("logout 성공");
+//   });
+// });
 router.patch("/nickname", isLoggedIn, async (req, res, next) => {
   try {
     await User.update(

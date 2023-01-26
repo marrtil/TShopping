@@ -9,6 +9,14 @@ export async function test() {
   return body;
 }
 
+export async function loginCheck_process() {
+  const res = await fetch(`${URL}/user/`);
+  // if (res) console.log(res.json());
+  const body = await res.json();
+  console.log(body, "aaaaaaaaaaaa");
+  return body;
+}
+
 export async function login_process(userInfo: LOGIN_INFO) {
   console.log("로그인 시도... ", JSON.stringify(userInfo));
   const res = await fetch(`${URL}/user/login`, {
@@ -19,9 +27,8 @@ export async function login_process(userInfo: LOGIN_INFO) {
     credentials: "same-origin",
     body: JSON.stringify(userInfo),
   });
-  // console.log(res);
+  console.log(res);
   const body = await res.json();
-  console.log(body);
   return body;
 }
 
