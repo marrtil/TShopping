@@ -7,12 +7,12 @@ import moomin2 from "../upload/product2.jpeg";
 import moomin3 from "../upload/product3.png";
 import moomin4 from "../upload/moomin1.jpeg";
 import moomin5 from "../upload/moomin2.jpeg";
-import { initialProduct } from "./product";
+import { initialProducts } from "./product";
 const ProductForm = () => {
   const { id } = useParams();
 
   const [product, setProduct] = useState(
-    initialProduct.filter((value) => value.id == Number(id))[0]
+    initialProducts.filter((value) => value.id == Number(id))[0]
   );
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
