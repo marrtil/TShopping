@@ -80,6 +80,8 @@ const ProductList = () => {
   const [query, setQuery] = useState(search.split(/[?|=|&]/));
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
+  const sessionStorage = window.sessionStorage;
+  console.log(sessionStorage.getItem("itemName"));
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -89,6 +91,15 @@ const ProductList = () => {
     });
     return colors;
   }, [initialProduct]);
+
+  useEffect(() => {
+    const searchItem = sessionStorage.getItem("itemName");
+    if (searchItem) {
+      setListProduct(
+        initialProduct.filter((value) => value.name.includes(searchItem))
+      );
+    }
+  }, []);
 
   useEffect(() => {
     if (color == "default") setListProduct(initialProduct);
