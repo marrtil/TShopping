@@ -57,17 +57,17 @@ app.use(
     store: new FileStore(),
   })
 );
-// app.use(passport.authenticate("session"));
 
 // 세션 설정 뒤에 passport.initialize()와 passport.session()이 들어와야함.
 import * as passport from "passport";
 import passportConfig from "./passport";
-var LocalStrategy = require("passport-local").Strategy;
+
 passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
 // app.set("port", prod ? process.env.PORT : 3065);
 app.use("/user", userRouter);
+
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   // req, res, next 타입은 생략가능.
   res.send("tsback 정상 작동!");

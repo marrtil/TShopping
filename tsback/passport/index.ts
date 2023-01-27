@@ -6,6 +6,7 @@ export default () => {
   passport.serializeUser((user, done) => {
     // 로그인할때 한번 실행
     // 유저 정보를 식별할 수 있는 id를 통해 쿠키를 생성.
+    console.log("serializeUser", user.id);
     done(null, user.id);
   });
 
