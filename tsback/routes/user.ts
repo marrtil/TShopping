@@ -8,10 +8,10 @@ import * as passport from "passport";
 const router = express.Router();
 
 router.get("/", isLoggedIn, async (req, res) => {
-  console.log(req.session);
+  // console.log(req.session);
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
   const user = req.user;
-  console.log(req.user);
+  // console.log(req.user);
   return res.json({ ...user, password: null });
 });
 
