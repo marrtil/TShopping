@@ -107,7 +107,7 @@ const Header = () => {
               </ul>
             </li>
             <li>
-              <Link to="/productList">전체상품</Link>
+              <a href="/productList">전체상품</a>
             </li>
             <li>
               <Link to="/newGoods">신제품</Link>

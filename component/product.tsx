@@ -17,7 +17,7 @@ export type product = {
   count: number;
 };
 
-export const initialProduct: product[] = [
+export const initialProducts: product[] = [
   {
     id: 1,
     name: "무민",

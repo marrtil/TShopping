@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import StyledProductList from "./styles/StyledProductList";
 import { productManT, productWomenT } from "./Types";
-import { initialProduct, product } from "./product";
+import { initialProducts, product } from "./product";
 
 type tableType = {
   [index: string]: string;
@@ -74,14 +74,15 @@ const productMan: productManT = {
 
 const ProductList = () => {
   const [listProduct, setListProduct] = useState<product[]>(
-    initialProduct.sort((a, b) => b.id - a.id)
+    initialProducts.sort((a, b) => b.id - a.id)
   );
   const { search } = useLocation();
-  const [query, setQuery] = useState(search.split(/[?|=|&]/));
+  const [query, setQuery] = useState<string[]>(search.split(/[?|=|&]/));
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
+  const [initialProduct, setInitialProduct] =
+    useState<product[]>(initialProducts);
   const sessionStorage = window.sessionStorage;
-  console.log(sessionStorage.getItem("itemName"));
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -94,19 +95,26 @@ const ProductList = () => {
 
   useEffect(() => {
     const searchItem = sessionStorage.getItem("itemName");
+    console.log(searchItem);
     if (searchItem) {
       setListProduct(
-        initialProduct.filter((value) => value.name.includes(searchItem))
+        initialProducts.filter((value) => value["name"].includes(searchItem))
+      );
+      setInitialProduct(
+        initialProducts.filter((value) => value["name"].includes(searchItem))
       );
     }
+    sessionStorage.clear();
   }, []);
 
   useEffect(() => {
-    if (color == "default") setListProduct(initialProduct);
-    else {
-      setListProduct(
-        initialProduct.filter((values) => values["color"].includes(color))
-      );
+    if (color) {
+      if (color == "default") setListProduct(initialProduct);
+      else {
+        setListProduct(
+          initialProduct.filter((values) => values["color"].includes(color))
+        );
+      }
     }
   }, [color]);
 
@@ -136,11 +144,21 @@ const ProductList = () => {
               value.kind == itemKey && value.gender == genderCheck[query[2]]
           )
         );
+        setInitialProduct((prevValue) =>
+          prevValue.filter(
+            (value) =>
+              value.kind == itemKey && value.gender == genderCheck[query[2]]
+          )
+        );
         return;
-      } else
+      } else {
         setListProduct((prevValue) =>
           prevValue.filter((value) => value.gender == genderCheck[query[2]])
         );
+        setInitialProduct((prevValue) =>
+          prevValue.filter((value) => value.gender == genderCheck[query[2]])
+        );
+      }
     } else if (query[2] && query[2] == "women") {
       if (query[4]) {
         const itemKey = Object.keys(productWomen).find(
@@ -152,13 +170,23 @@ const ProductList = () => {
               value.kind == itemKey && value.gender == genderCheck[query[2]]
           )
         );
+        setInitialProduct((prevValue) =>
+          prevValue.filter(
+            (value) =>
+              value.kind == itemKey && value.gender == genderCheck[query[2]]
+          )
+        );
         return;
-      } else
+      } else {
         setListProduct((prevValue) =>
           prevValue.filter((value) => value.gender == genderCheck[query[2]])
         );
+        setInitialProduct((prevValue) =>
+          prevValue.filter((value) => value.gender == genderCheck[query[2]])
+        );
+      }
     }
-  }, [query]);
+  }, []);
 
   const optionColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
