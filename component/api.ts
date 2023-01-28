@@ -2,13 +2,6 @@ import { LOGIN_INFO } from "./LoginForm";
 
 const URL = "http://localhost:3001";
 
-export async function test() {
-  const res = await fetch(`${URL}/user/test`);
-  const body = await res.json();
-  console.log(body);
-  return body;
-}
-
 export async function loginCheck_process() {
   const res = await fetch(`${URL}/user/`, {
     method: "get",
@@ -17,10 +10,7 @@ export async function loginCheck_process() {
     },
     credentials: "include",
   });
-  // if (res) console.log(res.json());
-  console.log(res);
   const body = await res.json();
-  console.log(body, "aaaaaaaaaaaa");
   return body;
 }
 
@@ -65,6 +55,18 @@ export async function join_process(userInfo: { userId: string; nickname: string;
   const body = await res.json();
   console.log(body);
   // return body;
+}
+
+export async function getUserInfo() {
+  const res = await fetch(`${URL}/user/userInfo`, {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    credentials: "include",
+  });
+  const body = await res.json();
+  return body;
 }
 
 export async function getUser(userInfo: LOGIN_INFO) {

@@ -19,7 +19,7 @@ const LoginForm = () => {
   const navi = useNavigate();
 
   const handleLoginCheck = async () => {
-    console.log(await loginCheck_process());
+    await loginCheck_process();
     // if (loginCheck_process().userId) {
     //   console.log("로그인된 상태입니다.");
     // } else console.log("로그인 ㄱ");
@@ -27,18 +27,11 @@ const LoginForm = () => {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (await login_process({ userId: loginInfo.userId, password: loginInfo.password }))
-      console.log("###### 로그인 $$$$$$$$$");
-    // navi("/");
+    if (await login_process({ userId: loginInfo.userId, password: loginInfo.password })) navi("/");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleLogout = async () => {
-    await logOut_process();
-    // sessionStorage.clear();
   };
 
   return (
@@ -63,9 +56,9 @@ const LoginForm = () => {
           회원가입
         </a>
       </form>
-      <button className="loginBtn" onClick={handleLogout}>
+      {/* <button className="loginBtn" onClick={handleLogout}>
         로그아웃
-      </button>
+      </button> */}
       <button className="loginBtn" onClick={handleLoginCheck}>
         로그인체크
       </button>

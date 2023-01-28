@@ -23,6 +23,10 @@ index.ts 작성 시 주의사항
  > api에서 설정을 건드려주니 해결. 어이가 없네 ㅋㅋ 또 등잔밑이 어둡다 했죠?
  > 하지만 아주 짧게 오류가 떳다 사라진다.
  > 왜 또 안뜸?
+ > header쪽에 로그인체크를 넣었더니 한무렌더링이 된다. 왜?
+ > login은 재렌더링이 안되지만 loginCheck는 재렌더링이 되니 둘의 차이때문인것으로 추정.
+ > isLoggedIn과 isNotLoggedIn의 res.~~에서 재렌더링이 되는듯
+ > 는 걍 /user/userInfo도 재렌더링 ㅈㄴ된다. isLoggedIn없는데 ㅋㅋ
 
 // 로그인
 [0] OPTIONS /user/login 204 1.277 ms - 0

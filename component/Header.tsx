@@ -8,8 +8,9 @@ import { Route, Routes, Link } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
 import { productManT, productWomenT } from "./Types";
-import { loginCheck_process } from "./api";
+import { getUserInfo, loginCheck_process, logOut_process } from "./api";
 const Header = () => {
+  const [userInfo, setUserInfo] = React.useState();
   const productWomen: productWomenT = {
     아우터: "outter",
     가디건: "cardigan",
@@ -38,15 +39,16 @@ const Header = () => {
     신발: "shoes",
   };
 
-  const handleLoginCheck = async () => {
-    console.log(await loginCheck_process());
-    // if (loginCheck_process().userId) {
-    //   console.log("로그인된 상태입니다.");
-    // } else console.log("로그인 ㄱ");
+  const handleLogout = async () => {
+    await logOut_process();
+  };
+
+  const handleLoad = async () => {
+    console.log(await getUserInfo());
   };
 
   React.useEffect(() => {
-    handleLoginCheck();
+    // handleLoad();
   }, []);
 
   return (
@@ -55,7 +57,21 @@ const Header = () => {
         <StyledLoginBar>
           <ul>
             <li key="login">
-              <Link to="/login">로그인</Link>
+              <button onClick={handleLoad}>테스트</button>
+              <button onClick={handleLogout}>로그아웃</button>
+              {userInfo ? (
+                <></>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={async (e) => {
+                    if (await loginCheck_process()) e.preventDefault();
+                    else console.log("입장");
+                  }}
+                >
+                  로그인
+                </Link>
+              )}
             </li>
             <li key="hr1">|</li>
             <li key="join">

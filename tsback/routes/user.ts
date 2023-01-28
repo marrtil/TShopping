@@ -8,30 +8,11 @@ import * as passport from "passport";
 const router = express.Router();
 
 router.get("/", isLoggedIn, (req, res) => {
-  // console.log(req.session);
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
   const user = req.user!;
   console.log(" ||||||||||||||||| get/", user);
   return res.json({ ...user, password: null });
 });
-
-router.get("/userList", async (req, res) => {
-  const test1 = await User.findAll();
-  // return res.json("test성공" + test1);
-  res.send(test1);
-});
-
-// router.get("/login/:userId", async (req, res) => {
-//   const { userId } = req.params;
-//   console.log("router in");
-//   const member = await User.findOne({ where: { userId } });
-//   if (member) {
-//     console.log(member);
-//     res.send(member);
-//   } else {
-//     res.status(404).send({ message: "There is no such member" });
-//   }
-// });
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
   console.log(" |||||||||||||||||||| post/login");
@@ -86,6 +67,13 @@ router.post("/logout", isLoggedIn, (req, res, next) => {
   });
   // req.session.destroy((err) => res.redirect("/"));
   req.session.save(() => res.redirect("/"));
+});
+
+router.get("/userInfo", (req, res) => {
+  // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
+  const user = req.user!;
+  console.log(" ||||||||||||||||| get/", user);
+  return res.json({ ...user, password: null });
 });
 
 router.patch("/nickname", isLoggedIn, async (req, res, next) => {
