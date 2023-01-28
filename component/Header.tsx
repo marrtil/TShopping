@@ -38,23 +38,24 @@ const Header = () => {
     신발: "shoes",
   };
 
+  const handleLoginCheck = async () => {
+    console.log(await loginCheck_process());
+    // if (loginCheck_process().userId) {
+    //   console.log("로그인된 상태입니다.");
+    // } else console.log("로그인 ㄱ");
+  };
+
+  React.useEffect(() => {
+    handleLoginCheck();
+  }, []);
+
   return (
     <>
       <StyledHeader>
         <StyledLoginBar>
           <ul>
             <li key="login">
-              <Link
-                to="/login"
-                onClick={async (e) => {
-                  if ((await loginCheck_process()).userId) {
-                    console.log("로그인된 상태입니다.");
-                    // e.preventDefault();
-                  } else console.log("로그인 ㄱ");
-                }}
-              >
-                로그인
-              </Link>
+              <Link to="/login">로그인</Link>
             </li>
             <li key="hr1">|</li>
             <li key="join">
