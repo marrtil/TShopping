@@ -17,6 +17,7 @@ const StyledProductList = styled.div`
   .listProduct {
     width: 250px;
     height: 350px;
+    margin-right: 2px;
   }
   .productInfo {
     text-align: left;

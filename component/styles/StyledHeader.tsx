@@ -10,6 +10,8 @@ const StyledHeader = styled.div`
     display: inline;
     color: black;
     margin-left: 10px;
+    font-family: "Poor Story", cursive;
+    line-height: 30px;
     a {
       color: black;
       text-decoration: none;

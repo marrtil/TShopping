@@ -45,7 +45,11 @@ export async function login_process(userInfo: LOGIN_INFO) {
   return body;
 }
 
-export async function join_process(userInfo: { userId: string; nickname: string; password: string }) {
+export async function join_process(userInfo: {
+  userId: string;
+  nickname: string;
+  password: string;
+}) {
   console.log("회원가입 시도... ", JSON.stringify(userInfo));
   const res = await fetch(`${URL}/user/join`, {
     method: "post",
