@@ -3,3 +3,5 @@ node_modules/
 tsback/node_modules/
 
 tsback/.env
+
+tsback/sessions

@@ -3,19 +3,20 @@ import * as bcrypt from "bcrypt";
 import { isLoggedIn, isNotLoggedIn } from "./middleware";
 import User from "../models/user";
 import * as passport from "passport";
+import { nextTick } from "process";
 // import Post from "../models/post";
 
 const router = express.Router();
 
-router.get("/", isLoggedIn, async (req, res) => {
+router.get("/", isLoggedIn, (req, res) => {
   // console.log(req.session);
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
-  const user = req.user;
-  // console.log(req.user);
+  const user = req.user!;
+  console.log(" ||||||||||||||||| get/", user);
   return res.json({ ...user, password: null });
 });
 
-router.get("/test", async (req, res) => {
+router.get("/userList", async (req, res) => {
   const test1 = await User.findAll();
   // return res.json("test성공" + test1);
   res.send(test1);
@@ -34,21 +35,27 @@ router.get("/test", async (req, res) => {
 // });
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
-  console.log("post");
+  console.log(" |||||||||||||||||||| post/login");
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       console.error(authError);
       return next(authError);
     }
     if (!user) {
+      console.log(`/?loginError=${info.message}`);
       return res.redirect(`/?loginError=${info.message}`);
     }
-    return req.login(user, (loginError) => {
+    return req.login(user, async (loginError) => {
       if (loginError) {
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect("/");
+      // console.log(res);
+      const userInfo = await User.findOne({
+        where: { id: user.id },
+        attributes: { exclude: ["password"] },
+      });
+      return res.json(userInfo);
     });
   })(req, res, next);
 });
@@ -73,12 +80,15 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     return next(err);
   }
 });
-// router.post("/logout", isLoggedIn, (req, res) => {
-//   req.logout();
-//   req.session!.destroy(() => {
-//     res.send("logout 성공");
-//   });
-// });
+
+router.post("/logout", isLoggedIn, (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+  });
+  // req.session.destroy((err) => res.redirect("/"));
+  req.session.save(() => res.redirect("/"));
+});
+
 router.patch("/nickname", isLoggedIn, async (req, res, next) => {
   try {
     await User.update(

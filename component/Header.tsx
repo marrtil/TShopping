@@ -47,9 +47,9 @@ const Header = () => {
               <Link
                 to="/login"
                 onClick={async (e) => {
-                  if (await loginCheck_process()) {
+                  if ((await loginCheck_process()).userId) {
                     console.log("로그인된 상태입니다.");
-                    e.preventDefault();
+                    // e.preventDefault();
                   } else console.log("로그인 ㄱ");
                 }}
               >

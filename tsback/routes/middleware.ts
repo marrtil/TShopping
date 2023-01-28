@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
-  // console.log("isLoggedIn", req.session);
+  console.log(" ***************** isLoggedIn", req.user?.dataValues);
   if (req.isAuthenticated()) {
     console.log("이미 로그인중!");
     next();
@@ -11,6 +11,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const isNotLoggedIn = (req: Request, res: Response, next: NextFunction) => {
+  console.log(" ***************** isNotLoggedIn", req.user);
   if (!req.isAuthenticated()) {
     console.log("로그인중이 아님!");
     next();

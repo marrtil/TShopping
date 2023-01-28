@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { login_process } from "./api";
+import { loginCheck_process, login_process, logOut_process } from "./api";
 import StyledLogin from "./styles/StyledLogin";
 import { useNavigate } from "react-router";
 export interface LOGIN_INFO {
@@ -16,7 +16,6 @@ const LOGIN_INFO: LOGIN_INFO = {
 const LoginForm = () => {
   const [loginInfo, setLoginInfo] = useState(LOGIN_INFO);
   const navi = useNavigate();
-
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (await login_process({ userId: loginInfo.userId, password: loginInfo.password })) navi("/");
@@ -26,8 +25,9 @@ const LoginForm = () => {
     setLoginInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleLogout = () => {
-    sessionStorage.clear();
+  const handleLogout = async () => {
+    await logOut_process();
+    // sessionStorage.clear();
   };
 
   return (
@@ -47,11 +47,14 @@ const LoginForm = () => {
         <button className="loginBtn" type="submit">
           로그인
         </button>
-        <hr></hr>
+        <hr />
         <a className="joinAnchor" href="#">
           회원가입
         </a>
       </form>
+      <button className="loginBtn" onClick={handleLogout}>
+        로그아웃
+      </button>
     </StyledLogin>
   );
 };

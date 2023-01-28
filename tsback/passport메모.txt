@@ -5,3 +5,55 @@
 
 index.ts 작성 시 주의사항
  - session 이후에 passport.initialize()와 passport.session()이 위치해야함.
+
+
+0128 ////
+ 현재상황 - 세션 파일에 세션 정상적으로 저장. 백에서 쿠키도 정상적으로 생성됨.
+ 문제상황 - 로그인은 잘 되나 확인했을떄 문제
+ > isLoggedIn까지 실행되나 앞단으로 리턴값을 가져오지 못함.
+ > 로그인을 해도 안해도 401 리턴. 
+ > req.isAuthenticated()가 계속 false를 반환하는 것같음.
+ > 로그인체크시 세션이 새로 만들어지면서 기존 세션에서 id를 가져오지 못하는것으로 추정.
+ > deserializeUser가 제대로 실행되지 않은것? > 이건 아닌듯
+ > 로그인한 직후엔 실행됨.
+ > 와중에 로그아웃도 제대로 안먹는다.
+ > 아니다 이제 잘 먹는다
+ > 로그인/로그아웃 잘 되지만 페이지가 바뀌면 세션을 못가져오는것같다.
+
+// 로그인
+[0] OPTIONS /user/login 204 1.277 ms - 0
+[0]  ***************** isNotLoggedIn
+[0] 로그인중이 아님!
+[0]  |||||||||||||||||||| post/login
+[0] Executing (default): SELECT `id`, `nickname`, `userId`, `password`, `createdAt`, `updatedAt` FROM `user` AS `User` WHERE `User`.`userId` = 'marrtil';
+[0] ######### serializeUser --  5
+[0] OPTIONS / 204 0.149 ms - 0
+[0] POST /user/login 302 561.387 ms - 23
+[0] $$$$$$$$$ deserializeUser --  5
+[0] Executing (default): SELECT `id`, `nickname`, `userId`, `password`, `createdAt`, `updatedAt` FROM `user` AS `User` WHERE `User`.`id` = 5;
+[0] GET / 304 3.253 ms - -
+
+// 로그인했는지 확인
+[0]  ***************** isLoggedIn
+[0] GET /user 401 2.098 ms - 29
+
+// 로그아웃
+[0] $$$$$$$$$ deserializeUser --  { id: 5 }
+[0] Executing (default): SELECT `id`, `nickname`, `userId`, `password`, `createdAt`, `updatedAt` FROM `user` AS `User` WHERE `User`.`id` = '[object Object]' LIMIT 1;
+// 로그아웃2 - 잘되는듯
+[0]  ***************** isLoggedIn {
+[0]   id: 5,
+[0]   nickname: '윤지섭',
+[0]   userId: 'marrtil',
+[0]   password: '$2b$12$vjCEOd73Ty7NDPJr1Y5kLOLWyU.Em3J9TNKWlLcsUioLnvTq4K3H.',
+[0]   createdAt: 2023-01-26T05:38:29.000Z,
+[0]   updatedAt: 2023-01-26T05:38:29.000Z
+[0] }
+[0] 이미 로그인중!
+[0] OPTIONS / 204 0.110 ms - 0
+[0] POST /user/logout 302 21.325 ms - 23
+[0] GET / 304 1.244 ms - -
+// 한번더 로그아웃 했을때
+[0]  ***************** isLoggedIn undefined
+[0] POST /user/logout 401 2.307 ms - 29
+

@@ -7,6 +7,7 @@ import MyReview from "./myPage/MyReview";
 import MySize from "./myPage/MySize";
 import ModForm from "./myPage/ModForm";
 import ViewedGoods from "./myPage/ViewedGoods";
+import { loginCheck_process } from "./api";
 const MyPageForm = () => {
   const location = useLocation();
   const [menu, setMenu] = React.useState<string>(location.pathname.split("/")[2]);
@@ -20,11 +21,8 @@ const MyPageForm = () => {
     }
   }, [menu]);
 
-  const testId = () => {
-    fetch("http://localhost:3001/user").then((res) => {
-      console.log(res.json());
-    });
-    // .then(() => {console.log({ user })});
+  const testId = async () => {
+    console.log(await loginCheck_process());
   };
 
   return (

@@ -3,7 +3,8 @@ import { Request, Response, NextFunction } from "express";
 import * as cors from "cors";
 import * as cookieParser from "cookie-parser";
 import * as session from "express-session";
-
+import * as passport from "passport";
+import passportConfig from "./passport";
 import userRouter from "./routes/user";
 import * as dotenv from "dotenv";
 import * as hpp from "hpp"; // 배포시 보안용
@@ -29,7 +30,7 @@ sequelize
   });
 
 app.use(morgan("dev"));
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: "http://localhost:8080", credentials: true }));
 
 app.use("/", express.static("uploads"));
 app.use(express.json());
@@ -55,12 +56,15 @@ app.use(
     saveUninitialized: true,
     secret: process.env.COOKIE_SECRET!,
     store: new FileStore(),
+    cookie: {
+      httpOnly: true,
+      secure: false, //개발할때만 false
+    },
+    // cookie: { secure: false, maxAge: 4 * 60 * 60 * 1000 },
   })
 );
 
 // 세션 설정 뒤에 passport.initialize()와 passport.session()이 들어와야함.
-import * as passport from "passport";
-import passportConfig from "./passport";
 
 passportConfig();
 app.use(passport.initialize());

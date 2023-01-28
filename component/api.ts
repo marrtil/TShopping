@@ -12,9 +12,21 @@ export async function test() {
 export async function loginCheck_process() {
   const res = await fetch(`${URL}/user/`);
   // if (res) console.log(res.json());
+  console.log(res);
   const body = await res.json();
   console.log(body, "aaaaaaaaaaaa");
   return body;
+}
+
+export async function logOut_process() {
+  console.log("logout");
+  const res = await fetch(`${URL}/user/logout`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    credentials: "include",
+  });
 }
 
 export async function login_process(userInfo: LOGIN_INFO) {
@@ -24,11 +36,12 @@ export async function login_process(userInfo: LOGIN_INFO) {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
-    credentials: "same-origin",
+    credentials: "include",
     body: JSON.stringify(userInfo),
   });
-  console.log(res);
+  console.log("####################### res - ", res);
   const body = await res.json();
+  console.log("####################### body - ", body);
   return body;
 }
 
@@ -39,7 +52,7 @@ export async function join_process(userInfo: { userId: string; nickname: string;
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
-    credentials: "same-origin",
+    credentials: "include",
     body: JSON.stringify(userInfo),
   });
   console.log(res);
