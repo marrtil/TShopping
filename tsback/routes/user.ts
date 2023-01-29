@@ -93,4 +93,9 @@ router.patch("/nickname", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.get("/userList", async (req, res) => {
+  const userList = await User.findAll();
+  res.send(userList);
+});
+
 export default router;
