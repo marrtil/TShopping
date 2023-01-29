@@ -92,10 +92,9 @@ const ProductList = () => {
     });
     return colors;
   }, [initialProduct]);
-
+  console.log(listProduct);
   useEffect(() => {
     const searchItem = sessionStorage.getItem("itemName");
-    console.log(searchItem);
     if (searchItem) {
       setListProduct(
         initialProducts.filter((value) => value["name"].includes(searchItem))
@@ -217,47 +216,51 @@ const ProductList = () => {
         </select>
       </div>
       <div id="productList">
-        {listProduct.map((product: product) => {
-          return (
-            <div className="listProduct">
-              <Link to={`/productForm/${product.id}`}>
-                <img src={product.src} className="listImage" />
-              </Link>
-              <div className="productInfo">
+        {listProduct.length ? (
+          listProduct.map((product: product) => {
+            return (
+              <div className="listProduct">
                 <Link to={`/productForm/${product.id}`}>
-                  <div>{product.name}</div>
+                  <img src={product.src} className="listImage" />
                 </Link>
-                <div>
-                  {" "}
-                  {product.sale > 0 ? (
-                    <>
-                      <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>
-                      &nbsp;
-                      {"₩" +
-                        (product.price * (1 - product.sale)).toLocaleString(
-                          "ko-KR"
-                        )}
-                    </>
-                  ) : (
-                    product.price.toLocaleString("ko-KR")
-                  )}
+                <div className="productInfo">
+                  <Link to={`/productForm/${product.id}`}>
+                    <div>{product.name}</div>
+                  </Link>
+                  <div>
+                    {" "}
+                    {product.sale > 0 ? (
+                      <>
+                        <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>
+                        &nbsp;
+                        {"₩" +
+                          (product.price * (1 - product.sale)).toLocaleString(
+                            "ko-KR"
+                          )}
+                      </>
+                    ) : (
+                      product.price.toLocaleString("ko-KR")
+                    )}
+                  </div>
+                  <ul id="colors">
+                    {product.color.split(",").map((colors: string) => {
+                      const style = {
+                        backgroundColor: colorTable[colors],
+                      };
+                      return (
+                        <li key={colors}>
+                          <a className="color" style={style}></a>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-                <ul id="colors">
-                  {product.color.split(",").map((colors: string) => {
-                    const style = {
-                      backgroundColor: colorTable[colors],
-                    };
-                    return (
-                      <li key={colors}>
-                        <a className="color" style={style}></a>
-                      </li>
-                    );
-                  })}
-                </ul>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div id="empty">찾으시는 종류의 상품이 없습니다</div>
+        )}
       </div>
     </StyledProductList>
   );

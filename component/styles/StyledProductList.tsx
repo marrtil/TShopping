@@ -56,6 +56,13 @@ const StyledProductList = styled.div`
     border: none;
     padding: 0.8em 0.5em;
   }
+
+  #empty {
+    width: 80%;
+    min-height: 200px;
+    text-align: center;
+    padding-top: 120px;
+  }
 `;
 
 export default StyledProductList;
