@@ -6,6 +6,7 @@ const StyledGrid = styled.div`
     height: 80px;
     justify-content: space-between;
     align-items: flex-end;
+    padding-right: 34%;
     h2 {
       // width: 200px;
       // height: 30px;
@@ -16,6 +17,9 @@ const StyledGrid = styled.div`
       width: 250px;
       // height: 30px;
     }
+  }
+  #hrDivider {
+    width: 66%;
   }
 
   img {

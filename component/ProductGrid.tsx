@@ -44,7 +44,9 @@ const ProductGrid: React.FC<Props> = ({ sort }) => {
           <option key="any">기타...</option>
         </select>
       </div>
-      <hr />
+      <div id="hrDivider">
+        <hr />
+      </div>
       <div>
         {productSrc.map((value, index) => {
           return (

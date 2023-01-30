@@ -5,7 +5,7 @@ const StyledProductList = styled.div`
   #productList {
     display: flex;
     flex-direction: row;
-    width: 1050px;
+    width: 73.5%;
     flex-wrap: wrap;
     margin-left: 150px;
     background-color: rgb(230, 230, 230);
@@ -15,7 +15,7 @@ const StyledProductList = styled.div`
     color: black;
   }
   .listProduct {
-    width: 250px;
+    width: 24%;
     height: 350px;
     margin-right: 2px;
   }
@@ -24,7 +24,7 @@ const StyledProductList = styled.div`
   }
 
   .listImage {
-    width: 250px;
+    width: 100%;
     height: 270px;
   }
 
