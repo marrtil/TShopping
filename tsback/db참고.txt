@@ -27,7 +27,7 @@
 
 5. 테스트
  - npm run dev로 서버실행
- - localhost:3001/user/test에 접속
+ - localhost:3001/user/userList에 접속
  - seed로 넣은 정보가 나온다 - 성공
 
 
