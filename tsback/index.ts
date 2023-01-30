@@ -37,19 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
-// const path = require("path");
-
-// var SQLiteStore = require("connect-sqlite3")(session);
-// app.use(express.static(path.join(__dirname, "public")));
-// app.use(
-//   session({
-//     secret: process.env.COOKIE_SECRET!,
-//     resave: false,
-//     saveUninitialized: false,
-//     store: new SQLiteStore({ db: "sessions.db", dir: "./db" }),
-//   })
-// );
-
 app.use(
   session({
     resave: false,

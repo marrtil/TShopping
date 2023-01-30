@@ -9,8 +9,7 @@ import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
 import { productManT, productWomenT } from "./Types";
 import { getUserInfo, loginCheck_process, logOut_process } from "./api";
-const Header = () => {
-  const [userInfo, setUserInfo] = React.useState();
+const Header = ({ userId, handleLogout }: any) => {
   const productWomen: productWomenT = {
     아우터: "outter",
     가디건: "cardigan",
@@ -39,38 +38,23 @@ const Header = () => {
     신발: "shoes",
   };
 
-  const handleLogout = async () => {
-    await logOut_process();
-  };
-
-  const handleLoad = async () => {
-    console.log(await getUserInfo());
-  };
-
-  React.useEffect(() => {
-    // handleLoad();
-  }, []);
-
   return (
     <>
       <StyledHeader>
         <StyledLoginBar>
           <ul>
             <li key="login">
-              <button onClick={handleLoad}>테스트</button>
-              <button onClick={handleLogout}>로그아웃</button>
-              {userInfo ? (
-                <></>
+              <a href="/" onClick={handleLogout}>
+                로그아웃
+              </a>
+              {/* <button onClick={handleLoad}>테스트</button> */}
+              {/* <button onClick={handleLogout}>로그아웃</button> */}
+              {userId ? (
+                <a href="/" onClick={handleLogout}>
+                  로그아웃
+                </a>
               ) : (
-                <Link
-                  to="/login"
-                  onClick={async (e) => {
-                    if (await loginCheck_process()) e.preventDefault();
-                    else console.log("입장");
-                  }}
-                >
-                  로그인
-                </Link>
+                <Link to="/login">로그인</Link>
               )}
             </li>
             <li key="hr1">|</li>

@@ -6,7 +6,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
     console.log("이미 로그인중!");
     next();
   } else {
-    // res.status(401).send("로그인이 필요합니다.");
+    res.status(401).send("로그인이 필요합니다.");
   }
 };
 

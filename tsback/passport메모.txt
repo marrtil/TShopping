@@ -65,3 +65,10 @@ index.ts 작성 시 주의사항
 [0]  ***************** isLoggedIn undefined
 [0] POST /user/logout 401 2.307 ms - 29
 
+// 0130
+ > 쿠키를 쓸까 세션을 쓸까...
+ > 페이지 이동시 로그아웃이 다시 로그인으로 돌아가는 현상 확인.
+    > state 초기값 지정으로 해결.일뻔
+ > 재렌더링 되는 이유
+    > credentials: 'include' 가 있으면 재렌더링
+    > isLoggedIn은 문제가 아님.

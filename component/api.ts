@@ -65,6 +65,7 @@ export async function getUserInfo() {
     },
     credentials: "include",
   });
+  if (!res) throw new Error("조회실패!");
   const body = await res.json();
   return body;
 }

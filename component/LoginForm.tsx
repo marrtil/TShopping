@@ -4,30 +4,29 @@ import { loginCheck_process, login_process, logOut_process } from "./api";
 import StyledLogin from "./styles/StyledLogin";
 import { useNavigate } from "react-router";
 export interface LOGIN_INFO {
-  // id: string;
   userId: string;
   password: string;
 }
 const LOGIN_INFO: LOGIN_INFO = {
-  // id: "",
   userId: "",
   password: "",
 };
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }: any) => {
   const [loginInfo, setLoginInfo] = useState(LOGIN_INFO);
   const navi = useNavigate();
 
   const handleLoginCheck = async () => {
     await loginCheck_process();
-    // if (loginCheck_process().userId) {
-    //   console.log("로그인된 상태입니다.");
-    // } else console.log("로그인 ㄱ");
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (await login_process({ userId: loginInfo.userId, password: loginInfo.password })) navi("/");
+    const login = await login_process({ userId: loginInfo.userId, password: loginInfo.password });
+    if (login) {
+      onLogin(login.userId);
+      navi("/");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

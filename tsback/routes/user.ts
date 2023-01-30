@@ -10,8 +10,8 @@ const router = express.Router();
 router.get("/", isLoggedIn, (req, res) => {
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
   const user = req.user!;
-  console.log(" ||||||||||||||||| get/", user);
-  return res.json({ ...user, password: null });
+  console.log(" ||||||||||||||||| get/", user.dataValues);
+  return res.send({ ...user, password: null });
 });
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
@@ -71,9 +71,10 @@ router.post("/logout", isLoggedIn, (req, res, next) => {
 
 router.get("/userInfo", (req, res) => {
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
-  const user = req.user!;
-  console.log(" ||||||||||||||||| get/", user);
-  return res.json({ ...user, password: null });
+  console.log("userInfo test");
+  // const user = req.user!;
+  // console.log(" ||||||||||||||||| get/userInfo", user);
+  // return res.send({ ...user, password: null });
 });
 
 router.patch("/nickname", isLoggedIn, async (req, res, next) => {
