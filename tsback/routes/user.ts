@@ -98,4 +98,8 @@ router.get("/userList", async (req, res) => {
   res.send(userList);
 });
 
+// router.post('delUser', (req, res) => {
+//   User.destroy
+// })
+
 export default router;
