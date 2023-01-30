@@ -103,7 +103,7 @@ const ProductList = () => {
         initialProducts.filter((value) => value["name"].includes(searchItem))
       );
     }
-    sessionStorage.clear();
+    sessionStorage.removeItem("itemName");
   }, []);
 
   useEffect(() => {
