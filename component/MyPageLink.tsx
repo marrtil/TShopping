@@ -8,7 +8,6 @@ import MySize from "./myPage/MySize";
 const MyPageLink = () => {
   return (
     <Routes>
-      {/* <Route path="/myinfo" element={<MyInfo />} /> */}
       <Route path="myorder" element={<MyOrderRecord />} />
       <Route path="myreview" element={<MyReview />} />
       <Route path="mysize" element={<MySize />} />

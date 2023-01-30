@@ -35,9 +35,8 @@ export async function login_process(userInfo: LOGIN_INFO) {
     credentials: "include",
     body: JSON.stringify(userInfo),
   });
-  console.log("####################### res - ", res);
   const body = await res.json();
-  console.log("####################### body - ", body);
+  console.log(body);
   return body;
 }
 

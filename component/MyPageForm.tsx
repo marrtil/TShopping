@@ -8,8 +8,9 @@ import MySize from "./myPage/MySize";
 import ModForm from "./myPage/ModForm";
 import ViewedGoods from "./myPage/ViewedGoods";
 import { loginCheck_process } from "./api";
-const MyPageForm = () => {
+const MyPageForm = ({ userInfo }: any) => {
   const location = useLocation();
+  console.log("userInfo", userInfo);
   const [menu, setMenu] = React.useState<string>(location.pathname.split("/")[2]);
   React.useEffect(() => {
     if (menu) {

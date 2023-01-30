@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FC } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { getUser, getUserInfo, loginCheck_process, logOut_process } from "./component/api";
+import { logOut_process } from "./component/api";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
 import JoinForm from "./component/JoinForm";
@@ -9,22 +9,18 @@ import LoginForm from "./component/LoginForm";
 
 const App: FC = () => {
   const session = window.sessionStorage;
-  const [userId, setUserId] = React.useState<string>(session.getItem("userId") as string);
+  const [userInfo, setuserInfo] = React.useState<any>();
 
-  const handleLogin = (userId: string) => {
-    session.setItem("userId", userId);
-    setUserId(session.getItem("userId") as string);
-  };
-  const handleLoad = async () => {
-    console.log(await loginCheck_process());
+  const handleLogin = async (loginInfo: any) => {
+    session.setItem("userInfo", JSON.stringify(loginInfo));
+    await setuserInfo(loginInfo);
   };
 
-  React.useEffect(() => {
-    // handleLoad();
-  }, []);
+  console.log(userInfo);
+
   const handleLogout = async () => {
-    session.clear();
-    setUserId("");
+    session.removeItem("userInfo");
+    setuserInfo("");
     await logOut_process();
   };
 
@@ -38,7 +34,7 @@ const App: FC = () => {
             path="/*"
             element={
               <>
-                <Header userId={userId} handleLogout={handleLogout} />
+                <Header userInfo={session.getItem("userInfo")} handleLogout={handleLogout} />
                 <Footer />
               </>
             }

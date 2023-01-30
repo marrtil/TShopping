@@ -4,12 +4,14 @@ import StyledTitleBanner from "./styles/StyledTitleBanner";
 import StyledHeader from "./styles/StyledHeader";
 import StyledLoginBar from "./styles/StyledLoginBar";
 import StyledMenuBar from "./styles/StyledMenuBar";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
 import { productManT, productWomenT } from "./Types";
-import { getUserInfo, loginCheck_process, logOut_process } from "./api";
-const Header = ({ userId, handleLogout }: any) => {
+import { loginCheck_process } from "./api";
+const Header = ({ userInfo, handleLogout }: any) => {
+  const navi = useNavigate();
+  // const [userInfo, setUserInfo] = React.useState<any>();
   const productWomen: productWomenT = {
     아우터: "outter",
     가디건: "cardigan",
@@ -37,19 +39,19 @@ const Header = ({ userId, handleLogout }: any) => {
     언더웨어: "under-wear",
     신발: "shoes",
   };
-
+  const myPageLoad = async () => {
+    console.log("mypageLoad");
+    // setUserInfo(await loginCheck_process());
+    console.log(await loginCheck_process());
+  };
+  // myPageLoad();
   return (
     <>
       <StyledHeader>
         <StyledLoginBar>
           <ul>
             <li key="login">
-              <a href="/" onClick={handleLogout}>
-                로그아웃
-              </a>
-              {/* <button onClick={handleLoad}>테스트</button> */}
-              {/* <button onClick={handleLogout}>로그아웃</button> */}
-              {userId ? (
+              {userInfo ? (
                 <a href="/" onClick={handleLogout}>
                   로그아웃
                 </a>
@@ -67,7 +69,19 @@ const Header = ({ userId, handleLogout }: any) => {
             </li>
             <li key="hr3">|</li>
             <li key="mypage">
-              <Link to="/myPage">마이페이지</Link>
+              <Link
+                to="/myPage"
+                onClick={(e) => {
+                  if (!userInfo) {
+                    alert("로그인이 필요합니다!");
+                    navi("/login");
+                    e.preventDefault();
+                  } else myPageLoad();
+                  e.preventDefault();
+                }}
+              >
+                마이페이지
+              </Link>
             </li>
           </ul>
           <hr></hr>
@@ -121,7 +135,7 @@ const Header = ({ userId, handleLogout }: any) => {
       </StyledHeader>
       <Routes>
         <Route path="/*" element={<LinkMatcher />} />
-        <Route path="/myPage//*" element={<MyPageForm />} />
+        <Route path="/myPage//*" element={<MyPageForm userInfo={userInfo} />} />
       </Routes>
     </>
   );
