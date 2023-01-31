@@ -9,7 +9,7 @@ import LoginForm from "./component/LoginForm";
 
 const App: FC = () => {
   const session = window.sessionStorage;
-  const [userInfo, setuserInfo] = React.useState<any>();
+  const [userInfo, setuserInfo] = React.useState<any>(JSON.parse(session.getItem("userInfo")!));
 
   const handleLogin = async (loginInfo: any) => {
     session.setItem("userInfo", JSON.stringify(loginInfo));

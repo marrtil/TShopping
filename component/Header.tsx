@@ -8,7 +8,6 @@ import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
 import { productManT, productWomenT } from "./Types";
-import { loginCheck_process } from "./api";
 const Header = ({ userInfo, handleLogout }: any) => {
   const navi = useNavigate();
   // const [userInfo, setUserInfo] = React.useState<any>();
@@ -39,12 +38,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
     언더웨어: "under-wear",
     신발: "shoes",
   };
-  const myPageLoad = async () => {
-    console.log("mypageLoad");
-    // setUserInfo(await loginCheck_process());
-    console.log(await loginCheck_process());
-  };
-  // myPageLoad();
+
   return (
     <>
       <StyledHeader>
@@ -76,8 +70,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
                     alert("로그인이 필요합니다!");
                     navi("/login");
                     e.preventDefault();
-                  } else myPageLoad();
-                  e.preventDefault();
+                  }
                 }}
               >
                 마이페이지
@@ -135,7 +128,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
       </StyledHeader>
       <Routes>
         <Route path="/*" element={<LinkMatcher />} />
-        <Route path="/myPage//*" element={<MyPageForm userInfo={userInfo} />} />
+        <Route path="/myPage//*" element={<MyPageForm />} />
       </Routes>
     </>
   );

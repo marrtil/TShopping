@@ -14,8 +14,13 @@ router.get("/", isLoggedIn, (req, res) => {
 });
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
+  // isNotLoggedIn을 통해 로그인 여부를 파악. 로그인중이 아니라면 next();
+  // > 다음 콜백함수를 실행.
   console.log(" |||||||||||||||||||| post/login");
   passport.authenticate("local", (authError, user, info) => {
+    // 로컬 전략을 사용할거다~
+    // localStrategy을 실행.
+    // 파라미터는 return done으로 받은 세녀석.
     if (authError) {
       console.error(authError);
       return next(authError);
@@ -29,7 +34,8 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      // console.log(res);
+      // 에러가 없다면 password를 제외하고 리턴
+      // db에서 다시 안불러오고 비밀번호만 쳐내도 되긴할듯ㅋㅋ 귀찮아잉
       const userInfo = await User.findOne({
         where: { id: user.id },
         attributes: { exclude: ["password"] },

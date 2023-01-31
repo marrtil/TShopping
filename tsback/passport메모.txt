@@ -4,7 +4,13 @@
  - passport, passport-local
 
 index.ts 작성 시 주의사항
- - session 이후에 passport.initialize()와 passport.session()이 위치해야함.
+ - session 설정 이후에 passport.initialize()와 passport.session()이 위치해야함.
+
+사용 파일들 파일 내 코드와 함꼐 설명을 써둠.
+ - passport/index
+ - passport/localStrategy : 로그인 코드.
+ - routes/middleware : 로그인 여부 파악하는 코드.
+ - routes/user - router.post('/login', ...) : 로그인!
 
 
 0128 ////
@@ -72,5 +78,6 @@ index.ts 작성 시 주의사항
  > 재렌더링 되는 이유
     > credentials: 'include' 가 있으면 재렌더링
     > isLoggedIn은 문제가 아님.
+    > deserializeUser에서 재렌더링이 일어나는건지 모르겟다.
  > 로그인체크의 기능 : 로그인 중이라면 유저의 정보를 가져오는 것.
     > 언제 불러야 하나 : 정보가 필요한 페이지를 로드할 때. => 로그인 한 상태여야함.

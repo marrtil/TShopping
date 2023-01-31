@@ -17,6 +17,11 @@ export interface UserInfo {
   imageUrl: string | any;
   imageFile: string | any;
 }
+export interface User {
+  [userId: string]: string;
+  nickname: string;
+  email: string;
+}
 
 ////////////////// 아래로 물건 관련 //////////////////////////////
 

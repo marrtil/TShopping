@@ -34,4 +34,4 @@
 
 옷 db속성
  - 색상, 성별, 종류
- - id, name, color, gender, kind, size, discount, stock, image
+ - id, name, gender, kind, size, color, image, price, sale, count

@@ -5,6 +5,7 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction) => {
   if (req.isAuthenticated()) {
     console.log("이미 로그인중!");
     next();
+    // next() : 다음 콜백함수로 가라~
   } else {
     res.status(401).send("로그인이 필요합니다.");
   }
