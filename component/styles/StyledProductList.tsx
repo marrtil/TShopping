@@ -16,16 +16,18 @@ const StyledProductList = styled.div`
   }
   .listProduct {
     width: 24%;
-    height: 350px;
+    height: 30%;
     margin-right: 2px;
   }
   .productInfo {
     text-align: left;
+    height: 10vh;
+    font-size: medium;
   }
 
   .listImage {
     width: 100%;
-    height: 270px;
+    height: 40vh;
   }
 
   del {
@@ -39,8 +41,8 @@ const StyledProductList = styled.div`
   }
 
   .color {
-    width: 8px;
-    height: 8px;
+    width: 0.5vw;
+    height: 1vh;
     text-indent: -9999px;
     overflow: hidden;
     float: left;
