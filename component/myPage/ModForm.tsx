@@ -1,26 +1,22 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-// import { modMember } from "../api";
-import FileInput from "../FileInput";
-// import "./ModForm.css";
-import axios from "axios";
+import { passwordCheck_process } from "../api";
+import { checkSpace } from "../funtion";
 import { InputName } from "../Types";
 import StyledMyInfo from "./StyledMyInfo";
 
 interface SetUser {
   password: string;
-  name: string;
+  passwordCheck: string;
+  nickname: string;
   email: string;
-  imageUrl: string | any;
-  imageFile: string | any;
 }
 
 const INITIAL_VALUES: SetUser = {
   password: "",
-  name: "",
+  passwordCheck: "",
+  nickname: "",
   email: "",
-  imageUrl: null,
-  imageFile: null,
 };
 
 const inputName: InputName = {
@@ -31,27 +27,66 @@ const inputName: InputName = {
   email: "이메일",
 };
 
-function MyInfo() {
+function ModForm({ userInfo }: any) {
+  const [modData, setModData] = useState(INITIAL_VALUES);
+  const [passConfirm, setPassConfirm] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setModData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const passwordCheck = async () => {
+    const { userId } = userInfo;
+    const check = modData.password;
+    const checkText = document.querySelector("#passwordCheck") as HTMLParagraphElement;
+    // const check = await getUserInfo(joinData.userId);
+    // if (check.userId) {
+    if (check.length < 4 || check.length > 12) {
+      checkText.textContent = "패스워드는 4~12글자 이내이어야 합니다.";
+      checkText.style.color = "red";
+    } else if (checkSpace(check)) {
+      checkText.textContent = "공백이 포함될 수 없습니다.";
+      checkText.style.color = "red";
+    } else if (await passwordCheck_process({ userId: userId, password: check })) {
+      setPassConfirm(false);
+      checkText.textContent = "이미 사용중인 비밀번호입니다.";
+      checkText.style.color = "red";
+    } else {
+      setPassConfirm(true);
+      checkText.textContent = "사용 가능한 비밀번호입니다.";
+      checkText.style.color = "green";
+    }
+  };
+
   return (
     <StyledMyInfo>
       <table>
         <tr>
           <td className="infoName">아이디</td>
           <td className="infoSlash">|</td>
-          <td className="infoValue">idvalue(고정)</td>
+          <td className="infoValue">{userInfo.userId}</td>
         </tr>
         <tr>
           <td className="infoName">비밀번호</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input />
+            <input name="password" onChange={handleChange} onBlur={passwordCheck} />
+          </td>
+        </tr>
+        <tr>
+          <td colSpan={2} />
+          <td>
+            <p id="passwordCheck"></p>
           </td>
         </tr>
         <tr>
           <td className="infoName">비밀번호 확인</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input />
+            <input name="passwordCheck" onChange={handleChange} />
             <div id="passwordCheckDiv"> 일치/불일치 </div>
           </td>
         </tr>
@@ -59,14 +94,14 @@ function MyInfo() {
           <td className="infoName">닉네임</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input /> <button>중복체크</button>
+            <input name="nickname" onChange={handleChange} /> <button>중복체크</button>
           </td>
         </tr>
         <tr>
           <td className="infoName">이메일</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input />
+            <input name="email" type="email" onChange={handleChange} />
           </td>
         </tr>
         <tr>
@@ -82,4 +117,4 @@ function MyInfo() {
   );
 }
 
-export default MyInfo;
+export default ModForm;

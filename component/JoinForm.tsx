@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
-import { join_process } from "./api";
+import { join_process, idCheck_process } from "./api";
+import { checkSpace, checkSpecial } from "./funtion";
 import StyledJoin from "./styles/StyledJoin";
 import { InputName } from "./Types";
 // import { getUserInfo, joinMember } from "../api";
@@ -17,6 +18,7 @@ const inputName: InputName = {
   passwordCheck: "비밀번호 확인",
   email: "이메일",
 };
+
 function JoinForm() {
   const [joinData, setJoinData] = useState(INITIAL_VALUES);
   const [idConfrim, setIdConfirm] = useState(false);
@@ -48,37 +50,20 @@ function JoinForm() {
     }
     await join_process({ userId: joinData.userId, nickname: joinData.name, password: joinData.password });
   };
-  function checkSpace(str: string) {
-    if (str.search(/\s/) != -1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-  function checkSpecial(str: string) {
-    var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-
-    if (special_pattern.test(str) == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
   const idCheck = async () => {
     const check = joinData.userId;
     const checkText = document.querySelector("#idCheck") as HTMLParagraphElement;
     joinData.userId;
     // const check = await getUserInfo(joinData.userId);
     // if (check.userId) {
-
     if (check.length < 5) {
       checkText.textContent = "아이디는 5글자 이상이어야 합니다.";
       checkText.style.color = "red";
     } else if (checkSpace(check) || checkSpecial(check)) {
       checkText.textContent = "공백 또는 특수문자(!,@,#,$...)가 포함될 수 없습니다.";
       checkText.style.color = "red";
-    } else if (check === "marrtiller") {
+    } else if (await idCheck_process(check)) {
       setIdConfirm(false);
       checkText.textContent = "이미 사용중이거나 탈퇴한 아이디입니다.";
       checkText.style.color = "red";

@@ -34,7 +34,7 @@ const App: FC = () => {
             path="/*"
             element={
               <>
-                <Header userInfo={session.getItem("userInfo")} handleLogout={handleLogout} />
+                <Header userInfo={userInfo} handleLogout={handleLogout} />
                 <Footer />
               </>
             }

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "server": "ts-node index",
+    "server": "npm run dev",
     "client": "cd ../ && npm run dev",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },

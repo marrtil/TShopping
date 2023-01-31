@@ -92,3 +92,43 @@ export async function joinMember(formData: FormData) {
   const body = await response.json();
   return body;
 }
+
+export async function idCheck_process(userId: string) {
+  // id 중복체크
+  const res = await fetch(`${URL}/user/idCheck/${userId}`);
+  try {
+    const body = await res.json();
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+export async function passwordCheck_process(checkData: any) {
+  console.log(checkData);
+  // password 중복이면 true, 아니면 false
+  const res = await fetch(`${URL}/user/passwordCheck`, {
+    method: "POST",
+    body: checkData,
+  });
+  try {
+    const body = await res.json();
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+export async function modMember(userId: string, member: any) {
+  console.log("modMember api");
+  const res = await fetch(`${URL}/api/members/${userId}`, {
+    method: "PUT",
+    // headers: { "Content-type": "multipart/form-data" },
+    body: member,
+    // transformRequest: (data, headers) => {
+    //   return data;
+    // },
+  });
+  if (!res) throw new Error("회원정보 수정에 실패하였습니다");
+  const body = await res.json();
+  return body;
+}

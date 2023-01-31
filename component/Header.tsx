@@ -44,19 +44,24 @@ const Header = ({ userInfo, handleLogout }: any) => {
       <StyledHeader>
         <StyledLoginBar>
           <ul>
-            <li key="login">
-              {userInfo ? (
+            {userInfo ? (
+              <li key="login">
                 <a href="/" onClick={handleLogout}>
                   로그아웃
                 </a>
-              ) : (
-                <Link to="/login">로그인</Link>
-              )}
-            </li>
-            <li key="hr1">|</li>
-            <li key="join">
-              <Link to="/join">회원가입</Link>
-            </li>
+              </li>
+            ) : (
+              <>
+                <li key="login">
+                  <Link to="/login">로그인</Link>
+                </li>
+                <li key="hr1">|</li>
+                <li key="join">
+                  <Link to="/join">회원가입</Link>
+                </li>
+              </>
+            )}
+
             <li key="hr2">|</li>
             <li key="cart">
               <Link to="/cart">장바구니</Link>
@@ -128,7 +133,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
       </StyledHeader>
       <Routes>
         <Route path="/*" element={<LinkMatcher />} />
-        <Route path="/myPage//*" element={<MyPageForm />} />
+        <Route path="/myPage//*" element={<MyPageForm userInfo={userInfo} />} />
       </Routes>
     </>
   );

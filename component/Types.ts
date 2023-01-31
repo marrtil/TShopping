@@ -20,7 +20,7 @@ export interface UserInfo {
 export interface User {
   [userId: string]: string;
   nickname: string;
-  email: string;
+  // email: string;
 }
 
 ////////////////// 아래로 물건 관련 //////////////////////////////

@@ -8,11 +8,10 @@ import MySize from "./myPage/MySize";
 import ModForm from "./myPage/ModForm";
 import ViewedGoods from "./myPage/ViewedGoods";
 import { loginCheck_process } from "./api";
-import { User } from "./Types";
-const MyPageForm = () => {
+const MyPageForm = ({ userInfo }: any) => {
   const session = window.sessionStorage;
   const location = useLocation();
-  const [userInfo, setUserInfo] = React.useState<any>();
+  // const [userInfo, setUserInfo] = React.useState<any>();
   const [menu, setMenu] = React.useState<string>(location.pathname.split("/")[2]);
   React.useEffect(() => {
     if (menu) {
@@ -28,7 +27,9 @@ const MyPageForm = () => {
     console.log("mypageLoad");
     // setUserInfo(await loginCheck_process());
     // if (session.getItem("userInfo") && !userInfo) {
-    setUserInfo(await loginCheck_process());
+    // setUserInfo(loginCheck_process());
+    console.log(await loginCheck_process());
+    // console.log
     // }
   };
   React.useEffect(() => {
@@ -73,7 +74,7 @@ const MyPageForm = () => {
         <Route path="/myreview/:state" element={<MyReview />} />
         <Route path="/mysize" element={<MySize />} />
         <Route path="/viewed-goods" element={<ViewedGoods />} />
-        <Route path="/modForm" element={<ModForm />} />
+        <Route path="/modForm" element={<ModForm userInfo={userInfo} />} />
         <Route path="/" element={<MyInfo userInfo={userInfo} />} />
       </Routes>
     </StyledMyPage>

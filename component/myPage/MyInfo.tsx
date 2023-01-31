@@ -13,18 +13,18 @@ function MyInfo({ userInfo }: any) {
         <tr>
           <td className="infoName">아이디</td>
           <td className="infoSlash">|</td>
-          {/* <td className="infoValue">{userInfo.userId}</td> */}
+          <td className="infoValue">{userInfo.userId}</td>
         </tr>
         <tr>
           <td className="infoName">닉네임</td>
           <td className="infoSlash">|</td>
-          {/* <td className="infoValue">{userInfo.nickname}</td> */}
+          <td className="infoValue">{userInfo.nickname}</td>
         </tr>
-        <tr>
+        {/* <tr>
           <td className="infoName">이메일</td>
           <td className="infoSlash">|</td>
-          {/* <td className="infoValue">{userInfo.email}</td> */}
-        </tr>
+          <td className="infoValue">{userInfo.email}</td>
+        </tr> */}
         <tr>
           <td></td>
           <td></td>

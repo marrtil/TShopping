@@ -90,6 +90,14 @@ router.get("/idCheck/:userid", async (req, res) => {
   res.send(check);
 });
 
+router.post("/passwordCheck", async (req, res) => {
+  console.log("body", req.body);
+  const { userId, password } = req.body;
+  console.log(userId + " post " + password);
+  const check = await User.findOne({ where: { userId, password: bcrypt.hash(password, 12) }, attributes: ["id"] });
+  res.send(check);
+});
+
 router.get("/userList", async (req, res) => {
   const userList = await User.findAll();
   res.send(userList);
