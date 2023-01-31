@@ -16,15 +16,11 @@ const LoginForm = ({ onLogin }: any) => {
   const [loginInfo, setLoginInfo] = useState(LOGIN_INFO);
   const navi = useNavigate();
 
-  const handleLoginCheck = async () => {
-    await loginCheck_process();
-  };
-
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const login = await login_process({ userId: loginInfo.userId, password: loginInfo.password });
     if (login) {
-      onLogin(login.userId);
+      onLogin(login);
       navi("/");
     }
   };
@@ -55,12 +51,6 @@ const LoginForm = ({ onLogin }: any) => {
           회원가입
         </a>
       </form>
-      {/* <button className="loginBtn" onClick={handleLogout}>
-        로그아웃
-      </button> */}
-      <button className="loginBtn" onClick={handleLoginCheck}>
-        로그인체크
-      </button>
     </StyledLogin>
   );
 };

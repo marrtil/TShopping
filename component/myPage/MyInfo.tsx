@@ -1,9 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { modMember } from "../api";
-import FileInput from "../FileInput";
-import { InputName } from "../Types";
 import StyledMyInfo from "./StyledMyInfo";
 
 function MyInfo() {
