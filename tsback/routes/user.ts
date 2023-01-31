@@ -48,16 +48,18 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   const { userId, nickname, password } = req.body;
   try {
-    const existUser = await User.findOne({ where: { userId } });
-    if (existUser) {
-      return res.redirect("/join?error=exist");
-    }
+    // const existUser = await User.findOne({ where: { userId } });
+    // if (existUser) {
+    //   return res.redirect("/join?error=exist");
+    // }
+    // 아이디 중복체크는 이미 앞전에 했으니
     // 두 번째 인수는 hash 반복 횟수, 12 이상을 추천하며 최대 31까지 가능
     const hash = await bcrypt.hash(password, 12);
     await User.create({
       userId,
       nickname,
       password: hash,
+      // email,
     });
     return res.redirect("/");
   } catch (err) {
@@ -82,21 +84,10 @@ router.get("/userInfo", (req, res) => {
   // return res.send({ ...user, password: null });
 });
 
-router.patch("/nickname", isLoggedIn, async (req, res, next) => {
-  try {
-    await User.update(
-      {
-        nickname: req.body.nickname,
-      },
-      {
-        where: { id: req.user!.id },
-      }
-    );
-    res.send(req.body.nickname);
-  } catch (e) {
-    console.error(e);
-    next(e);
-  }
+router.get("/idCheck/:userid", async (req, res) => {
+  const { userid } = req.params;
+  const check = await User.findOne({ where: { userid }, attributes: ["id"] });
+  res.send(check);
 });
 
 router.get("/userList", async (req, res) => {
