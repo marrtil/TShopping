@@ -5,6 +5,7 @@ const StyledMenuBar = styled.div`
   height: 50px;
   width: 100%;
   display: inline-block;
+  text-align: center;
   //   display: table;
 
   .menuUl {

@@ -15,24 +15,22 @@ const StyledProductList = styled.div`
     color: black;
   }
   .listProduct {
-    position: relative;
     width: 24%;
+    height:auto;
     margin-right: 2px;
   }
-  .listProduct:after {
-    content: "";
-    display: block;
-    padding-top: 24%;
-  }
+  
   .productInfo {
     text-align: left;
     width:25%
-    font-size: 15px;
+    height:auto;
+    overflow:hidden;
+    font-size:66%;
   }
 
   .listImage {
     width: 100%;
-    height: 60%;
+    height: auto;
   }
 
   del {
