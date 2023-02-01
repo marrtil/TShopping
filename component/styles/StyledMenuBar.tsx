@@ -6,7 +6,7 @@ const StyledMenuBar = styled.div`
   width: 100%;
   display: inline-block;
   text-align: center;
-  padding-left: 170px;
+  padding-left: 250px;
 
   .allMenu li:hover {
     background-color: rgb(200, 200, 200);
@@ -19,7 +19,7 @@ const StyledMenuBar = styled.div`
     top: 281px;
     background-color: rgb(200, 200, 200);
     height: 400px;
-    width: 400px;
+    width: 50%;
     z-index: 4;
     float: left;
     text-align: center;

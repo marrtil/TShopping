@@ -5,7 +5,7 @@ const StyledBody = styled.div`
   #buttons {
     position: absolute;
     top: 580px;
-    left: 586px;
+    right: 348px;
 
     button {
       color: white;
@@ -17,9 +17,9 @@ const StyledBody = styled.div`
   height: 1300px;
 
   #banner {
-    margin-left: 150px;
+    margin-left: 300px;
     img {
-      width: 500px;
+      width: 780px;
       height: 300px;
       position: relative;
       transition: all 1s;

@@ -31,13 +31,18 @@ const Banner = () => {
 
   useEffect(() => {
     if (stop) {
+      clearTimeout(0);
+      clearTimeout(1);
+      clearTimeout(2);
       return;
-    }
-    setTimeout(() => {
-      if (num >= thumbnail.length - 1) {
-        setNum(0);
-      } else setNum(num + 1);
-    }, 4000);
+    } else
+      setTimeout(() => {
+        if (num >= thumbnail.length - 1) {
+          setNum(0);
+        } else {
+          setNum(num + 1);
+        }
+      }, 4000);
   }, [num, stop]);
 
   //▶︎,⏸︎
@@ -46,21 +51,17 @@ const Banner = () => {
     <div id="banner">
       <img src={thumbnail[num]} id="thumb"></img>
       <div id="buttons">
-        <button id="btn1" onClick={prevBtn}>
-          {"<"}
-        </button>
+        <button onClick={prevBtn}>{"<"}</button>
         <button
           id="btn2"
           onClick={() => {
             stop ? setStop(false) : setStop(true);
           }}
         >
-          {stop ? "▶︎" : "⏸︎"}
+          {stop ? "▶︎" : "||"}
         </button>
 
-        <button id="btn3" onClick={nextBtn}>
-          &gt;
-        </button>
+        <button onClick={nextBtn}>&gt;</button>
       </div>
     </div>
   );
