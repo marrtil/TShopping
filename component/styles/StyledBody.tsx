@@ -4,14 +4,14 @@ const StyledBody = styled.div`
   width: 1200px;
   #buttons {
     position: absolute;
-    top: 575px;
-    left: 581px;
-  }
+    top: 580px;
+    left: 586px;
 
-  #buttons button {
-    color: white;
-    background-color: black;
-    height: 30px;
+    button {
+      color: white;
+      background-color: black;
+      height: 30px;
+    }
   }
 
   height: 1300px;
