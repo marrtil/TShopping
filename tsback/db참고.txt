@@ -30,8 +30,46 @@
  - localhost:3001/user/userList에 접속
  - seed로 넣은 정보가 나온다 - 성공
 
+유저 db >배송지 1:1 | >주문 1:n | >장바구니 1:n  - User
+ - id, nickname, userId, password, size
 
+배송지  - address
+ - userid, 우편번호, 주소, 상세주소
 
-옷 db속성
+주문 >주문상세 1:m  - order
+ - id(주문번호), userId, 주문날짜, 처리상태
+
+주문상세 >제품정보 1:n  - orderDetail
+ - id(주문상세번호), 주문번호, productId, size, count, color
+ > 가격과 할인율은 product테이블에서 가져오자고 - 이유 : 할인율과 가격이 제품정보에서 변경되면 매번 여기에도 반영해줘야함.
+
+최근 본 상품  - cart
+ - id, userId, productId
+
+장바구니 >제품정보 1:n  - viewedGoods
+ - id(장바구니번호), productId, userId, count, size
+
+후기  - review
+ - id(후기번호), userId, productId, size, color, rating, content(비어도 됨.), createdAt
+
+제품정보 >이미지 1:n | >후기 1:n  - product
  - 색상, 성별, 종류
  - id, name, gender, kind, size, color, image, price, sale, count
+
+제품설명  - 보류
+ - 제품id, 이미지, 설명
+
+이미지  - 보류
+ - 이미지id, imgName, imgUrl
+
+물품 목록 > Product 접근 > userId로 User 접근 > 최근 본 상품id추가 > 장바구니에 담기 > userId로 주문내역 접근 > orderState='장바구니'로 추가.
+
+장바구니 > userId로 User 접근 > 장바구니 배열에서 주문내역id를 통해 주문내역db 접근 > orderState='장바구니'인 이미지와 가격, 기타 정보를 불러옴.
+
+ > 주문 내역 : userId > 주문 > 주문상세 
+
+
+
+ 기본키 : 하나의 테이블 내에서 고유한 행을 선택할 수 있는 속성.
+
+ 외래키 : 중복 데이터를 없애기 위해 사용한다?
