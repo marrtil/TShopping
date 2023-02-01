@@ -7,9 +7,10 @@ const StyledProductList = styled.div`
     flex-direction: row;
     width: 73.5%;
     flex-wrap: wrap;
-    margin-left: 150px;
+    margin-left: 225px;
     background-color: rgb(230, 230, 230);
   }
+  
   a {
     text-decoration: none;
     color: black;
@@ -53,7 +54,7 @@ const StyledProductList = styled.div`
   }
 
   #productFilter {
-    margin-left: 150px;
+    margin-left: 215px;
     margin-bottom: 30px;
   }
   .filter {

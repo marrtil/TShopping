@@ -7,7 +7,12 @@ import moomin4 from "../upload/moomin4.jpeg";
 
 const Banner = () => {
   const [num, setNum] = useState<number>(0);
-  const [thumbnail, setThumbnail] = useState<string[]>([moomin1, moomin2, moomin3, moomin4]); //지금은 state인데 어떻게될지모름
+  const [thumbnail, setThumbnail] = useState<string[]>([
+    moomin1,
+    moomin2,
+    moomin3,
+    moomin4,
+  ]); //지금은 state인데 어떻게될지모름
   const [stop, setStop] = useState<boolean>(false);
 
   const prevBtn = () => {
@@ -38,22 +43,25 @@ const Banner = () => {
   //▶︎,⏸︎
 
   return (
-    <div>
+    <div id="banner">
       <img src={thumbnail[num]} id="thumb"></img>
-      <button id="btn1" onClick={prevBtn}>
-        {"<"}
-      </button>
-      <button
-        id="btn2"
-        onClick={() => {
-          stop ? setStop(false) : setStop(true);
-        }}
-      >
-        {stop ? "▶︎" : "⏸︎"}
-      </button>
-      <button id="btn3" onClick={nextBtn}>
-        &gt;
-      </button>
+      <div id="buttons">
+        <button id="btn1" onClick={prevBtn}>
+          {"<"}
+        </button>
+        <button
+          id="btn2"
+          onClick={() => {
+            stop ? setStop(false) : setStop(true);
+          }}
+        >
+          {stop ? "▶︎" : "⏸︎"}
+        </button>
+
+        <button id="btn3" onClick={nextBtn}>
+          &gt;
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 const StyledGrid = styled.div`
+  margin-left: 150px;
   .listTitle {
     display: flex;
     height: 80px;
     justify-content: space-between;
     align-items: flex-end;
-    padding-right: 34%;
+    padding-right: 25%;
     h2 {
       // width: 200px;
       // height: 30px;
@@ -19,7 +20,7 @@ const StyledGrid = styled.div`
     }
   }
   #hrDivider {
-    width: 66%;
+    width: 75%;
   }
 
   img {
@@ -27,6 +28,7 @@ const StyledGrid = styled.div`
     height: 300px;
     position: relative;
     transition: all 1s;
+    border-radius: 10px;
   }
 
   .Recomend {

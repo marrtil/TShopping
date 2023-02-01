@@ -89,7 +89,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
         </a>
         <SearchForm />
         <StyledMenuBar>
-          <ul>
+          <ul className="allMenu">
             <li className="menu">
               <a href="#">메뉴</a>
               <ul className="menuUl">
@@ -99,7 +99,11 @@ const Header = ({ userInfo, handleLogout }: any) => {
                     <hr />
                     {Object.keys(productMan).map((value) => (
                       <div>
-                        <a href={`/productList?gender=man&kind=${productMan[value]}`}>{value}</a>
+                        <a
+                          href={`/productList?gender=man&kind=${productMan[value]}`}
+                        >
+                          {value}
+                        </a>
                       </div>
                     ))}
                   </div>
@@ -112,7 +116,9 @@ const Header = ({ userInfo, handleLogout }: any) => {
                     <hr />
                     {Object.keys(productWomen).map((value) => (
                       <div>
-                        <a href={`/productList?gender=women&kind=${value}`}>{value}</a>
+                        <a href={`/productList?gender=women&kind=${value}`}>
+                          {value}
+                        </a>
                       </div>
                     ))}
                   </div>

@@ -6,11 +6,15 @@ const StyledMenuBar = styled.div`
   width: 100%;
   display: inline-block;
   text-align: center;
-  //   display: table;
+  padding-left: 170px;
+
+  .allMenu li:hover {
+    background-color: rgb(200, 200, 200);
+    color: black;
+  }
 
   .menuUl {
     display: none;
-    // display: block;
     position: absolute;
     top: 281px;
     background-color: rgb(200, 200, 200);
@@ -29,8 +33,6 @@ const StyledMenuBar = styled.div`
   }
 
   .menu:hover {
-    background-color: rgb(200, 200, 200);
-    color: black;
     .menuUl {
       display: block;
     }
