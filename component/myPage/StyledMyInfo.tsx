@@ -40,6 +40,11 @@ const StyledMyInfo = styled.div`
     color: rgb(100, 100, 100);
     display: inline-block;
   }
+  p {
+    height: 15px;
+    float: left;
+    margin: 0px 0px 0px 5px;
+  }
 `;
 
 export default StyledMyInfo;

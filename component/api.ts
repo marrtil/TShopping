@@ -80,10 +80,8 @@ export async function getUser(userInfo: LOGIN_INFO) {
 
 export async function joinMember(formData: FormData) {
   // FormData 타입도 세세하게 해주는게 좋을듯
-  console.log(formData);
-  console.log(JSON.stringify(formData));
   const response = await fetch(`${URL}/user/members/`, {
-    method: "POST",
+    method: "post",
     body: formData,
   });
   if (!response.ok) {
@@ -104,15 +102,20 @@ export async function idCheck_process(userId: string) {
   return true;
 }
 
-export async function passwordCheck_process(checkData: any) {
-  console.log(checkData);
+export async function passwordCheck_process(checkData: { userId: string; password: string }) {
   // password 중복이면 true, 아니면 false
+  console.log(checkData);
   const res = await fetch(`${URL}/user/passwordCheck`, {
-    method: "POST",
-    body: checkData,
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(checkData),
+    // credentials: "include",
   });
   try {
     const body = await res.json();
+    console.log(body);
   } catch (e) {
     return false;
   }
@@ -120,10 +123,13 @@ export async function passwordCheck_process(checkData: any) {
 }
 export async function modMember(userId: string, member: any) {
   console.log("modMember api");
-  const res = await fetch(`${URL}/api/members/${userId}`, {
+  const res = await fetch(`${URL}/user/mod/${userId}`, {
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
     // headers: { "Content-type": "multipart/form-data" },
-    body: member,
+    body: JSON.stringify(member),
     // transformRequest: (data, headers) => {
     //   return data;
     // },

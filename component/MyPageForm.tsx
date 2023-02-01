@@ -14,7 +14,8 @@ const MyPageForm = ({ userInfo }: any) => {
   // const [userInfo, setUserInfo] = React.useState<any>();
   const [menu, setMenu] = React.useState<string>(location.pathname.split("/")[2]);
   React.useEffect(() => {
-    if (menu) {
+    console.log(menu);
+    if (menu !== "modForm" && menu) {
       (document.querySelector(`#${menu}`) as HTMLAnchorElement).style.fontSize = "25px";
       (document.querySelector(`#${menu}`) as HTMLAnchorElement).style.color = "rgb(20,20,20)";
     } else {

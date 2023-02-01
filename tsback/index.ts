@@ -37,13 +37,16 @@ app.use("/", express.static("uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-
+var fileStoreOptions = {
+  path: "./sessions",
+  reapInterval: 10,
+}; // 10초마다 만료된 세션을 삭제.
 app.use(
   session({
     resave: false,
     saveUninitialized: true,
     secret: process.env.COOKIE_SECRET!,
-    store: new FileStore(),
+    store: new FileStore(fileStoreOptions),
     cookie: {
       httpOnly: true,
       secure: false, //개발할때만 false

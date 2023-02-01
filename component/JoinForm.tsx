@@ -35,17 +35,17 @@ function JoinForm() {
     const inputs = document.querySelectorAll(".joinInput") as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].value == "") {
+        e.preventDefault();
         alert(`${inputName[inputs[i].name]}을 입력해주세요`);
-        e.preventDefault();
-        break;
+        return;
       } else if (!idConfrim) {
+        e.preventDefault();
         alert("사용할 수 없는 아이디입니니다.");
-        e.preventDefault();
-        break;
+        return;
       } else if (!passConfirm) {
-        alert("비밀번호를 확인해 주세요!!");
         e.preventDefault();
-        break;
+        alert("비밀번호를 확인해 주세요!!");
+        return;
       }
     }
     await join_process({ userId: joinData.userId, nickname: joinData.name, password: joinData.password });

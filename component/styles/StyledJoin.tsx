@@ -3,7 +3,7 @@ import styled from "styled-components";
 const StyledJoin = styled.div`
   text-align: center;
   background-color: rgb(230, 230, 230);
-  width: 1000px;
+  // width: 1000px;
   height: 1200px;
   padding: 50px 0 0 0;
 

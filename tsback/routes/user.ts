@@ -36,7 +36,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
       }
       // 에러가 없다면 password를 제외하고 리턴
       // db에서 다시 안불러오고 비밀번호만 쳐내도 되긴할듯ㅋㅋ 귀찮아잉
-      const userInfo = await User.findOne({
+      const userInfo: any = await User.findOne({
         where: { id: user.id },
         attributes: { exclude: ["password"] },
       });
@@ -91,10 +91,12 @@ router.get("/idCheck/:userid", async (req, res) => {
 });
 
 router.post("/passwordCheck", async (req, res) => {
-  console.log("body", req.body);
+  // 기존 비밀번호랑 비교하는건데 언젠가 쓰겠지 ㅋㅋ
   const { userId, password } = req.body;
-  console.log(userId + " post " + password);
-  const check = await User.findOne({ where: { userId, password: bcrypt.hash(password, 12) }, attributes: ["id"] });
+  const check = await User.findOne({
+    where: { userId },
+  });
+  const result = await bcrypt.compare(password, check!.password);
   res.send(check);
 });
 
@@ -106,5 +108,27 @@ router.get("/userList", async (req, res) => {
 // router.post('delUser', (req, res) => {
 //   User.destroy
 // })
+router.put(
+  "/mod/:userId",
+  // upload.single("imageUrl"),
+  async (req, res) => {
+    //회원정보 수정
+    const { userId } = req.params;
+    const { nickname, password } = req.body;
+    const hash = await bcrypt.hash(password, 12);
+    console.log(userId + "+" + nickname + "+" + hash);
+    // if (req.file) {
+    //   const filePath = "https://ozitest.herokuapp.com/image/" + req.file.originalname; //파일이미지를 불러오기위한 경로+이미지파일 이름
 
+    //   newInfo["imageUrl"] = filePath; //경로를 request의 json파일에 넣어 수정 해준다
+    // }
+    const result = await User.update({ nickname, password: hash }, { where: { userId } });
+    // await Member.update({ imageUrl: req.file }, { where: { userId } });
+    if (result[0]) {
+      res.send({ message: `${result[0]} row(s) affected` }); //로우를 출력
+    } else {
+      res.status(404).send({ message: "There is no tavle with the id!" });
+    }
+  }
+);
 export default router;
