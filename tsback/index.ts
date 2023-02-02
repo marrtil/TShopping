@@ -7,6 +7,7 @@ import * as passport from "passport";
 import passportConfig from "./passport";
 import userRouter from "./routes/user";
 import productRouter from "./routes/product";
+import orderRouter from "./routes/order";
 import * as dotenv from "dotenv";
 import * as hpp from "hpp"; // 배포시 보안용
 import * as morgan from "morgan";
@@ -63,6 +64,7 @@ app.use(passport.session());
 // app.set("port", prod ? process.env.PORT : 3065);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use("/order", orderRouter);
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   // req, res, next 타입은 생략가능.
