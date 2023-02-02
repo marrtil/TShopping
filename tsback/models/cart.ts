@@ -6,6 +6,7 @@ class Cart extends Model {
   public productId!: string;
   public count!: number;
   public size!: string;
+  public color!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -27,6 +28,10 @@ Cart.init(
     },
     size: {
       type: DataTypes.STRING(5),
+      allowNull: false,
+    },
+    color: {
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
     createdAt: {

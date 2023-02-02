@@ -48,7 +48,12 @@ function JoinForm() {
         return;
       }
     }
-    await join_process({ userId: joinData.userId, nickname: joinData.name, password: joinData.password });
+    await join_process({
+      userId: joinData.userId,
+      nickname: joinData.name,
+      password: joinData.password,
+      email: joinData.email,
+    });
   };
 
   const idCheck = async () => {

@@ -85,3 +85,11 @@ export type productManT = {
   언더웨어: string;
   신발: string;
 };
+
+/////////////////////////////// 장바구니
+export interface CartData {
+  productId: number;
+  size: string;
+  color: string;
+  count: number;
+}

@@ -8,17 +8,20 @@ import moomin3 from "../upload/product3.png";
 import moomin4 from "../upload/moomin1.jpeg";
 import moomin5 from "../upload/moomin2.jpeg";
 import { initialProducts } from "./product";
+import { cartIn } from "./orderApi";
 const ProductForm = () => {
   const { id } = useParams();
 
-  const [product, setProduct] = useState(
-    initialProducts.filter((value) => value.id == Number(id))[0]
-  );
+  const [product, setProduct] = useState(initialProducts.filter((value) => value.id == Number(id))[0]);
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProduct((prevValue) => ({ ...prevValue, [name]: value }));
   };
   console.log(product);
+
+  const handleCartIn = async () => {
+    await cartIn({ productId: product.id, size: product.size, color: product.color, count: 1 });
+  };
 
   return (
     <StyledProductForm>
@@ -34,10 +37,7 @@ const ProductForm = () => {
               {product.sale > 0 ? (
                 <>
                   <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>&nbsp;
-                  {"₩" +
-                    (product.price * (1 - product.sale)).toLocaleString(
-                      "ko-KR"
-                    )}
+                  {"₩" + (product.price * (1 - product.sale)).toLocaleString("ko-KR")}
                 </>
               ) : (
                 product.price.toLocaleString("ko-KR")
@@ -68,7 +68,9 @@ const ProductForm = () => {
             </select>
           </div>
           <button className="payButton">결제하기</button>
-          <button className="payButton">장바구니</button>
+          <button className="payButton" onClick={handleCartIn}>
+            장바구니
+          </button>
         </div>
       </div>
     </StyledProductForm>
