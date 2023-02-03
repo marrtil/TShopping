@@ -2,10 +2,12 @@ import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
 import { useParams, useLocation } from "react-router";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import StyledProductList from "./styles/StyledProductList";
 import { productManT, productWomenT } from "./Types";
 import { initialProducts, product } from "./product";
+import { allProducts } from "./api";
+import { salePrice } from "./CartForm";
 
 type tableType = {
   [index: string]: string;
@@ -73,15 +75,20 @@ const productMan: productManT = {
 };
 
 const ProductList = () => {
-  const [listProduct, setListProduct] = useState<product[]>(
-    initialProducts.sort((a, b) => b.id - a.id)
-  );
+  const [listProduct, setListProduct] = useState<product[]>([]);
+  const [initialProduct, setInitialProduct] = useState<product[]>(listProduct);
+  const allProduct = async () => {
+    const product = await allProducts();
+    setListProduct(product);
+    setInitialProduct(product);
+  };
+  useEffect(() => {
+    allProduct();
+  }, []);
   const { search } = useLocation();
   const [query, setQuery] = useState<string[]>(search.split(/[?|=|&]/));
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
-  const [initialProduct, setInitialProduct] =
-    useState<product[]>(initialProducts);
   const sessionStorage = window.sessionStorage;
   const colorList = useMemo(() => {
     var colors: string[] = [];
@@ -92,7 +99,7 @@ const ProductList = () => {
     });
     return colors;
   }, [initialProduct]);
-  console.log(listProduct);
+
   useEffect(() => {
     const searchItem = sessionStorage.getItem("itemName");
     if (searchItem) {
@@ -233,10 +240,7 @@ const ProductList = () => {
                       <>
                         <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>
                         &nbsp;
-                        {"₩" +
-                          (product.price * (1 - product.sale)).toLocaleString(
-                            "ko-KR"
-                          )}
+                        {"₩" + salePrice(product).toLocaleString("ko-KR")}
                       </>
                     ) : (
                       product.price.toLocaleString("ko-KR")
