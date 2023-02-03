@@ -1,9 +1,22 @@
-import { CartData } from "./Types";
+import { CartData, CartProduct } from "./Types";
 
 const URL = "http://localhost:3001";
 
 // 결제하기 눌렀을 때 (productData: { productId, size, color, count})
+export async function order(orderData: CartProduct) {
+  const res = await fetch(`${URL}/order`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    credentials: "include",
+    body: JSON.stringify(orderData),
+  });
 
+  const body = await res.json();
+  return body;
+  // 장바구니 비우기
+}
 // 장바구니 눌렀을 때 (productData: { productId, size, color, count})
 // => 장바구니에 추가.
 export async function cartIn(productData: CartData) {

@@ -1,20 +1,12 @@
 import * as React from "react";
 import StyledCartForm from "./styles/StyledCartForm";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moomin2 from "../upload/product1.jpeg";
 import moomin3 from "../upload/product2.jpeg";
 
 import { useState, useMemo } from "react";
-import { cart, cartOut } from "./orderApi";
-import { CartData } from "./Types";
-
-interface CartProduct extends CartData {
-  id: number;
-  name: string;
-  price: number;
-  sale: number;
-  image: string;
-}
+import { cart, cartOut, order } from "./orderApi";
+import { CartProduct } from "./Types";
 
 export const salePrice = ({ price, sale }: { price: number; sale: number }) => {
   return (price * (100 - sale)) / 100;
@@ -62,6 +54,15 @@ const CartForm = () => {
 
     cartOut(index);
     cartLoad();
+  };
+
+  const handlePay = () => {
+    const check = confirm(`이대로 결제하시겠습니까? \n총액 : ${sumPrice}원`);
+    if (check && cartInfo) {
+      order(cartInfo[0]);
+      cartOut(String(cartInfo[0].id));
+      cartLoad();
+    } else return;
   };
 
   return (
@@ -163,7 +164,9 @@ const CartForm = () => {
             </div>
           </div>
           <hr className="bill-border" />
-          <button id="payButton">결제하기</button>
+          <button id="payButton" onClick={handlePay}>
+            결제하기
+          </button>
         </div>
       </div>
     </StyledCartForm>

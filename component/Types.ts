@@ -93,3 +93,10 @@ export interface CartData {
   color: string;
   count: number;
 }
+export interface CartProduct extends CartData {
+  id: number;
+  name: string;
+  price: number;
+  sale: number;
+  image: string;
+}

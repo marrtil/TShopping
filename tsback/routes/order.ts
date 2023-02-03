@@ -3,8 +3,17 @@ import Product from "../models/product";
 import Order from "../models/order";
 import Cart from "../models/cart";
 import { isLoggedIn } from "./middleware";
+import OrderDetail from "../models/orderDetail";
 
 const router = express.Router();
+
+// 결제하기(장바구니 비우기)
+router.post("/", isLoggedIn, async (req, res) => {
+  const { userId } = req.user?.dataValues;
+  const { productId, size, count, color } = req.body;
+  const order = await Order.create({ userId, orderState: 0, orderDate: new Date() });
+  const orderDetail = await OrderDetail.create({ userId, orderId: order.dataValues.id, productId, size, count, color });
+});
 
 // 장바구니 담기
 router.post("/cartIn", isLoggedIn, async (req, res) => {
