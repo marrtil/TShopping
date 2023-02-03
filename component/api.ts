@@ -1,4 +1,5 @@
 import { LOGIN_INFO } from "./LoginForm";
+import { product } from "./product";
 
 const URL = "http://localhost:3001";
 
@@ -40,7 +41,12 @@ export async function login_process(userInfo: LOGIN_INFO) {
   return body;
 }
 
-export async function join_process(userInfo: { userId: string; nickname: string; password: string; email: string }) {
+export async function join_process(userInfo: {
+  userId: string;
+  nickname: string;
+  password: string;
+  email: string;
+}) {
   console.log("회원가입 시도... ", JSON.stringify(userInfo));
   const res = await fetch(`${URL}/user/join`, {
     method: "post",
@@ -102,7 +108,10 @@ export async function idCheck_process(userId: string) {
   return true;
 }
 
-export async function passwordCheck_process(checkData: { userId: string; password: string }) {
+export async function passwordCheck_process(checkData: {
+  userId: string;
+  password: string;
+}) {
   // password 중복이면 true, 아니면 false
   console.log(checkData);
   const res = await fetch(`${URL}/user/passwordCheck`, {
@@ -137,4 +146,11 @@ export async function modMember(userId: string, member: any) {
   if (!res) throw new Error("회원정보 수정에 실패하였습니다");
   const body = await res.json();
   return body;
+}
+
+export async function allProducts() {
+  const res = await fetch(`${URL}/product/productList`);
+  if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
+  const product = await res.json();
+  return product;
 }
