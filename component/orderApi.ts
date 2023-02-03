@@ -23,18 +23,23 @@ export async function cartIn(productData: CartData) {
 
 // 장바구니 불러오기 (userId)
 // => 장바구니id, productId => { sale, price, image }, size, color, count
-export async function cart() {
-  const res = await fetch(`${URL}/order/cart`);
+export async function cart(userId: string) {
+  const res = await fetch(`${URL}/order/cart/${userId}`, {
+    // credentials: "include",
+  });
   if (!res) throw new Error("cartInfo is failed");
   const body = await res.json();
+  console.log(body);
   return body;
 }
 // 결제하기 (위에서 불러온 데이터)
 // => 장바구니 비우기.
 
 // 장바구니에서 빼기
-export async function cartOut() {
-  const res = await fetch(`${URL}/order/cart`);
+export async function cartOut(cartId: string) {
+  const res = await fetch(`${URL}/order/cartOut/${cartId}`, {
+    method: "delete",
+  });
   if (!res) throw new Error("cartInfo is failed");
   const body = await res.json();
   return body;
