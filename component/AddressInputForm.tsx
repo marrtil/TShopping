@@ -1,18 +1,19 @@
 import * as React from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { telNo1 } from "./data";
+import StyledAddressInput from "./styles/StyledAddressInput";
 import { address, INITIAL_ADDRESS } from "./Types";
 
-const AddressInputForm = () => {
+const AddressInputForm = ({ handleChange }: any) => {
   const [address, setAddress] = React.useState<address>(INITIAL_ADDRESS);
   const open = useDaumPostcodePopup();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setAddress((prev) => ({
+  //     ...prev,
+  //     [e.target.name]: e.target.value,
+  //   }));
+  // };
   const handleComplete = (data: any) => {
     console.log("handleComplete");
     const zoneCode: string = data.zonecode;
@@ -29,6 +30,7 @@ const AddressInputForm = () => {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
+<<<<<<< HEAD
     console.log(zoneCode);
     console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
     const newAddress: address = {
@@ -36,16 +38,18 @@ const AddressInputForm = () => {
       address: fullAddress,
       addressDetail: "",
     };
+=======
+    const newAddress: address = { zoneCode: zoneCode, address: fullAddress, addressDetail: "" };
+>>>>>>> 7a0b055a11d71d403514a113a4f52661bf2d4a75
     setAddress({ ...newAddress });
   };
 
   const handleClick = () => {
-    console.log("handleClick");
     open({ onComplete: handleComplete });
   };
   return (
-    <div>
-      배송지 입력
+    <StyledAddressInput>
+      <h3>배송지 입력</h3>
       <div>
         <strong>수령인</strong>
         <input type="text" />
@@ -56,12 +60,11 @@ const AddressInputForm = () => {
           {telNo1.map((no) => {
             return <option value={no}>{no}</option>;
           })}
-        </select>
-        -
-        <input type="text" className="telNo" />-
-        <input type="text" className="telNo" />
+        </select>{" "}
+        - <input type="text" className="telNo" /> - <input type="text" className="telNo" />
       </div>{" "}
       <div>
+<<<<<<< HEAD
         <strong>배송지 주소</strong>
         <input
           value={address.zoneCode}
@@ -80,15 +83,35 @@ const AddressInputForm = () => {
           name="addressDetail"
         />
       </div>{" "}
+=======
+        <strong className="addressStrong">배송지 주소</strong>
+        <div className="addressDiv">
+          <input
+            value={address.zoneCode}
+            onChange={handleChange}
+            type="text"
+            name="zoneCode"
+            className="adressInput"
+            readOnly
+          />
+          <button onClick={handleClick}>우편번호 검색</button>
+          <br />
+          <div className="addressDetailDiv">
+            <input value={address.address} onChange={handleChange} type="text" name="address" readOnly />
+            <input type="text" placeholder="상세 주소 입력" onChange={handleChange} name="addressDetail" />
+          </div>
+        </div>
+      </div>
+>>>>>>> 7a0b055a11d71d403514a113a4f52661bf2d4a75
       <div>
         <strong>요청사항</strong>
-        <input type="text" name="deliveryMemo" />
+        <input type="text" name="deliveryMemo" onChange={handleChange} />
       </div>{" "}
       <div>
         <strong>수령인</strong>
         <input type="text" />
       </div>
-    </div>
+    </StyledAddressInput>
   );
 };
 
