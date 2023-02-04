@@ -59,9 +59,10 @@ const CartForm = () => {
   const handlePay = () => {
     const check = confirm(`이대로 결제하시겠습니까? \n총액 : ${sumPrice}원`);
     if (check && cartInfo) {
-      order(cartInfo[0]);
-      cartOut(String(cartInfo[0].id));
-      cartLoad();
+      navi("../payment");
+      // order(cartInfo[0]);
+      // cartOut(String(cartInfo[0].id));
+      // cartLoad();
     } else return;
   };
 
