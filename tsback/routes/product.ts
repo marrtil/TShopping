@@ -7,9 +7,7 @@ const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
 router.get("/productList", async (req, res) => {
-  // 스터디 검색
   const { searchText, gender, kind } = req.query;
-  console.log(searchText + "," + gender + "," + kind);
   const keys = Object.keys(productAll);
   const genders = Object.keys(genderCheck);
   if (searchText) {
@@ -40,8 +38,19 @@ router.get("/productList", async (req, res) => {
     res.send(product);
   } else {
     const productList = await Product.findAll();
-    console.log(productList);
     res.send(productList);
+  }
+});
+
+router.get("/productList/:id", async (req, res) => {
+  const { id } = req.params;
+
+  if (id) {
+    const product = await Product.findOne({
+      where: { id },
+    });
+
+    res.send(product);
   }
 });
 

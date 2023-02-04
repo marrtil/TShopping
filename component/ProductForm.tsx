@@ -2,19 +2,42 @@ import * as React from "react";
 import { useState, FunctionComponent } from "react";
 import { useNavigate, useParams } from "react-router";
 import StyledProductForm from "./styles/StyledProductForm";
-import { initialProducts } from "./product";
+import { product } from "./product";
 import { cart, cartIn } from "./orderApi";
+import { productDetail } from "./api";
+import { salePrice } from "./CartForm";
+
+const initialproduct: product = {
+  id: 1,
+  name: "",
+  gender: "",
+  kind: "",
+  size: "",
+  color: "",
+  image: "",
+  price: 0,
+  sale: 0,
+  count: 0,
+};
+
 const ProductForm = () => {
   const { id } = useParams();
   const navi = useNavigate();
-  const [product, setProduct] = useState(
-    initialProducts.filter((value) => value.id == Number(id))[0]
-  );
+  const [product, setProduct] = useState<product>(initialproduct);
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProduct((prevValue) => ({ ...prevValue, [name]: value }));
   };
   console.log(product);
+
+  const loadProduct = async () => {
+    const productNum = await productDetail(Number(id));
+    setProduct(productNum);
+  };
+
+  React.useEffect(() => {
+    loadProduct();
+  }, []);
 
   const handleCartIn = async () => {
     const check = await cartIn({
@@ -45,10 +68,7 @@ const ProductForm = () => {
               {product.sale > 0 ? (
                 <>
                   <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>&nbsp;
-                  {"₩" +
-                    (product.price * (1 - product.sale)).toLocaleString(
-                      "ko-KR"
-                    )}
+                  {"₩" + salePrice(product).toLocaleString("ko-KR")}
                 </>
               ) : (
                 product.price.toLocaleString("ko-KR")

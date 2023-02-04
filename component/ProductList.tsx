@@ -38,7 +38,6 @@ const colorTable: tableType = {
 const ProductList = () => {
   const [listProduct, setListProduct] = useState<product[]>([]);
   const [initialProduct, setInitialProduct] = useState<product[]>(listProduct);
-
   const { search } = useLocation();
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
@@ -68,7 +67,9 @@ const ProductList = () => {
     if (color) {
       if (color == "default") setListProduct(initialProduct);
       else {
-        setListProduct(initialProduct.filter((values) => values["color"].includes(color)));
+        setListProduct(
+          initialProduct.filter((values) => values["color"].includes(color))
+        );
       }
     }
   }, [color]);
@@ -77,9 +78,13 @@ const ProductList = () => {
     if (order == "1") {
       setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
     } else if (order == "2") {
-      setListProduct((prevValue) => [...prevValue].sort((a, b) => a.price - b.price));
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => a.price - b.price)
+      );
     } else if (order == "3") {
-      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.price - a.price));
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => b.price - a.price)
+      );
     }
   }, [order, color]);
 
