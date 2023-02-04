@@ -86,6 +86,27 @@ export type productManT = {
   신발: string;
 };
 
+export type productAllT = {
+  [index: string]: string;
+  팬츠: string;
+  아우터: string;
+  수트: string;
+  후드티: string;
+  맨투맨: string;
+  니트: string;
+  가디건: string;
+  스웨터: string;
+  셔츠: string;
+  언더웨어: string;
+  신발: string;
+
+  블라우스: string;
+
+  티셔츠: string;
+
+  스커트: string;
+};
+
 /////////////////////////////// 장바구니
 export interface CartData {
   productId: number;

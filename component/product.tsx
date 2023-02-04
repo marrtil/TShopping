@@ -3,6 +3,64 @@ import moomin2 from "../upload/product2.jpeg";
 import moomin3 from "../upload/product3.png";
 import moomin4 from "../upload/moomin1.jpeg";
 import moomin5 from "../upload/moomin2.jpeg";
+import { productManT, productWomenT, productAllT } from "./Types";
+
+type genderFilter = {
+  [index: string]: string;
+  man: "남성";
+  women: "여성";
+};
+const genderCheck: genderFilter = {
+  man: "남성",
+  women: "여성",
+};
+
+export const productAll: productAllT = {
+  아우터: "outter",
+  가디건: "cardigan",
+  셔츠: "shirts",
+  블라우스: "blouse",
+  니트: "neat",
+  후드티: "hood",
+  티셔츠: "T-shirts",
+  팬츠: "pants",
+  스커트: "skirt",
+  언더웨어: "under-wear",
+  신발: "shoes",
+
+  수트: "suit",
+  맨투맨: "manman",
+
+  스웨터: "sweater",
+};
+
+const productWomen: productWomenT = {
+  아우터: "outter",
+  가디건: "cardigan",
+  셔츠: "shirts",
+  블라우스: "blouse",
+  니트: "neat",
+  후드티: "hood",
+  티셔츠: "T-shirts",
+  팬츠: "pants",
+  스커트: "skirt",
+  언더웨어: "under-wear",
+  신발: "shoes",
+};
+
+const productMan: productManT = {
+  팬츠: "pants",
+  아우터: "outter",
+  수트: "suit",
+  후드티: "hood",
+  맨투맨: "manman",
+  니트: "neat",
+  가디건: "cardigan",
+  스웨터: "sweater",
+  셔츠: "shirts",
+  언더웨어: "under-wear",
+  신발: "shoes",
+};
 
 export type product = {
   [index: string]: string | number | any;
