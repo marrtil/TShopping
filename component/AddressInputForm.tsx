@@ -8,12 +8,6 @@ const AddressInputForm = ({ handleChange }: any) => {
   const [address, setAddress] = React.useState<address>(INITIAL_ADDRESS);
   const open = useDaumPostcodePopup();
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setAddress((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
   const handleComplete = (data: any) => {
     console.log("handleComplete");
     const zoneCode: string = data.zonecode;
@@ -25,22 +19,12 @@ const AddressInputForm = ({ handleChange }: any) => {
         extraAddress += data.bname;
       }
       if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-<<<<<<< HEAD
-    console.log(zoneCode);
-    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-    const newAddress: address = {
-      zoneCode: zoneCode,
-      address: fullAddress,
-      addressDetail: "",
-    };
-=======
+
     const newAddress: address = { zoneCode: zoneCode, address: fullAddress, addressDetail: "" };
->>>>>>> 7a0b055a11d71d403514a113a4f52661bf2d4a75
     setAddress({ ...newAddress });
   };
 
@@ -64,26 +48,6 @@ const AddressInputForm = ({ handleChange }: any) => {
         - <input type="text" className="telNo" /> - <input type="text" className="telNo" />
       </div>{" "}
       <div>
-<<<<<<< HEAD
-        <strong>배송지 주소</strong>
-        <input
-          value={address.zoneCode}
-          type="text"
-          className="adressInput"
-          readOnly
-        />
-        <button onClick={handleClick}>우편번호 검색</button>
-        <br />
-        <input value={address.address} type="text" name="address" readOnly />
-        <input
-          value={address.addressDetail}
-          type="text"
-          placeholder="상세 주소 입력"
-          onChange={handleChange}
-          name="addressDetail"
-        />
-      </div>{" "}
-=======
         <strong className="addressStrong">배송지 주소</strong>
         <div className="addressDiv">
           <input
@@ -102,7 +66,6 @@ const AddressInputForm = ({ handleChange }: any) => {
           </div>
         </div>
       </div>
->>>>>>> 7a0b055a11d71d403514a113a4f52661bf2d4a75
       <div>
         <strong>요청사항</strong>
         <input type="text" name="deliveryMemo" onChange={handleChange} />

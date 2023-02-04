@@ -1,9 +1,10 @@
 import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
-import { useLocation } from "react-router";
+import { useParams, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductList from "./styles/StyledProductList";
-import { product } from "./product";
+import { productManT, productWomenT } from "./Types";
+import { initialProducts, product } from "./product";
 import { allProducts } from "./api";
 import { salePrice } from "./CartForm";
 
@@ -67,9 +68,7 @@ const ProductList = () => {
     if (color) {
       if (color == "default") setListProduct(initialProduct);
       else {
-        setListProduct(
-          initialProduct.filter((values) => values["color"].includes(color))
-        );
+        setListProduct(initialProduct.filter((values) => values["color"].includes(color)));
       }
     }
   }, [color]);
@@ -78,13 +77,9 @@ const ProductList = () => {
     if (order == "1") {
       setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
     } else if (order == "2") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => a.price - b.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => a.price - b.price));
     } else if (order == "3") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => b.price - a.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.price - a.price));
     }
   }, [order, color]);
 

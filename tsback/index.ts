@@ -22,6 +22,19 @@ import { sequelize } from "./models";
 
 app.set("port", prod ? process.env.PORT : 3001);
 
+const multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req: any, file: any, cb: any) {
+    cb(null, "upload/"); // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
+  },
+  filename: function (req: any, file: any, cb: any) {
+    cb(null, file.originalname); // cb 콜백함수를 통해 전송된 파일 이름 설정
+  },
+});
+
+var upload = multer({ storage });
+app.use("/image", express.static("upload"));
+
 sequelize
   .sync({ force: false })
   .then(() => {
