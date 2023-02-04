@@ -1,6 +1,5 @@
 import * as express from "express";
 import Product from "../models/product";
-import { productAll, genderCheck } from "./products";
 
 const router = express.Router();
 const sequelize = require("sequelize");
@@ -8,8 +7,7 @@ const Op = sequelize.Op;
 
 router.get("/productList", async (req, res) => {
   const { searchText, gender, kind } = req.query;
-  const keys = Object.keys(productAll);
-  const genders = Object.keys(genderCheck);
+
   if (searchText) {
     const product = await Product.findAll({
       where: { name: { [Op.like]: `%${searchText}%` } },
@@ -20,8 +18,8 @@ router.get("/productList", async (req, res) => {
   } else if (gender && kind) {
     const product = await Product.findAll({
       where: {
-        gender: genders.find((value) => genderCheck[value] == gender),
-        kind: keys.find((key) => productAll[key] == kind),
+        gender: gender,
+        kind: kind,
       },
       order: [["id", "DESC"]],
     });
@@ -30,7 +28,7 @@ router.get("/productList", async (req, res) => {
   } else if (gender && !kind) {
     const product = await Product.findAll({
       where: {
-        gender: genders.find((value) => genderCheck[value] == gender),
+        gender: gender,
       },
       order: [["id", "DESC"]],
     });
