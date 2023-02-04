@@ -24,13 +24,18 @@ const AddressInputForm = () => {
         extraAddress += data.bname;
       }
       if (data.buildingName !== "") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
     console.log(zoneCode);
     console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-    const newAddress: address = { zoneCode: zoneCode, address: fullAddress, addressDetail: "" };
+    const newAddress: address = {
+      zoneCode: zoneCode,
+      address: fullAddress,
+      addressDetail: "",
+    };
     setAddress({ ...newAddress });
   };
 
@@ -58,7 +63,12 @@ const AddressInputForm = () => {
       </div>{" "}
       <div>
         <strong>배송지 주소</strong>
-        <input value={address.zoneCode} type="text" className="adressInput" readOnly />
+        <input
+          value={address.zoneCode}
+          type="text"
+          className="adressInput"
+          readOnly
+        />
         <button onClick={handleClick}>우편번호 검색</button>
         <br />
         <input value={address.address} type="text" name="address" readOnly />

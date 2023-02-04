@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
-import { useParams, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductList from "./styles/StyledProductList";
-import { productManT, productWomenT } from "./Types";
-import { initialProducts, product } from "./product";
+import { product } from "./product";
 import { allProducts } from "./api";
 import { salePrice } from "./CartForm";
 
@@ -123,7 +122,7 @@ const ProductList = () => {
             return (
               <div className="listProduct">
                 <Link to={`/productForm/${product.id}`}>
-                  <img src={product.src} className="listImage" />
+                  <img src={product.image} className="listImage" />
                 </Link>
                 <div className="productInfo">
                   <Link to={`/productForm/${product.id}`}>

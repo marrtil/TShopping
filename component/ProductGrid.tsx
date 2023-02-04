@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import product1 from "../upload/product1.jpeg";
-import product2 from "../upload/product2.jpeg";
-import product3 from "../upload/product3.png";
+import product1 from "../upload/moomin5.jpeg";
+import product2 from "../upload/moomin6.jpeg";
+import product3 from "../upload/moomin7.png";
 import StyledGrid from "./styles/StyledGrid";
 import { ProductSort } from "./Types";
 
