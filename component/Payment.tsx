@@ -13,6 +13,8 @@ const Payment = () => {
     }));
   };
 
+  const handlePay = () => {};
+
   React.useEffect(() => {
     // 사용자의 주소를 조회해봤을때 있다면 addressSel = old : addressSel = new
     if (userAddress) (document.getElementById("oldAddressRadio") as HTMLInputElement).checked = true;
@@ -21,7 +23,7 @@ const Payment = () => {
       setAddressSel("new");
     }
   }, []);
-
+  console.log(deliveryInfo);
   return (
     <>
       <div>
@@ -68,14 +70,14 @@ const Payment = () => {
               <input name="deliveryMemo" />
             </div>
           ) : (
-            <AddressInputForm />
+            <AddressInputForm handleChange={handleChange} />
           )}
         </div>
         <hr />
         <div>결제수단</div>
         <hr />
         <div>
-          <button>결제하기</button>
+          <button onClick={handlePay}>결제하기</button>
         </div>
       </div>
     </>

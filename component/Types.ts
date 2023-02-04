@@ -115,14 +115,15 @@ export const INITIAL_ADDRESS: address = {
   addressDetail: "",
 };
 
-export interface DelveriyInfo {
+export interface DelveriyInfo extends address {
   userId: string;
-  address: address;
   deliveryMemo: string;
 }
 
 export const INITIAL_DELEVERIYINFO: DelveriyInfo = {
+  zoneCode: "",
+  address: "",
+  addressDetail: "",
   userId: "",
-  address: INITIAL_ADDRESS,
   deliveryMemo: "",
 };
