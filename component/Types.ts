@@ -121,3 +121,29 @@ export interface CartProduct extends CartData {
   sale: number;
   image: string;
 }
+
+//////////////////////////// 주소&배송
+
+export interface address {
+  zoneCode: string;
+  address: string;
+  addressDetail: string;
+}
+
+export const INITIAL_ADDRESS: address = {
+  zoneCode: "",
+  address: "",
+  addressDetail: "",
+};
+
+export interface DelveriyInfo {
+  userId: string;
+  address: address;
+  deliveryMemo: string;
+}
+
+export const INITIAL_DELEVERIYINFO: DelveriyInfo = {
+  userId: "",
+  address: INITIAL_ADDRESS,
+  deliveryMemo: "",
+};

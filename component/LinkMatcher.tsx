@@ -5,6 +5,7 @@ import CartForm from "./CartForm";
 import ProductGrid from "./ProductGrid";
 import ProductForm from "./ProductForm";
 import ProductList from "./ProductList";
+import Payment from "./Payment";
 const LinkMatcher = () => {
   return (
     <Routes>
@@ -12,6 +13,7 @@ const LinkMatcher = () => {
       <Route path="/productList/" element={<ProductList />} />
       <Route path="/newGoods" element={<ProductGrid sort="new" />} />
       <Route path="/majorGoods" element={<ProductGrid sort="major" />} />
+      <Route path="/payment" element={<Payment />} />
       <Route path={`/productForm/:id`} element={<ProductForm />} />
       <Route path="/" element={<Body />} />
     </Routes>
