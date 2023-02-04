@@ -148,8 +148,8 @@ export async function modMember(userId: string, member: any) {
   return body;
 }
 
-export async function allProducts() {
-  const res = await fetch(`${URL}/product/productList`);
+export async function allProducts(search: string) {
+  const res = await fetch(`${URL}/product/productList${search}`);
   if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
   const product = await res.json();
   return product;

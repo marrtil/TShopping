@@ -22,16 +22,6 @@ type tableType = {
   워싱: string;
 };
 
-type genderFilter = {
-  [index: string]: string;
-  man: "남성";
-  women: "여성";
-};
-const genderCheck: genderFilter = {
-  man: "남성",
-  women: "여성",
-};
-
 const colorTable: tableType = {
   블랙: "black",
   화이트: "white",
@@ -45,43 +35,13 @@ const colorTable: tableType = {
   워싱: "skyblue",
 };
 
-const productWomen: productWomenT = {
-  아우터: "outter",
-  가디건: "cardigan",
-  셔츠: "shirts",
-  블라우스: "blouse",
-  니트: "neat",
-  후드티: "hood",
-  티셔츠: "T-shirts",
-  팬츠: "pants",
-  스커트: "skirt",
-  언더웨어: "under-wear",
-  신발: "shoes",
-};
-
-const productMan: productManT = {
-  팬츠: "pants",
-  아우터: "outter",
-  수트: "suit",
-  후드티: "hood",
-  맨투맨: "manman",
-  니트: "neat",
-  가디건: "cardigan",
-  스웨터: "sweater",
-  셔츠: "shirts",
-  언더웨어: "under-wear",
-  신발: "shoes",
-};
-
 const ProductList = () => {
   const [listProduct, setListProduct] = useState<product[]>([]);
   const [initialProduct, setInitialProduct] = useState<product[]>(listProduct);
 
   const { search } = useLocation();
-  const [query, setQuery] = useState<string[]>(search.split(/[?|=|&]/));
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
-  const [searchItem, setSearchItem] = useState<string>("");
   const sessionStorage = window.sessionStorage;
   const colorList = useMemo(() => {
     var colors: string[] = [];
@@ -94,30 +54,15 @@ const ProductList = () => {
   }, [initialProduct]);
 
   const allProduct = async () => {
-    const product = await allProducts();
+    const product = await allProducts(search);
     setListProduct(product);
     setInitialProduct(product);
-    setSearchItem(searchItem);
   };
   useEffect(() => {
     allProduct();
   }, []);
 
-  useEffect(() => {
-    if (searchItem) {
-      setListProduct(
-        initialProducts.filter((value) => value["name"].includes(searchItem))
-      );
-      setInitialProduct(
-        initialProducts.filter((value) => value["name"].includes(searchItem))
-      );
-    }
-    sessionStorage.removeItem("itemName");
-    setSearchItem("");
-  }, [searchItem]);
-
   console.log(search);
-  console.log(searchItem);
 
   useEffect(() => {
     if (color) {
@@ -143,62 +88,6 @@ const ProductList = () => {
       );
     }
   }, [order, color]);
-
-  useEffect(() => {
-    if (query[2] && query[2] == "man") {
-      if (query[4]) {
-        const itemKey = Object.keys(productMan).find(
-          (key) => productMan[key] == query[4]
-        );
-        setListProduct((prevValue) =>
-          prevValue.filter(
-            (value) =>
-              value.kind == itemKey && value.gender == genderCheck[query[2]]
-          )
-        );
-        setInitialProduct((prevValue) =>
-          prevValue.filter(
-            (value) =>
-              value.kind == itemKey && value.gender == genderCheck[query[2]]
-          )
-        );
-        return;
-      } else {
-        setListProduct((prevValue) =>
-          prevValue.filter((value) => value.gender == genderCheck[query[2]])
-        );
-        setInitialProduct((prevValue) =>
-          prevValue.filter((value) => value.gender == genderCheck[query[2]])
-        );
-      }
-    } else if (query[2] && query[2] == "women") {
-      if (query[4]) {
-        const itemKey = Object.keys(productWomen).find(
-          (key) => productMan[key] == query[4]
-        );
-        setListProduct((prevValue) =>
-          prevValue.filter(
-            (value) =>
-              value.kind == itemKey && value.gender == genderCheck[query[2]]
-          )
-        );
-        setInitialProduct((prevValue) =>
-          prevValue.filter(
-            (value) =>
-              value.kind == itemKey && value.gender == genderCheck[query[2]]
-          )
-        );
-        return;
-      } else {
-        setListProduct((prevValue) =>
-          prevValue.filter((value) => value.gender == genderCheck[query[2]])
-        );
-        setInitialProduct((prevValue) =>
-          prevValue.filter((value) => value.gender == genderCheck[query[2]])
-        );
-      }
-    }
-  }, []);
 
   const optionColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
