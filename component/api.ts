@@ -41,12 +41,7 @@ export async function login_process(userInfo: LOGIN_INFO) {
   return body;
 }
 
-export async function join_process(userInfo: {
-  userId: string;
-  nickname: string;
-  password: string;
-  email: string;
-}) {
+export async function join_process(userInfo: { userId: string; nickname: string; password: string; email: string }) {
   console.log("회원가입 시도... ", JSON.stringify(userInfo));
   const res = await fetch(`${URL}/user/join`, {
     method: "post",
@@ -108,10 +103,7 @@ export async function idCheck_process(userId: string) {
   return true;
 }
 
-export async function passwordCheck_process(checkData: {
-  userId: string;
-  password: string;
-}) {
+export async function passwordCheck_process(checkData: { userId: string; password: string }) {
   // password 중복이면 true, 아니면 false
   console.log(checkData);
   const res = await fetch(`${URL}/user/passwordCheck`, {
