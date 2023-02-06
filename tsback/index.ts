@@ -19,6 +19,9 @@ const app = express();
 const prod = process.env.NODE_ENV === "production";
 
 import { sequelize } from "./models";
+import Cart from "./models/cart";
+import Order from "./models/order";
+import OrderDetail from "./models/orderDetail";
 
 app.set("port", prod ? process.env.PORT : 3001);
 

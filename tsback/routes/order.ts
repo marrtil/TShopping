@@ -8,7 +8,7 @@ import OrderDetail from "../models/orderDetail";
 const router = express.Router();
 
 // 결제하기(장바구니 비우기)
-router.post("/", isLoggedIn, async (req, res) => {
+router.post("/handlePay", isLoggedIn, async (req, res) => {
   const { userId } = req.user?.dataValues;
   const { productId, size, count, color } = req.body;
   const order = await Order.create({ userId, orderState: 0, orderDate: new Date() });
@@ -72,4 +72,24 @@ router.get("/productList", async (req, res) => {
   res.send(productList);
 });
 
+router.delete("/cart/allDel", async (req, res) => {
+  // const deleteCart = await Cart.destroy({ truncate: true });
+  // if (deleteCart) {
+  //   res.send({ message: `${deleteCart} row(s) deleted` });
+  // } else {
+  //   res.status(404).send({ message: "failed delete." });
+  // }
+  const deleteOrder = await Order.destroy({ truncate: true });
+  if (deleteOrder) {
+    res.send({ message: `${deleteOrder} row(s) deleted` });
+  } else {
+    res.status(404).send({ message: "failed delete." });
+  }
+  const deleteOrderDetail = await OrderDetail.destroy({ truncate: true });
+  if (deleteOrderDetail) {
+    res.send({ message: `${deleteOrderDetail} row(s) deleted` });
+  } else {
+    res.status(404).send({ message: "failed delete." });
+  }
+});
 export default router;

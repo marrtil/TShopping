@@ -61,15 +61,13 @@ const ProductList = () => {
     allProduct();
   }, []);
 
-  console.log(search);
+  // console.log(search);
 
   useEffect(() => {
     if (color) {
       if (color == "default") setListProduct(initialProduct);
       else {
-        setListProduct(
-          initialProduct.filter((values) => values["color"].includes(color))
-        );
+        setListProduct(initialProduct.filter((values) => values["color"].includes(color)));
       }
     }
   }, [color]);
@@ -78,13 +76,9 @@ const ProductList = () => {
     if (order == "1") {
       setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
     } else if (order == "2") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => a.price - b.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => a.price - b.price));
     } else if (order == "3") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => b.price - a.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.price - a.price));
     }
   }, [order, color]);
 
