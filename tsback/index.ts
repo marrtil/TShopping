@@ -48,7 +48,7 @@ sequelize
   });
 
 app.use(morgan("dev"));
-app.use(cors({ origin: "http://localhost:8080", credentials: true }));
+app.use(cors({ origin: "http://localhost:4000", credentials: true }));
 
 app.use("/", express.static("uploads"));
 app.use(express.json());
