@@ -41,7 +41,8 @@ const StyledGrid = styled.div`
     margin-bottom: 20px;
   }
 
-  .RecomendProduct p {
+  .RecomendProduct strong {
+    display:block;
     text-decoration-line: none;
     color: black;
   }

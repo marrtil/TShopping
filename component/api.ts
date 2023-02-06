@@ -1,5 +1,6 @@
 import { LOGIN_INFO } from "./LoginForm";
 import { product } from "./product";
+import { ProductSort } from "./Types";
 
 const URL = "http://localhost:3001";
 
@@ -149,6 +150,13 @@ export async function allProducts(search: string) {
 
 export async function productDetail(id: number) {
   const res = await fetch(`${URL}/product/productLists/${id}`);
+  if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
+  const product = await res.json();
+  return product;
+}
+
+export async function gridLoad(option:ProductSort){
+  const res=await fetch(`${URL}/product/productGrid/${option}`);
   if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
   const product = await res.json();
   return product;

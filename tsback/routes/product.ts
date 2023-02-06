@@ -55,4 +55,28 @@ router.get("/productLists/:id", async (req, res) => {
   }
 });
 
+router.get("/productGrid/:option", async (req, res) => {
+  const { option } = req.params;
+
+  var product=null
+  if (option=="new") {
+     product = await Product.findAll({
+      order:[["updatedAt","ASC"]],
+      limit:3
+    });
+  }
+  else if("major"){
+    product=await Product.findAll({
+      limit:3,
+    });
+  }
+  else if("recomend"){
+    product=await Product.findAll({
+      limit:3,
+    });
+  }
+    res.send(product);
+  
+});
+
 export default router;

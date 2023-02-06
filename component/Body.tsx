@@ -9,7 +9,7 @@ const Body = () => {
     <StyledBody>
       <Banner />
       {/* <RecomendProduct /> */}
-      <ProductGrid sort="recomend" />
+      <ProductGrid />
       {/* 새제품,인기상품 통합 - props로 구분할 수 있게 */}
     </StyledBody>
   );

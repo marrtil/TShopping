@@ -11,8 +11,8 @@ const LinkMatcher = () => {
     <Routes>
       <Route path="/cart" element={<CartForm />} />
       <Route path="/productList/" element={<ProductList />} />
-      <Route path="/newGoods" element={<ProductGrid sort="new" />} />
-      <Route path="/majorGoods" element={<ProductGrid sort="major" />} />
+      <Route path="/newGoods" element={<ProductGrid  />} />
+      <Route path="/majorGoods" element={<ProductGrid />} />
       <Route path="/payment" element={<Payment />} />
       <Route path={`/productForm/:id`} element={<ProductForm />} />
       <Route path="/" element={<Body />} />

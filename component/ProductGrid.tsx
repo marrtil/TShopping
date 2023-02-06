@@ -5,22 +5,32 @@ import product2 from "../upload/moomin6.jpeg";
 import product3 from "../upload/moomin7.png";
 import StyledGrid from "./styles/StyledGrid";
 import { ProductSort } from "./Types";
+import { product } from "./product";
+import { useState,useEffect } from "react";
+import { gridLoad } from "./api";
 
 interface Props {
   sort: ProductSort;
 }
 
-const ProductGrid: React.FC<Props> = ({ sort }) => {
-  const productSrc: string[] = [product1, product2, product3]; // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
-  const productNum: string[] = ["1", "2", "3"];
-  const [option, setOption] = React.useState<ProductSort>(sort);
+const ProductGrid = () => {
+  const [products,setProducts] = useState<product[]>([]); // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
+  const [option, setOption] = React.useState<ProductSort>("new");
 
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOption(e.target.value as ProductSort);
   };
 
-  React.useEffect(() => {}, [option]);
+  const gridImage = async()=>{
+    const grid=await gridLoad(option);
+    setProducts(grid);
+  }
 
+  useEffect(() => {
+    gridImage();
+  }, [option]);
+
+    console.log(products);
   return (
     <StyledGrid>
       <div className="listTitle">
@@ -48,12 +58,12 @@ const ProductGrid: React.FC<Props> = ({ sort }) => {
         <hr />
       </div>
       <div>
-        {productSrc.map((value, index) => {
+        {products.map((value) => {
           return (
-            <Link to={`/productForm/${productNum[index]}`}>
+            <Link to={`/productForm/${value.id}`}>
               <div className="RecomendProduct">
-                <img src={value} width="200" alt={productNum[index]} />
-                <p>무민동화책{index + 1}</p>
+                <img src={value.image} width="200" alt={value.name} />
+                <strong>{value.name}</strong>
               </div>
             </Link>
           );
