@@ -1,11 +1,9 @@
 import * as React from "react";
 import StyledCartForm from "./styles/StyledCartForm";
 import { useNavigate } from "react-router-dom";
-import moomin2 from "../upload/product1.jpeg";
-import moomin3 from "../upload/product2.jpeg";
 
 import { useState, useMemo } from "react";
-import { cart, cartIn, cartOut, order } from "./orderApi";
+import { cart, order } from "./orderApi";
 import { CartProduct, INITIAL_CARTPRODUCT } from "./Types";
 import { Link } from "react-router-dom";
 import CartTable from "./CartTable";

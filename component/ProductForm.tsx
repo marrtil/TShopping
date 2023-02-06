@@ -118,7 +118,7 @@ const ProductForm = () => {
             </select>
           </div>
           <button className="payButton">
-            <Link to="../payment" state={product} onClick={handleOptionCheck}>
+            <Link to="../payment" state={[{ ...product, ...select }]} onClick={handleOptionCheck}>
               결제하기
             </Link>
           </button>

@@ -9,7 +9,6 @@ const AddressInputForm = ({ handleChange }: any) => {
   const open = useDaumPostcodePopup();
 
   const handleComplete = (data: any) => {
-    console.log("handleComplete");
     const zoneCode: string = data.zonecode;
     let fullAddress = data.address;
     let extraAddress = "";

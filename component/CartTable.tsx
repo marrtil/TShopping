@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { salePrice } from "./CartForm";
 import { cartOut } from "./orderApi";
-import { CartProduct } from "./Types";
 
 const CartTable = ({ cartInfo, handleLoad, handleChange }: any) => {
   const btnPM = (e: React.MouseEvent<HTMLButtonElement>) => {
