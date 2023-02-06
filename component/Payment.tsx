@@ -1,11 +1,16 @@
 import * as React from "react";
+import { useLocation } from "react-router";
 import AddressInputForm from "./AddressInputForm";
+import CartForm from "./CartForm";
+import PaySelect from "./PaySelect";
 import { DelveriyInfo, INITIAL_DELEVERIYINFO } from "./Types";
 
 const Payment = () => {
+  const props = useLocation().state;
   const [addressSel, setAddressSel] = React.useState<String>("old");
   const [userAddress, setUserAddress] = React.useState(null);
   const [deliveryInfo, setDeliveryInfo] = React.useState<DelveriyInfo>(INITIAL_DELEVERIYINFO);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDeliveryInfo((prev) => ({
       ...prev,
@@ -13,9 +18,21 @@ const Payment = () => {
     }));
   };
 
-  const handlePay = () => {};
+  const handlePay = () => {
+    console.log(deliveryInfo);
+    // 장바구니 delete
+    // order테이블로 post
+    // 새 주소를 입력했을 경우 address테이블로 post
+  };
+
+  const payLoad = () => {
+    // 주소 가져오기
+    // 장바구니 가져오기
+    // 바로 결제하기로 들어왔을 때는?
+  };
 
   React.useEffect(() => {
+    console.log(props);
     // 사용자의 주소를 조회해봤을때 있다면 addressSel = old : addressSel = new
     if (userAddress) (document.getElementById("oldAddressRadio") as HTMLInputElement).checked = true;
     else {
@@ -23,11 +40,10 @@ const Payment = () => {
       setAddressSel("new");
     }
   }, []);
-  console.log(deliveryInfo);
   return (
     <>
       <div>
-        <div>물건목록</div>
+        <CartForm handle="order" />
         <hr />
         <div>
           배송지 정보
@@ -38,9 +54,7 @@ const Payment = () => {
                 type="radio"
                 name="addressSelect"
                 id="oldAddressRadio"
-                // checked
-                onChange={(e) => {
-                  console.log("old");
+                onChange={() => {
                   setAddressSel("old");
                 }}
               />
@@ -51,8 +65,7 @@ const Payment = () => {
                 type="radio"
                 name="addressSelect"
                 id="newAddressRadio"
-                onChange={(e) => {
-                  console.log("new");
+                onChange={() => {
                   setAddressSel("new");
                 }}
               />
@@ -74,7 +87,7 @@ const Payment = () => {
           )}
         </div>
         <hr />
-        <div>결제수단</div>
+        <PaySelect handleChange={handleChange} />
         <hr />
         <div>
           <button onClick={handlePay}>결제하기</button>

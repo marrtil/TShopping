@@ -70,10 +70,6 @@ const AddressInputForm = ({ handleChange }: any) => {
         <strong>요청사항</strong>
         <input type="text" name="deliveryMemo" onChange={handleChange} />
       </div>{" "}
-      <div>
-        <strong>수령인</strong>
-        <input type="text" />
-      </div>
     </StyledAddressInput>
   );
 };

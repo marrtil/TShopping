@@ -6,6 +6,7 @@ import { product } from "./product";
 import { cart, cartIn } from "./orderApi";
 import { productDetail } from "./api";
 import { salePrice } from "./CartForm";
+import { Link } from "react-router-dom";
 
 const initialproduct: product = {
   id: 1,
@@ -23,12 +24,14 @@ const initialproduct: product = {
 const ProductForm = () => {
   const { id } = useParams();
   const navi = useNavigate();
+  const session = window.sessionStorage;
   const [product, setProduct] = useState<product>(initialproduct);
+  const [select, setSelect] = useState({ color: "select", size: "select" });
+
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setProduct((prevValue) => ({ ...prevValue, [name]: value }));
+    setSelect((prevValue) => ({ ...prevValue, [name]: value }));
   };
-  console.log(product);
 
   const loadProduct = async () => {
     const productNum = await productDetail(Number(id));
@@ -38,20 +41,30 @@ const ProductForm = () => {
   React.useEffect(() => {
     loadProduct();
   }, []);
-
-  const handleCartIn = async () => {
-    const check = await cartIn({
-      productId: product.id,
-      size: product.size,
-      color: product.color,
-      count: 1,
-    });
-    if (check.id) {
-      let result = confirm(
-        "물품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?"
-      );
-      if (result) navi("../cart");
+  const handleOptionCheck = (e: any) => {
+    if (select.color === "select" || select.size === "select") {
+      alert("옵션을 선택해주세요.");
+      e.preventDefault();
+      return;
     }
+  };
+  const handleCartIn = async () => {
+    if (session.getItem("userInfo")) {
+      if (select.color === "select" || select.size === "select") {
+        alert("옵션을 선택해주세요.");
+        return;
+      }
+      const check = await cartIn({
+        productId: product.id,
+        size: select.size,
+        color: select.color,
+        count: 1,
+      });
+      if (check.id) {
+        let result = confirm("물품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
+        if (result) navi("../cart");
+      }
+    } else alert("로그인 후 이용가능합니다.");
   };
 
   return (
@@ -76,6 +89,9 @@ const ProductForm = () => {
             </h3>
 
             <select name="color" onChange={optionChange}>
+              <option key="select" value="select">
+                색상 선택
+              </option>
               {product.color.split(",").map((colors) => (
                 <option key={colors} value={colors}>
                   {colors}
@@ -84,6 +100,9 @@ const ProductForm = () => {
             </select>
 
             <select name="size" onChange={optionChange}>
+              <option key="select" value="select">
+                사이즈 선택
+              </option>
               <option key="S" value="S">
                 S
               </option>
@@ -98,7 +117,11 @@ const ProductForm = () => {
               </option>
             </select>
           </div>
-          <button className="payButton">결제하기</button>
+          <button className="payButton">
+            <Link to="../payment" state={product} onClick={handleOptionCheck}>
+              결제하기
+            </Link>
+          </button>
           <button className="payButton" onClick={handleCartIn}>
             장바구니
           </button>
