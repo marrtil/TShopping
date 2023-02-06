@@ -40,7 +40,7 @@ router.get("/productList", async (req, res) => {
   }
 });
 
-router.get("/productList/:id", async (req, res) => {
+router.get("/productLists/:id", async (req, res) => {
   const { id } = req.params;
 
   if (id) {
