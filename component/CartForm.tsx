@@ -5,17 +5,19 @@ import moomin2 from "../upload/product1.jpeg";
 import moomin3 from "../upload/product2.jpeg";
 
 import { useState, useMemo } from "react";
-import { cart, cartOut, order } from "./orderApi";
-import { CartProduct } from "./Types";
+import { cart, cartIn, cartOut, order } from "./orderApi";
+import { CartProduct, INITIAL_CARTPRODUCT } from "./Types";
+import { Link } from "react-router-dom";
+import CartTable from "./CartTable";
 
 export const salePrice = ({ price, sale }: { price: number; sale: number }) => {
   return (price * (100 - sale)) / 100;
 };
 
-const CartForm = () => {
+const CartForm = ({ handle }: any) => {
   const session = window.sessionStorage;
   const navi = useNavigate();
-  const [cartInfo, setCartInfo] = useState<CartProduct[]>();
+  const [cartInfo, setCartInfo] = useState<CartProduct[]>([INITIAL_CARTPRODUCT]);
 
   const cartLoad = async () => {
     if (session.getItem("userInfo")) setCartInfo(await cart(JSON.parse(session.getItem("userInfo")!).userId));
@@ -24,125 +26,38 @@ const CartForm = () => {
       navi(-1);
     }
   };
+
   React.useEffect(() => {
     cartLoad();
   }, []);
+
   const sumPrice = useMemo(() => {
     var sum = 0;
     if (cartInfo) cartInfo.forEach((value) => (sum += value.count * salePrice(value)));
     return sum;
   }, [cartInfo]);
-  const btnPM = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const a = e.currentTarget;
-    //var count = document.getElementById(a.value) as HTMLInputElement;
-    var modInfo = [...cartInfo!];
-
-    if (a.innerHTML == "+") {
-      {
-        modInfo[Number(a.value)].count += 1;
-        setCartInfo(modInfo);
-      }
-    } else if (a.innerHTML == "-") {
-      if (modInfo[Number(a.value)].count == 1) return;
-      modInfo[Number(a.value)].count -= 1;
-      setCartInfo(modInfo);
-    }
-  };
-
-  const delInfo = (e: React.MouseEvent<HTMLLabelElement>) => {
-    var index = e.currentTarget.id;
-
-    cartOut(index);
-    cartLoad();
-  };
 
   const handlePay = () => {
+    // 변경된 장바구니를 order테이블에 저장.
+    // 장바구니를 비우는건 결제가 끝난 뒤에 하자.
+    // 아닌가? 결제를 취소하면 order테이블에 넣은 의미가 없다.
+    // 장바구니는 파라미터로 넘긴다.
     const check = confirm(`이대로 결제하시겠습니까? \n총액 : ${sumPrice}원`);
     if (check && cartInfo) {
+      console.log(cartInfo);
+      order(cartInfo);
+
       navi("../payment");
-      // order(cartInfo[0]);
-      // cartOut(String(cartInfo[0].id));
-      // cartLoad();
     } else return;
   };
 
   return (
     <StyledCartForm>
-      <h1 id="cartTitle">장바구니</h1>
+      {handle ? <h1 id="cartTitle">물건목록</h1> : <h1 id="cartTitle">장바구니</h1>}
       <hr color="beige" />
       <div id="cartForm">
-        <div id="cartTable">
-          <table>
-            <thead>
-              <tr>
-                <th colSpan={2} id="productInfo">
-                  상품정보
-                </th>
-                <th>가격</th>
-                <th>수량</th>
-                <th>합계</th>
-                <th></th>
-              </tr>
-            </thead>
+        <CartTable cartInfo={cartInfo} handleLoad={cartLoad} handleChange={setCartInfo} />
 
-            <tbody>
-              {cartInfo &&
-                cartInfo.map((info) => {
-                  return (
-                    <>
-                      <tr className="cartList">
-                        <td className="cartImage" rowSpan={2}>
-                          {info.image}
-                          {/* <Link to={`/productForm/${info.productId}`}>
-                            <img src={info.image} alt={info.name} width="200" />
-                          </Link> */}
-                        </td>
-                        <td className="cartName">
-                          <div className="productName">{info.name}</div>
-
-                          <div className="cartExplain">
-                            {info.color}&nbsp;&nbsp;사이즈:{info.size}
-                          </div>
-                        </td>
-                        <td className="cartPrice">
-                          <div>
-                            {" "}
-                            {info.sale > 0 ? (
-                              <>
-                                <del>{"₩" + info.price.toLocaleString("ko-KR")}</del>
-                                &nbsp;
-                                {"₩" + salePrice(info).toLocaleString("ko-KR")}
-                              </>
-                            ) : (
-                              info.price.toLocaleString("ko-KR")
-                            )}
-                          </div>
-                        </td>
-                        <td className="cartCount">
-                          {" "}
-                          <button onClick={btnPM} value={info.id} className="btnPM">
-                            -
-                          </button>
-                          <input type="text" className="countInput" value={info.count} />
-                          <button onClick={btnPM} value={info.id} className="btnPM">
-                            +
-                          </button>
-                        </td>
-                        <td width="150" className="total">
-                          {"￦" + (info.count * salePrice(info)).toLocaleString("ko-KR")}
-                        </td>
-                        <td width="100">
-                          <label id={String(info.id)} onClick={delInfo} className="deleter">
-                            x
-                          </label>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
         <div id="bill">
           <div className="billMenu">
             <div className="price">총 주문금액</div>
@@ -165,9 +80,13 @@ const CartForm = () => {
             </div>
           </div>
           <hr className="bill-border" />
-          <button id="payButton" onClick={handlePay}>
-            결제하기
-          </button>
+          {handle ? (
+            <></>
+          ) : (
+            <Link onClick={handlePay} to="../payment" type="button" state={cartInfo}>
+              <button id="payButton">결제하기</button>
+            </Link>
+          )}
         </div>
       </div>
     </StyledCartForm>

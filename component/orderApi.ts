@@ -3,9 +3,9 @@ import { CartData, CartProduct } from "./Types";
 const URL = "http://localhost:3001";
 
 // 결제하기 눌렀을 때 (productData: { productId, size, color, count})
-export async function order(orderData: CartProduct) {
+export async function order(orderData: CartProduct[]) {
   const res = await fetch(`${URL}/order/handlePay`, {
-    method: "post",
+    method: "put",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },

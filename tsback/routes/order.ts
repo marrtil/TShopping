@@ -7,14 +7,28 @@ import OrderDetail from "../models/orderDetail";
 
 const router = express.Router();
 
-// 결제하기(장바구니 비우기)
-router.post("/handlePay", isLoggedIn, async (req, res) => {
-  const { userId } = req.user?.dataValues;
-  const { productId, size, count, color } = req.body;
-  const order = await Order.create({ userId, orderState: 0, orderDate: new Date() });
-  const orderDetail = await OrderDetail.create({ userId, orderId: order.dataValues.id, productId, size, count, color });
+// 결제하기(장바구니 수정)
+router.put("/handlePay", async (req, res) => {
+  for (let product of req.body) {
+    console.log(product);
+    const order = await Cart.update({ ...product }, { where: { id: product.id } });
+  }
 });
 
+// 진짜 결제
+// const { userId } = req.user?.dataValues;
+// for (let product of req.body) {
+//   const { productId, size, count, color } = product;
+//   const order = await Order.create({ userId, orderState: 0, orderDate: new Date() });
+//   const orderDetail = await OrderDetail.create({
+//     userId,
+//     orderId: order.dataValues.id,
+//     productId,
+//     size,
+//     count,
+//     color,
+//   });
+// }
 // 장바구니 담기
 router.post("/cartIn", isLoggedIn, async (req, res) => {
   const { userId } = req.user?.dataValues;
@@ -80,16 +94,9 @@ router.delete("/cart/allDel", async (req, res) => {
   //   res.status(404).send({ message: "failed delete." });
   // }
   const deleteOrder = await Order.destroy({ truncate: true });
-  if (deleteOrder) {
-    res.send({ message: `${deleteOrder} row(s) deleted` });
-  } else {
-    res.status(404).send({ message: "failed delete." });
-  }
+
   const deleteOrderDetail = await OrderDetail.destroy({ truncate: true });
-  if (deleteOrderDetail) {
-    res.send({ message: `${deleteOrderDetail} row(s) deleted` });
-  } else {
-    res.status(404).send({ message: "failed delete." });
-  }
+
+  res.end();
 });
 export default router;

@@ -121,6 +121,17 @@ export interface CartProduct extends CartData {
   sale: number;
   image: string;
 }
+export const INITIAL_CARTPRODUCT: CartProduct = {
+  id: 0,
+  name: "",
+  price: 0,
+  sale: 0,
+  image: "",
+  productId: 0,
+  size: "",
+  color: "",
+  count: 1,
+};
 
 //////////////////////////// 주소&배송
 
@@ -138,7 +149,10 @@ export const INITIAL_ADDRESS: address = {
 
 export interface DelveriyInfo extends address {
   userId: string;
-  deliveryMemo: string;
+  recipient: string; // 수령인 - orderDetail
+  phone: string; // 연락처 - orderDetail
+  deliveryMemo: string; // 요청사항 - orderDetail
+  paySelect: string;
 }
 
 export const INITIAL_DELEVERIYINFO: DelveriyInfo = {
@@ -147,4 +161,7 @@ export const INITIAL_DELEVERIYINFO: DelveriyInfo = {
   addressDetail: "",
   userId: "",
   deliveryMemo: "",
+  recipient: "",
+  phone: "",
+  paySelect: "",
 };
