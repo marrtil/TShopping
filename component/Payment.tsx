@@ -2,6 +2,7 @@ import * as React from "react";
 import { useLocation } from "react-router";
 import AddressInputForm from "./AddressInputForm";
 import CartForm from "./CartForm";
+import CartTable from "./CartTable";
 import PaySelect from "./PaySelect";
 import { DelveriyInfo, INITIAL_DELEVERIYINFO } from "./Types";
 
@@ -19,6 +20,7 @@ const Payment = () => {
   };
 
   const handlePay = () => {
+    console.log(props);
     console.log(deliveryInfo);
     // 장바구니 delete
     // order테이블로 post
@@ -27,8 +29,6 @@ const Payment = () => {
 
   const payLoad = () => {
     // 주소 가져오기
-    // 장바구니 가져오기
-    // 바로 결제하기로 들어왔을 때는?
   };
 
   React.useEffect(() => {
@@ -43,7 +43,7 @@ const Payment = () => {
   return (
     <>
       <div>
-        <CartForm handle="order" />
+        <CartTable cartInfo={props} />
         <hr />
         <div>
           배송지 정보
