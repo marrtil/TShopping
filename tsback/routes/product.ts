@@ -5,6 +5,9 @@ const router = express.Router();
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
+
+
+
 router.get("/productList", async (req, res) => {
   const { searchText, gender, kind } = req.query;
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useMemo } from "react";
 import moomin1 from "../upload/moomin1.jpeg";
 import moomin2 from "../upload/moomin2.jpeg";
 import moomin3 from "../upload/moomin3.jpeg";
@@ -14,6 +14,12 @@ const Banner = () => {
     moomin4,
   ]); //지금은 state인데 어떻게될지모름
   const [stop, setStop] = useState<boolean>(false);
+  const thumbImage=useMemo(()=>{
+   const thumb= {
+    backgroundImage:`url(${thumbnail[num]})`
+  }
+  return thumb;
+},[num]);
 
   const prevBtn = () => {
     if (num <= 0) {
@@ -48,8 +54,7 @@ const Banner = () => {
   //▶︎,⏸︎
 
   return (
-    <div id="banner">
-      <img src={thumbnail[num]} id="thumb"></img>
+    <div id="banner" style={thumbImage}>
       <div id="buttons">
         <button onClick={prevBtn}>{"<"}</button>
         <button
