@@ -23,7 +23,7 @@ const RecomendProduct = () => {
       return <div className="recommend"><a href={`/productList?kind=${categoryMan[value]}`}><img src={`http://localhost:3001/image/${value}.png`}/></a></div>
     }):Object.keys(categoryWomen).map((value)=>{
       return <div className="recommend"><a href={`/productList?kind=${categoryWomen[value]}`}><img src={`http://localhost:3001/image/${value}.png`}/></a></div>
-    }):<></>}
+    }):<><p>로그인 하시면 추천 목록이 생성됩니다.</p></>}
     </StyledRecommend>
   );
 };
