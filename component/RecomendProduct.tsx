@@ -1,28 +1,30 @@
 import * as React from "react";
+import {useState} from "react";
 import { Link } from "react-router-dom";
-import product1 from "../upload/product1.jpeg";
-import product2 from "../upload/product2.jpeg";
-import product3 from "../upload/product3.png";
+import StyledRecommend from "./styles/StyledRecommend";
+
+
+type categoryManT = {[index:string]:string,Mmanman:string,Mpants:string,Moutter:string,Mtshirts:string,Mneet:string,Mdenim:string};
+type categoryWomenT={[index:string]:string,Fcardigan:string,Fdress:string,Foutter:string,FAcce:string,Fshirts:string,Fpants:string,Ftshirts:string};
+type UserInfo =  { userId: string; nickname: string; password: string; email: string,gender:string };
+
+
+
+const categoryMan:categoryManT = {Mmanman:"맨투맨,후드티",Mpants:"팬츠",Moutter:"아우터",Mtshirts:"티셔츠,탑",Mneet:"니트,가디건,스웨터",Mdenim:"데님"};
+const categoryWomen:categoryWomenT={Fcardigan:"가디건,풀오버",Fdress:"드레스",Foutter:"아우터",FAcce:"악세서리",Fshirts:"셔츠",Fpants:"팬츠",Ftshirts:"티셔츠,탑"};
+
 
 const RecomendProduct = () => {
-  const productSrc: string[] = [product1, product2, product3]; // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
-  const productNum: string[] = ["0", "1", "2"];
+  const sessionStorage=window.sessionStorage;
+  const [userInfo,setuserInfo]=useState<UserInfo>(JSON.parse(sessionStorage.getItem("userInfo")!));
 
-  return (
-    <div className="Recomend">
-      <div>
-        {productSrc.map((value, index) => {
-          return (
-            <Link to={`/ProductForm/${productNum[index]}`}>
-              <div className="RecomendProduct">
-                <img src={value} width="200" alt={productNum[index]} />
-                <p>무민동화책{index + 1}</p>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+  return (<StyledRecommend>
+    {userInfo?userInfo.gender=="M"?Object.keys(categoryMan).map((value)=>{
+      return <div className="recommend"><a href={`/productList?kind=${categoryMan[value]}`}><img src={`http://localhost:3001/image/${value}.png`}/></a></div>
+    }):Object.keys(categoryWomen).map((value)=>{
+      return <div className="recommend"><a href={`/productList?kind=${categoryWomen[value]}`}><img src={`http://localhost:3001/image/${value}.png`}/></a></div>
+    }):<></>}
+    </StyledRecommend>
   );
 };
 
