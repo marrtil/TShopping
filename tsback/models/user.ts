@@ -6,6 +6,7 @@ class User extends Model {
   public userId!: string;
   public password!: string;
   public email!: string;
+  public gender!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -27,6 +28,9 @@ User.init(
     email: {
       type: DataTypes.STRING(30),
       allowNull: false,
+    },
+    gender: {
+      type: DataTypes.STRING(2),
     },
   },
   {
