@@ -42,13 +42,7 @@ export async function login_process(userInfo: LOGIN_INFO) {
   return body;
 }
 
-export async function join_process(userInfo: {
-  userId: string;
-  nickname: string;
-  password: string;
-  email: string;
-  gender: string;
-}) {
+export async function join_process(userInfo: { userId: string; nickname: string; password: string; email: string,gender:string }) {
   console.log("회원가입 시도... ", JSON.stringify(userInfo));
   const res = await fetch(`${URL}/user/join`, {
     method: "post",
@@ -161,8 +155,8 @@ export async function productDetail(id: number) {
   return product;
 }
 
-export async function gridLoad(option: ProductSort) {
-  const res = await fetch(`${URL}/product/productGrid/${option}`);
+export async function gridLoad(option:ProductSort){
+  const res=await fetch(`${URL}/product/productGrid/${option}`);
   if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
   const product = await res.json();
   return product;

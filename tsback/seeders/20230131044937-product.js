@@ -29,7 +29,7 @@ module.exports = {
       {
         name: "무민3",
         gender: "여성",
-        kind: "재킷",
+        kind: "아우터",
         size: "XL",
         color: "블랙,화이트",
         image: "http://localhost:3001/image/moomin3.jpeg",
@@ -40,7 +40,7 @@ module.exports = {
       {
         name: "무민4",
         gender: "여성",
-        kind: "청바지",
+        kind: "데님",
         size: "M",
         color: "생지,샐비지,워싱",
         image: "http://localhost:3001/image/moomin4.jpeg",
@@ -51,7 +51,7 @@ module.exports = {
       {
         name: "무민5",
         gender: "남성",
-        kind: "패딩",
+        kind: "아우터",
         size: "M",
         color: "블랙,오렌지,네이비",
         image: "http://localhost:3001/image/moomin5.jpeg",
