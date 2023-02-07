@@ -35,18 +35,26 @@ const CartForm = ({ handle }: any) => {
     return sum;
   }, [cartInfo]);
 
-  const handlePay = () => {
+  const handlePay = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // 변경된 장바구니를 order테이블에 저장.
     // 장바구니를 비우는건 결제가 끝난 뒤에 하자.
     // 아닌가? 결제를 취소하면 order테이블에 넣은 의미가 없다.
     // 장바구니는 파라미터로 넘긴다.
+    if (cartInfo.length === 0) {
+      e.preventDefault();
+      alert("장바구니에 상품이 없습니다.");
+      return;
+    }
     const check = confirm(`이대로 결제하시겠습니까? \n총액 : ${sumPrice}원`);
-    if (check && cartInfo) {
-      console.log(cartInfo);
-      order(cartInfo);
+    if (!(check && cartInfo)) {
+      e.preventDefault();
 
-      navi("../payment");
-    } else return;
+      // console.log(cartInfo);
+      // order(cartInfo);
+
+      // navi("../payment");
+    }
+    //  else return;
   };
 
   return (

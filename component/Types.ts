@@ -148,20 +148,28 @@ export const INITIAL_ADDRESS: address = {
 };
 
 export interface DelveriyInfo extends address {
-  userId: string;
+  // userId: string;
+  id: string; // order에 들어가야겠지?
   recipient: string; // 수령인 - orderDetail
-  phone: string; // 연락처 - orderDetail
+  phone: string;
+  phone0: string; // 연락처 - orderDetail
+  phone1: string;
+  phone2: string;
   deliveryMemo: string; // 요청사항 - orderDetail
   paySelect: string;
 }
 
 export const INITIAL_DELEVERIYINFO: DelveriyInfo = {
+  id: "0",
   zoneCode: "",
   address: "",
   addressDetail: "",
-  userId: "",
+  // userId: "",
   deliveryMemo: "",
   recipient: "",
-  phone: "",
+  phone: "010",
+  phone0: "010",
+  phone1: "",
+  phone2: "",
   paySelect: "",
 };

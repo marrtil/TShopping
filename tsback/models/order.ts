@@ -3,6 +3,7 @@ import { sequelize } from "./sequelize";
 class Order extends Model {
   public readonly id!: number;
   public userId!: string;
+  public addressId!: string;
   public orderState!: number;
   public orderDate!: Date;
   public readonly createdAt!: Date;
@@ -13,6 +14,10 @@ Order.init(
   {
     userId: {
       type: DataTypes.STRING(20),
+      allowNull: false,
+    },
+    addressId: {
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     orderState: {

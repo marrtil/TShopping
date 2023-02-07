@@ -3,9 +3,12 @@ import { sequelize } from "./sequelize";
 class Address extends Model {
   public readonly id!: number;
   public userId!: string;
-  public postAddress!: string;
-  public homeAddress!: string;
-  public detailAddress!: string;
+  public zoneCode!: string;
+  public address!: string;
+  public addressDetail!: string;
+  public deliveryMemo!: string;
+  public recipient!: string;
+  public phone!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -16,16 +19,25 @@ Address.init(
       type: DataTypes.STRING(20),
       allowNull: false,
     },
-    postAddress: {
+    zoneCode: {
       type: DataTypes.STRING(10),
       allowNull: false,
     },
-    homeAddress: {
+    address: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    detailAddress: {
+    addressDetail: {
       type: DataTypes.STRING(50),
+    },
+    deliveryMemo: {
+      type: DataTypes.STRING(50),
+    },
+    recipient: {
+      type: DataTypes.STRING(10),
+    },
+    phone: {
+      type: DataTypes.STRING(15),
     },
     createdAt: {
       allowNull: false,

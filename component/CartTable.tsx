@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { salePrice } from "./CartForm";
 import { cartOut } from "./orderApi";
 
-const CartTable = ({ cartInfo, handleLoad, handleChange }: any) => {
+const CartTable = ({ cartInfo, handleLoad, handleChange, state }: any) => {
+  const navi = useNavigate();
   const btnPM = (e: React.MouseEvent<HTMLButtonElement>) => {
     const a = e.currentTarget;
     var modInfo = [...cartInfo!];
@@ -17,8 +18,19 @@ const CartTable = ({ cartInfo, handleLoad, handleChange }: any) => {
 
   const delInfo = async (e: React.MouseEvent<HTMLLabelElement>) => {
     var index = e.currentTarget.id;
-    await cartOut(index);
-    handleLoad();
+    if (state === "pay") {
+      console.log("delInfo");
+      var delinfo = [...cartInfo];
+      delinfo.splice(Number(index), 1);
+      if (delinfo.length == 0) {
+        if (confirm(`결제를 그만두시겠습니까?`)) navi("../");
+        else return;
+      }
+      handleChange(delinfo);
+    } else {
+      await cartOut(index);
+      handleLoad();
+    }
   };
   return (
     <div id="cartTable">
@@ -81,7 +93,7 @@ const CartTable = ({ cartInfo, handleLoad, handleChange }: any) => {
                       {"￦" + (info.count * salePrice(info)).toLocaleString("ko-KR")}
                     </td>
                     <td width="100">
-                      <label id={String(info.id)} onClick={delInfo} className="deleter">
+                      <label id={String(index)} onClick={delInfo} className="deleter">
                         x
                       </label>
                     </td>
