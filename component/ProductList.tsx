@@ -52,6 +52,8 @@ const ProductList = () => {
     return colors;
   }, [initialProduct]);
 
+  
+
   const allProduct = async () => {
     const product = await allProducts(search);
     setListProduct(product);

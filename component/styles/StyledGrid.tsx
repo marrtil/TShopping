@@ -12,6 +12,7 @@ const StyledGrid = styled.div`
       // width: 200px;
       // height: 30px;
       margin: 30px 0 0 10px;
+      font-family: "Poor Story", cursive;
     }
     div {
       // margin-top: 60px;

@@ -9,8 +9,9 @@ const Op = sequelize.Op;
 
 
 router.get("/productList", async (req, res) => {
-  const { searchText, gender, kind } = req.query;
 
+  
+  const { searchText, gender, kind } = req.query;
   if (searchText) {
     const product = await Product.findAll({
       where: { name: { [Op.like]: `%${searchText}%` } },
@@ -37,7 +38,28 @@ router.get("/productList", async (req, res) => {
     });
 
     res.send(product);
-  } else {
+  } 
+  else if(!gender&& kind){
+    var condition:string[] = [];
+    var product=null;
+    if(typeof(kind)=="string")
+    {condition=kind.split(",");
+    console.log(condition[0],condition[1],condition.length);
+    condition.length==2?product = await Product.findAll({
+     where:{ [Op.or]:[
+        {kind:condition[0]},
+        {kind:condition[1]}
+      ]
+    },
+    }):product = await Product.findAll({
+     where:{ 
+        kind:condition[0]
+      },
+    })
+    res.send(product);
+  }}
+    
+  else {
     const productList = await Product.findAll();
     res.send(productList);
   }
