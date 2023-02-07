@@ -10,6 +10,7 @@ const INITIAL_VALUES = {
   password: "",
   name: "",
   email: "",
+  gender: "",
 };
 const inputName: InputName = {
   userId: "아이디",
@@ -17,6 +18,7 @@ const inputName: InputName = {
   password: "비밀번호",
   passwordCheck: "비밀번호 확인",
   email: "이메일",
+  gender: "성별",
 };
 
 function JoinForm() {
@@ -53,6 +55,7 @@ function JoinForm() {
       nickname: joinData.name,
       password: joinData.password,
       email: joinData.email,
+      gender: joinData.gender,
     });
   };
 
@@ -110,6 +113,11 @@ function JoinForm() {
         <input name="name" onChange={handleChange} className="joinInput" />
         <p>이메일</p>
         <input type="email" name="email" onChange={handleChange} className="joinInput" />
+        <p>성별</p>
+        남성
+        <input type="radio" name="gender" onChange={handleChange} value="M" />
+        여성
+        <input type="radio" name="gender" onChange={handleChange} value="F" />
         <br></br>
         <button type="submit" id="joinSubmit">
           가입하기

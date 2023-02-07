@@ -46,7 +46,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 });
 
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
-  const { userId, nickname, password, email } = req.body;
+  const { userId, nickname, password, email, gender } = req.body;
   try {
     // const existUser = await User.findOne({ where: { userId } });
     // if (existUser) {
@@ -60,6 +60,7 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       nickname,
       password: hash,
       email,
+      gender,
     });
     return res.redirect("/");
   } catch (err) {
