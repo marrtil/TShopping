@@ -1,4 +1,4 @@
-import { CartData, CartProduct } from "./Types";
+import { CartData, CartProduct, DelveriyInfo } from "./Types";
 
 const URL = "http://localhost:3001";
 
@@ -55,5 +55,45 @@ export async function cartOut(cartId: string) {
   });
   if (!res) throw new Error("cartInfo is failed");
   const body = await res.json();
+  return body;
+}
+
+// 결제 진행
+export async function payCartOut(cartInfo: CartProduct[]) {
+  await fetch(`${URL}/order/pay/cartOut`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(cartInfo),
+  });
+}
+
+export async function payOrderIn(cartInfo: CartProduct[], delveriyInfo: DelveriyInfo) {
+  await fetch(`${URL}/order/pay/orderIn/${delveriyInfo.id}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(cartInfo),
+    credentials: "include",
+  });
+}
+
+export async function payAddressIn(delveriyInfo: DelveriyInfo) {
+  await fetch(`${URL}/order/pay/addressAdd`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(delveriyInfo),
+    credentials: "include",
+  });
+}
+
+// 주소 가져오기
+export async function addressLoad(userId: string) {
+  const res = await fetch(`${URL}/order/addressLoad/${userId}`);
+  const body = res.json();
   return body;
 }

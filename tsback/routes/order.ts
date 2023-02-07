@@ -4,6 +4,7 @@ import Order from "../models/order";
 import Cart from "../models/cart";
 import { isLoggedIn } from "./middleware";
 import OrderDetail from "../models/orderDetail";
+import Address from "../models/address";
 
 const router = express.Router();
 
@@ -15,20 +16,48 @@ router.put("/handlePay", async (req, res) => {
   }
 });
 
-// 진짜 결제
-// const { userId } = req.user?.dataValues;
-// for (let product of req.body) {
-//   const { productId, size, count, color } = product;
-//   const order = await Order.create({ userId, orderState: 0, orderDate: new Date() });
-//   const orderDetail = await OrderDetail.create({
-//     userId,
-//     orderId: order.dataValues.id,
-//     productId,
-//     size,
-//     count,
-//     color,
-//   });
-// }
+router.delete("/pay/cartOut", async (req, res) => {
+  for (let item of req.body) {
+    await Cart.destroy({ where: { id: item.id } });
+  }
+});
+
+router.post("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
+  console.log("pay2");
+  const { userId } = req.user?.dataValues;
+  const { addressId } = req.params;
+  const order = await Order.create({ userId, addressId, orderState: 0, orderDate: new Date() });
+  for (let product of req.body) {
+    const { productId, size, count, color } = product;
+    await OrderDetail.create({
+      userId,
+      orderId: order.dataValues.id,
+      productId,
+      size,
+      count,
+      color,
+    });
+  }
+});
+
+router.post("/pay/addressAdd", isLoggedIn, async (req, res) => {
+  const { id, zoneCode, address, addressDetail, deliveryMemo, recipient, phone0, phone1, phone2 } = req.body;
+  const { userId } = req.user?.dataValues;
+  if (id !== 0) {
+    await Address.create({
+      zoneCode,
+      userId,
+      address,
+      addressDetail,
+      deliveryMemo,
+      recipient,
+      phone: String(phone0) + phone1 + phone2,
+    });
+  } else {
+    console.log("이미 있는 주소.");
+  }
+});
+
 // 장바구니 담기
 router.post("/cartIn", isLoggedIn, async (req, res) => {
   const { userId } = req.user?.dataValues;
@@ -99,4 +128,11 @@ router.delete("/cart/allDel", async (req, res) => {
 
   res.end();
 });
+
+router.get("/addressLoad/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const address = await Address.findAll({ where: { userId } });
+  if (address) res.send(address);
+});
+
 export default router;

@@ -4,7 +4,7 @@ import { telNo1 } from "./data";
 import StyledAddressInput from "./styles/StyledAddressInput";
 import { address, INITIAL_ADDRESS } from "./Types";
 
-const AddressInputForm = ({ handleChange }: any) => {
+const AddressInputForm = ({ setInfo, handleChange }: any) => {
   const [address, setAddress] = React.useState<address>(INITIAL_ADDRESS);
   const open = useDaumPostcodePopup();
 
@@ -25,6 +25,10 @@ const AddressInputForm = ({ handleChange }: any) => {
 
     const newAddress: address = { zoneCode: zoneCode, address: fullAddress, addressDetail: "" };
     setAddress({ ...newAddress });
+    setInfo((prev: any) => ({
+      ...prev,
+      ...newAddress,
+    }));
   };
 
   const handleClick = () => {
@@ -35,16 +39,17 @@ const AddressInputForm = ({ handleChange }: any) => {
       <h3>배송지 입력</h3>
       <div>
         <strong>수령인</strong>
-        <input type="text" />
+        <input type="text" name="recipient" onChange={handleChange} />
       </div>
       <div>
         <strong>연락처</strong>
-        <select className="telNo1">
+        <select className="telNo1" onChange={handleChange} name="phone0">
           {telNo1.map((no) => {
             return <option value={no}>{no}</option>;
           })}
         </select>{" "}
-        - <input type="text" className="telNo" /> - <input type="text" className="telNo" />
+        - <input type="text" className="telNo" onChange={handleChange} name="phone1" /> -{" "}
+        <input type="text" className="telNo" onChange={handleChange} name="phone2" />
       </div>{" "}
       <div>
         <strong className="addressStrong">배송지 주소</strong>
