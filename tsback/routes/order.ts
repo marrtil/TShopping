@@ -18,7 +18,9 @@ router.put("/handlePay", async (req, res) => {
 
 router.delete("/pay/cartOut", async (req, res) => {
   for (let item of req.body) {
-    await Cart.destroy({ where: { id: item.id } });
+    if (item.productId) {
+      await Cart.destroy({ where: { id: item.id } });
+    }
   }
 });
 
@@ -28,7 +30,9 @@ router.post("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
   const { addressId } = req.params;
   const order = await Order.create({ userId, addressId, orderState: 0, orderDate: new Date() });
   for (let product of req.body) {
-    const { productId, size, count, color } = product;
+    const { size, count, color } = product;
+    let { productId } = product;
+    if (!product.productId) productId = product.id;
     await OrderDetail.create({
       userId,
       orderId: order.dataValues.id,
@@ -43,7 +47,7 @@ router.post("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
 router.post("/pay/addressAdd", isLoggedIn, async (req, res) => {
   const { id, zoneCode, address, addressDetail, deliveryMemo, recipient, phone0, phone1, phone2 } = req.body;
   const { userId } = req.user?.dataValues;
-  if (id !== 0) {
+  if (id === 0) {
     await Address.create({
       zoneCode,
       userId,

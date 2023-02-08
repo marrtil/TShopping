@@ -28,7 +28,7 @@ const CartTable = ({ cartInfo, handleLoad, handleChange, state }: any) => {
       }
       handleChange(delinfo);
     } else {
-      await cartOut(index);
+      await cartOut(cartInfo[index].id);
       handleLoad();
     }
   };
