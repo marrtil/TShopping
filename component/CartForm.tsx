@@ -8,8 +8,8 @@ import { CartProduct, INITIAL_CARTPRODUCT } from "./Types";
 import { Link } from "react-router-dom";
 import CartTable from "./CartTable";
 
-export const salePrice = ({ price, sale }: { price: number; sale: number }) => {
-  return (price * (100 - sale)) / 100;
+export const salePrice = ({ price, discount }: { price: number; discount: number }) => {
+  return (price * (100 - discount)) / 100;
 };
 
 const CartForm = ({ handle }: any) => {

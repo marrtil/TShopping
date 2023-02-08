@@ -118,14 +118,14 @@ export interface CartProduct extends CartData {
   id: number;
   name: string;
   price: number;
-  sale: number;
+  discount: number;
   image: string;
 }
 export const INITIAL_CARTPRODUCT: CartProduct = {
   id: 0,
   name: "",
   price: 0,
-  sale: 0,
+  discount: 0,
   image: "",
   productId: 0,
   size: "",

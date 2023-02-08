@@ -17,7 +17,7 @@ const initialproduct: product = {
   color: "",
   image: "",
   price: 0,
-  sale: 0,
+  discount: 0,
   count: 0,
 };
 
@@ -78,7 +78,7 @@ const ProductForm = () => {
             <h1>{product.name}</h1>
             <p className="productKind">{product.kind}</p>
             <h3>
-              {product.sale > 0 ? (
+              {product.discount > 0 ? (
                 <>
                   <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>&nbsp;
                   {"₩" + salePrice(product).toLocaleString("ko-KR")}

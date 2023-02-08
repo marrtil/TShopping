@@ -12,7 +12,7 @@ module.exports = {
         color: "블랙,네이비,화이트,베이지",
         image: "http://localhost:3001/image/moomin1.jpeg",
         price: 20000,
-        sale: 15,
+        discount: 15,
         count: 1,
       },
       {
@@ -23,7 +23,7 @@ module.exports = {
         color: "베이지,그린,블루",
         image: "http://localhost:3001/image/moomin2.jpeg",
         price: 130000,
-        sale: 25,
+        discount: 25,
         count: 1,
       },
       {
@@ -34,7 +34,7 @@ module.exports = {
         color: "블랙,화이트",
         image: "http://localhost:3001/image/moomin3.jpeg",
         price: 10000,
-        sale: 10,
+        discount: 10,
         count: 1,
       },
       {
@@ -45,7 +45,7 @@ module.exports = {
         color: "생지,샐비지,워싱",
         image: "http://localhost:3001/image/moomin4.jpeg",
         price: 50000,
-        sale: 15,
+        discount: 15,
         count: 1,
       },
       {
@@ -56,7 +56,7 @@ module.exports = {
         color: "블랙,오렌지,네이비",
         image: "http://localhost:3001/image/moomin5.jpeg",
         price: 15000,
-        sale: 20,
+        discount: 20,
         count: 1,
       },
     ]);

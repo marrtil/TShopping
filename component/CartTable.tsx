@@ -68,7 +68,7 @@ const CartTable = ({ cartInfo, handleLoad, handleChange, state }: any) => {
                     <td className="cartPrice">
                       <div>
                         {" "}
-                        {info.sale > 0 ? (
+                        {info.discount > 0 ? (
                           <>
                             <del>{"₩" + info.price.toLocaleString("ko-KR")}</del>
                             &nbsp;

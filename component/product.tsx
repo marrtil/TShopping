@@ -13,7 +13,7 @@ export type product = {
   color: string;
   image: string | any;
   price: number;
-  sale: number;
+  discount: number;
   count: number;
 };
 
@@ -27,7 +27,7 @@ export const initialProducts: product[] = [
     color: "블랙,네이비,화이트,베이지",
     image: moomin1,
     price: 20000,
-    sale: 0.15,
+    discount: 0.15,
     count: 1,
   },
   {
@@ -39,7 +39,7 @@ export const initialProducts: product[] = [
     color: "베이지,그린,블루",
     image: moomin2,
     price: 130000,
-    sale: 0.25,
+    discount: 0.25,
     count: 1,
   },
   {
@@ -51,7 +51,7 @@ export const initialProducts: product[] = [
     color: "블랙,화이트",
     image: moomin3,
     price: 10000,
-    sale: 0.1,
+    discount: 0.1,
     count: 1,
   },
   {
@@ -63,7 +63,7 @@ export const initialProducts: product[] = [
     color: "생지,샐비지,워싱",
     image: moomin4,
     price: 50000,
-    sale: 0.15,
+    discount: 0.15,
     count: 1,
   },
   {
@@ -75,7 +75,7 @@ export const initialProducts: product[] = [
     color: "블랙,오렌지,네이비",
     image: moomin5,
     price: 15000,
-    sale: 0.2,
+    discount: 0.2,
     count: 1,
   },
 ];

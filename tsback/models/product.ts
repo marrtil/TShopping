@@ -9,8 +9,9 @@ class Product extends Model {
   public color!: string;
   public image!: string;
   public price!: number;
-  public sale!: number;
+  public discount!: number;
   public count!: number;
+  public sales!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -39,19 +40,21 @@ Product.init(
     },
     image: {
       type: DataTypes.STRING(100),
-      allowNull: false,
     },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    sale: {
+    discount: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     count: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    sales: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
     },
     createdAt: {
       allowNull: false,

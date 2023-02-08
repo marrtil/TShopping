@@ -52,8 +52,6 @@ const ProductList = () => {
     return colors;
   }, [initialProduct]);
 
-  
-
   const allProduct = async () => {
     const product = await allProducts(search);
     setListProduct(product);
@@ -126,7 +124,7 @@ const ProductList = () => {
                   </Link>
                   <div>
                     {" "}
-                    {product.sale > 0 ? (
+                    {product.discount > 0 ? (
                       <>
                         <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>
                         &nbsp;

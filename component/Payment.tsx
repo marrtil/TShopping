@@ -32,8 +32,6 @@ const Payment = () => {
   };
 
   const handlePay = async () => {
-    // 결제하기로 들어오면 어떻게 해야할까...
-    // 일단 값은 동일하게 들어온다.
     if (isEmpty(cartInfo && deliveryInfo)) {
       alert("빈 항목이 있습니다!");
       return;

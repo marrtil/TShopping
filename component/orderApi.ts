@@ -35,7 +35,7 @@ export async function cartIn(productData: CartData) {
 // 장바구니
 
 // 장바구니 불러오기 (userId)
-// => 장바구니id, productId => { sale, price, image }, size, color, count
+// => 장바구니id, productId => { discount, price, image }, size, color, count
 export async function cart(userId: string) {
   const res = await fetch(`${URL}/order/cart/${userId}`, {
     // credentials: "include",
@@ -71,7 +71,7 @@ export async function payCartOut(cartInfo: CartProduct[]) {
 
 export async function payOrderIn(cartInfo: CartProduct[], delveriyInfo: DelveriyInfo) {
   await fetch(`${URL}/order/pay/orderIn/${delveriyInfo.id}`, {
-    method: "post",
+    method: "put",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },

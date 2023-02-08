@@ -7,6 +7,6 @@ export type product = {
   color: string;
   src: string | any;
   price: number;
-  sale: number;
+  discount: number;
   count: number;
 };

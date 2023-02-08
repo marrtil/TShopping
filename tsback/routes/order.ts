@@ -24,7 +24,7 @@ router.delete("/pay/cartOut", async (req, res) => {
   }
 });
 
-router.post("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
+router.put("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
   console.log("pay2");
   const { userId } = req.user?.dataValues;
   const { addressId } = req.params;
@@ -41,13 +41,19 @@ router.post("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
       count,
       color,
     });
+    await Product.increment(
+      {
+        sales: 1,
+      },
+      { where: { id: productId } }
+    );
   }
 });
 
 router.post("/pay/addressAdd", isLoggedIn, async (req, res) => {
   const { id, zoneCode, address, addressDetail, deliveryMemo, recipient, phone0, phone1, phone2 } = req.body;
   const { userId } = req.user?.dataValues;
-  if (id === 0) {
+  if (id === "0") {
     await Address.create({
       zoneCode,
       userId,
@@ -60,6 +66,10 @@ router.post("/pay/addressAdd", isLoggedIn, async (req, res) => {
   } else {
     console.log("이미 있는 주소.");
   }
+});
+
+router.put("/productSales", async (req, res) => {
+  const salesCheck = Product.findOne();
 });
 
 // 장바구니 담기
@@ -88,7 +98,7 @@ router.get("/cart/:userId", async (req, res) => {
   for (let product of cart) {
     const pro = await Product.findOne({
       where: { id: product.productId },
-      attributes: ["name", "price", "sale", "image"],
+      attributes: ["name", "price", "discount", "image"],
     });
     // console.log(pro);
     const newObj = { ...product.dataValues, ...pro!.dataValues };
