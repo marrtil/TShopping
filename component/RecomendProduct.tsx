@@ -48,12 +48,9 @@ const categoryWomen: categoryWomenT = {
   Ftshirts: "티셔츠,탑",
 };
 
-const RecomendProduct = () => {
-  const sessionStorage = window.sessionStorage;
-  const [userInfo, setuserInfo] = useState<UserInfo>(
-    JSON.parse(sessionStorage.getItem("userInfo")!)
-  );
-
+const RecomendProduct = ({userInfo}:any) => {
+ 
+  
   return (
     <StyledRecommend>
       {userInfo ? (
@@ -61,7 +58,7 @@ const RecomendProduct = () => {
           Object.keys(categoryMan).map((value) => {
             return (
               <div className="recommend">
-                <a href={`/productList?kind=${categoryMan[value]}`}>
+                <a href={`/productList?gender=남성&kind=${categoryMan[value]}`}>
                   <img src={`http://localhost:3001/image/${value}.png`} />
                 </a>
               </div>
@@ -71,7 +68,7 @@ const RecomendProduct = () => {
           Object.keys(categoryWomen).map((value) => {
             return (
               <div className="recommend">
-                <a href={`/productList?kind=${categoryWomen[value]}`}>
+                <a href={`/productList?gender=여성&kind=${categoryWomen[value]}`}>
                   <img src={`http://localhost:3001/image/${value}.png`} />
                 </a>
               </div>
@@ -79,9 +76,9 @@ const RecomendProduct = () => {
           })
         )
       ) : (
-        <>
+        <div id="empty">
           <p>로그인 하시면 추천 목록이 생성됩니다!!</p>
-        </>
+        </div>
       )}
     </StyledRecommend>
   );

@@ -2,6 +2,8 @@ import { LOGIN_INFO } from "./LoginForm";
 import { product } from "./product";
 import { ProductSort } from "./Types";
 
+
+
 const URL = "http://localhost:3001";
 
 export async function loginCheck_process() {
@@ -169,9 +171,12 @@ export async function productDetail(id: number) {
   return product;
 }
 
-export async function gridLoad(option: ProductSort) {
-  const res = await fetch(`${URL}/product/productGrid/${option}`);
+export async function gridLoad(option: ProductSort,gender:string="") {
+  
+  const res = await fetch(`${URL}/product/productGrid/${option}?gender=${gender}`);
   if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
   const product = await res.json();
   return product;
 }
+
+

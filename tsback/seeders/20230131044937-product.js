@@ -25,6 +25,7 @@ module.exports = {
         price: 130000,
         discount: 25,
         count: 1,
+        sales:50
       },
       {
         name: "무민3",
@@ -47,6 +48,7 @@ module.exports = {
         price: 50000,
         discount: 15,
         count: 1,
+        sales:100,
       },
       {
         name: "무민5",
@@ -58,6 +60,7 @@ module.exports = {
         price: 15000,
         discount: 20,
         count: 1,
+        sales:30
       },
     ]);
   },

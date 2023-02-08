@@ -13,18 +13,33 @@ interface Props {
   sort: ProductSort;
 }
 
-const ProductGrid = () => {
+
+
+
+const ProductGrid = ({userInfo}:any) => {
   const [products,setProducts] = useState<product[]>([]); // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
   const [option, setOption] = React.useState<ProductSort>("new");
 
+  
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOption(e.target.value as ProductSort);
   };
 
   const gridImage = async()=>{
-    const grid=await gridLoad(option);
+    var grid = null;
+    if(userInfo){
+      var gender="";
+      if(userInfo.gender=="M") gender="남성";
+      else gender="여성";
+      grid=await gridLoad(option,gender);
+    
+    }
+     else grid=await gridLoad(option)
     setProducts(grid);
   }
+
+  console.log(userInfo);
+  
 
   useEffect(() => {
     gridImage();
