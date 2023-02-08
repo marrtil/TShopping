@@ -22,7 +22,7 @@ const ReviewTable: React.FC<Review[]> = (arr) => {
           </td>
         </tr>
         {Object.values(arr).map((item) => {
-          return <ReviewItem key={item.orderNum} {...item} />;
+          return <ReviewItem key={item.orderId} {...item} />;
         })}
       </tbody>
       <tfoot></tfoot>

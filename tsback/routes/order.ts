@@ -30,13 +30,14 @@ router.put("/pay/orderIn/:addressId", isLoggedIn, async (req, res) => {
   const { addressId } = req.params;
   const order = await Order.create({ userId, addressId, orderState: 0, orderDate: new Date() });
   for (let product of req.body) {
-    const { size, count, color } = product;
+    const { size, count, color, name } = product;
     let { productId } = product;
     if (!product.productId) productId = product.id;
     await OrderDetail.create({
       userId,
       orderId: order.dataValues.id,
       productId,
+      productName: name,
       size,
       count,
       color,
@@ -147,6 +148,27 @@ router.get("/addressLoad/:userId", async (req, res) => {
   const { userId } = req.params;
   const address = await Address.findAll({ where: { userId } });
   if (address) res.send(address);
+});
+
+router.get("/orderLoad/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const order = await Order.findAll({ where: { userId }, attributes: ["id", "orderState", "orderDate"] });
+  let orderList = [];
+  for (let o of order) {
+    const detail = await OrderDetail.findOne({
+      where: { orderId: o.id },
+      attributes: ["orderId", "productId", "productName", "size", "count", "color"],
+    });
+
+    const newObj = { ...o.dataValues, ...detail!.dataValues };
+    orderList.push(newObj);
+  }
+  res.json(orderList);
+});
+
+router.delete("/orderComplete/:id", async (req, res) => {
+  const { id } = req.params;
+  await Order.destroy({ where: { id } });
 });
 
 export default router;

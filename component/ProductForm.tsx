@@ -24,6 +24,7 @@ const initialproduct: product = {
 const ProductForm = () => {
   const { id } = useParams();
   const navi = useNavigate();
+  const local = window.localStorage;
   const session = window.sessionStorage;
   const [product, setProduct] = useState<product>(initialproduct);
   const [select, setSelect] = useState({ color: "select", size: "select" });
@@ -40,6 +41,15 @@ const ProductForm = () => {
 
   React.useEffect(() => {
     loadProduct();
+    if (id) {
+      if (local.getItem("viewed")) {
+        let filltered = local
+          .getItem("viewed")
+          ?.split(",")
+          .filter((item) => item !== id);
+        local.setItem("viewed", id + "," + filltered);
+      } else local.setItem("viewed", id);
+    }
   }, []);
   const handleOptionCheck = (e: any) => {
     if (select.color === "select" || select.size === "select") {

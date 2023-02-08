@@ -37,9 +37,7 @@ export async function cartIn(productData: CartData) {
 // 장바구니 불러오기 (userId)
 // => 장바구니id, productId => { discount, price, image }, size, color, count
 export async function cart(userId: string) {
-  const res = await fetch(`${URL}/order/cart/${userId}`, {
-    // credentials: "include",
-  });
+  const res = await fetch(`${URL}/order/cart/${userId}`);
   if (!res) throw new Error("cartInfo is failed");
   const body = await res.json();
   console.log(body);
@@ -96,4 +94,18 @@ export async function addressLoad(userId: string) {
   const res = await fetch(`${URL}/order/addressLoad/${userId}`);
   const body = res.json();
   return body;
+}
+
+// order 가져오기
+export async function orderLoad(userId: string) {
+  const res = await fetch(`${URL}/order/orderLoad/${userId}`);
+  const body = await res.json();
+  console.log(body);
+  return body;
+}
+
+export async function orderComplete(id: string) {
+  const res = await fetch(`${URL}/order/orderComplete/${id}`, {
+    method: "delete",
+  });
 }

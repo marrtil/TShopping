@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useLocation } from "react-router";
-import { Order, orderState } from "../Types";
+import { orderComplete, orderLoad } from "../orderApi";
+import { INIITIAL_ORDERLIST, Order, orderState } from "../Types";
 import StyledOrder from "./StyledOrder";
 import Table from "./Table";
 
@@ -17,15 +18,20 @@ export const OrderSortList: orderState[] = [
 
 const MyOrderRecord = () => {
   const { search } = useLocation();
+  const session = window.sessionStorage;
   const path = 0;
   if (search) search.split("order_state=")[1].slice(0, 1);
   const [order_state, setOrder_state] = React.useState(path);
-  const [orders, setOrders] = React.useState<Order[]>([
-    { name: "상품정보1", price: 20000, count: 2, orderNum: 112, orderDate: "20230119", orderState: "입금/결제" },
-    { name: "상품정보2", price: 10000, count: 3, orderNum: 66, orderDate: "20230104", orderState: "환불" },
-    { name: "상품정보2", price: 10000, count: 3, orderNum: 66, orderDate: "20220904", orderState: "환불완료" },
-  ]);
+  const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
+
+  const handleLoad = async () => {
+    // await orderComplete("2");
+    const orderList: Order[] = await orderLoad(JSON.parse(session.getItem("userInfo")!).userId);
+    setOrders(orderList);
+  };
+
   React.useEffect(() => {
+    handleLoad();
     if (order_state) {
       (document.querySelector(`#orderState${order_state}`) as HTMLAnchorElement).style.fontWeight = "bold";
       (document.querySelector(`#orderState${order_state}`) as HTMLAnchorElement).style.color = "rgb(0,0,0)";

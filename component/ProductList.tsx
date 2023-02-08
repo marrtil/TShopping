@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
-import { useParams, useLocation } from "react-router";
+import { useParams, useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductList from "./styles/StyledProductList";
 import { productManT, productWomenT } from "./Types";
 import { initialProducts, product } from "./product";
-import { allProducts } from "./api";
+import { allProducts, viewedProducts } from "./api";
 import { salePrice } from "./CartForm";
 
 type tableType = {
@@ -38,10 +38,11 @@ const colorTable: tableType = {
 const ProductList = () => {
   const [listProduct, setListProduct] = useState<product[]>([]);
   const [initialProduct, setInitialProduct] = useState<product[]>(listProduct);
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
   const sessionStorage = window.sessionStorage;
+  const local = window.localStorage;
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -57,8 +58,21 @@ const ProductList = () => {
     setListProduct(product);
     setInitialProduct(product);
   };
+
+  const viewedProduct = async () => {
+    if (local.getItem("viewed")) {
+      const product = await viewedProducts(local.getItem("viewed") || "");
+      setListProduct(product);
+      setInitialProduct(product);
+    }
+  };
+
   useEffect(() => {
-    allProduct();
+    if (pathname === "/myPage/viewed-goods") {
+      viewedProduct();
+    } else {
+      allProduct();
+    }
   }, []);
 
   // console.log(search);
@@ -94,21 +108,28 @@ const ProductList = () => {
   return (
     <StyledProductList>
       <div id="productFilter">
-        <select name="order" onChange={changeOrder} className="filter">
-          <option value="1">최신순</option>
-          <option value="2">낮은 가격순</option>
-          <option value="3">높은 가격순</option>
-        </select>
-        <select name="color" onChange={optionColor} className="filter">
-          <option key="default" value="default">
-            전체 색상
-          </option>
-          {colorList.map((colors) => (
-            <option key={colors} value={colors}>
-              {colors}
-            </option>
-          ))}
-        </select>
+        {pathname === "/myPage/viewed-goods" ? (
+          <></>
+        ) : (
+          <>
+            {" "}
+            <select name="order" onChange={changeOrder} className="filter">
+              <option value="1">최신순</option>
+              <option value="2">낮은 가격순</option>
+              <option value="3">높은 가격순</option>
+            </select>
+            <select name="color" onChange={optionColor} className="filter">
+              <option key="default" value="default">
+                전체 색상
+              </option>
+              {colorList.map((colors) => (
+                <option key={colors} value={colors}>
+                  {colors}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
       </div>
       <div id="productList">
         {listProduct.length ? (

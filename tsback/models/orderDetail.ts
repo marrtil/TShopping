@@ -4,6 +4,7 @@ class OrderDetail extends Model {
   public readonly id!: number;
   public orderId!: string;
   public productId!: string;
+  public productName!: string;
   public size!: string;
   public price!: number;
   public count!: number;
@@ -23,6 +24,10 @@ OrderDetail.init(
       allowNull: false,
     },
     productId: {
+      type: DataTypes.STRING(10),
+      allowNull: false,
+    },
+    productName: {
       type: DataTypes.STRING(10),
       allowNull: false,
     },
