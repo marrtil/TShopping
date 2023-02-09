@@ -145,11 +145,11 @@ module.exports = {
         sales:50
       },
       {
-        name: "릴랙스핏 발수 카 코트",
+        name: "릴랙스핏 발수 코팅 카 코트",
         gender: "남성",
         kind: "아우터",
         color: "블랙,화이트,그린",
-        image: "http://localhost:3001/image/릴랙스핏 발수 카 코트.jpg",
+        image: "http://localhost:3001/image/릴랙스핏 발수 코팅 카 코트.jpg",
         price: 10000,
         discount: 10,
         count: 1,
@@ -274,11 +274,11 @@ module.exports = {
         count: 1,
       },
       {
-        name: "스키니 하이웨스트 진",
+        name: "스키니 하이웨이스트 진",
         gender: "여성",
         kind: "데님",
         color: "블랙,베이지",
-        image: "http://localhost:3001/image/스키니 하이웨스트 진.jpg",
+        image: "http://localhost:3001/image/스키니 하이웨이스트 진.jpg",
         price: 50000,
         discount: 15,
         count: 1,
@@ -296,11 +296,11 @@ module.exports = {
         sales:30
       },
       {
-        name: "파인니트 가디건",
+        name: "파인 니트 가디건",
         gender: "여성",
         kind: "가디건",
         color: "블랙,화이트,베이지",
-        image: "http://localhost:3001/image/파인니트 가디건.jpg",
+        image: "http://localhost:3001/image/파인 니트 가디건.jpg",
         price: 15000,
         discount: 20,
         count: 1,
@@ -329,11 +329,11 @@ module.exports = {
         sales:30
       },
       {
-        name: "파티드 티셔츠",
+        name: "피티드 티셔츠",
         gender: "여성",
         kind: "티셔츠",
         color: "블랙,화이트,베이지",
-        image: "http://localhost:3001/image/파티드 티셔츠.jpg",
+        image: "http://localhost:3001/image/피티드 티셔츠.jpg",
         price: 15000,
         discount: 20,
         count: 1,
@@ -415,11 +415,11 @@ module.exports = {
         sales:30
       },
       {
-        name: "비스코스 가디건",
+        name: "비스코스 블렌드 가디건",
         gender: "여성",
         kind: "가디건",
         color: "블랙,화이트,베이지",
-        image: "http://localhost:3001/image/비스코스 가디건.jpg",
+        image: "http://localhost:3001/image/비스코스 블렌드 가디건.jpg",
         price: 15000,
         discount: 20,
         count: 1,
