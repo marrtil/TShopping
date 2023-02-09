@@ -15,13 +15,13 @@ const Header = ({ userInfo, handleLogout }: any) => {
     아우터: "outter",
     가디건: "cardigan",
     셔츠: "shirts",
-    블라우스: "blouse",
-    니트: "neat",
-    후드티: "hood",
+    드레스: "blouse",
+    탑: "top",
+    후디: "hood",
     티셔츠: "T-shirts",
     팬츠: "pants",
     스커트: "skirt",
-    언더웨어: "under-wear",
+    데님: "denim",
     신발: "shoes",
   };
 
@@ -35,7 +35,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
     가디건: "cardigan",
     스웨터: "sweater",
     셔츠: "shirts",
-    언더웨어: "under-wear",
+    데님: "under-wear",
     신발: "shoes",
   };
 
