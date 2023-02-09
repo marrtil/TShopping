@@ -82,13 +82,13 @@ export type productWomenT = {
   아우터: string;
   가디건: string;
   셔츠: string;
-  블라우스: string;
-  니트: string;
-  후드티: string;
+  드레스: string;
+  탑: string;
+  후디: string;
   티셔츠: string;
   팬츠: string;
   스커트: string;
-  언더웨어: string;
+  데님: string;
   신발: string;
 };
 
@@ -103,7 +103,7 @@ export type productManT = {
   가디건: string;
   스웨터: string;
   셔츠: string;
-  언더웨어: string;
+  데님: string;
   신발: string;
 };
 
