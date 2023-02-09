@@ -1,12 +1,15 @@
 import * as React from "react";
-import { useParams } from "react-router";
+import { Route, Routes, useParams } from "react-router";
+import { orderLoad } from "../orderApi";
 import { INIITIAL_ORDERLIST, Order, Review } from "../Types";
 import ReviewTable from "./ReviewTable";
+import ReviewWriteForm from "./ReviewWriteForm";
 import StyledOrder from "./StyledOrder";
 import Table from "./Table";
 const MyReview = () => {
   type reviewState = "write-review" | "review-history";
   const { state } = useParams();
+  const session = window.sessionStorage;
   const [reviewState, setReviewState] = React.useState<reviewState>(state as reviewState);
   const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
   const [reviews, setReviews] = React.useState<Review[]>([
@@ -27,7 +30,14 @@ const MyReview = () => {
       reviewDate: "20230107",
     },
   ]);
+
+  const handleLoad = async () => {
+    const orderList: Order[] = await orderLoad(JSON.parse(session.getItem("userInfo")!).userId, 9, 0);
+    setOrders(orderList);
+  };
+
   React.useEffect(() => {
+    handleLoad();
     if (reviewState) (document.querySelector(`#${reviewState}`) as HTMLAnchorElement).style.fontWeight = "bold";
   }, [reviewState]);
 
@@ -36,11 +46,11 @@ const MyReview = () => {
       <div>
         <div id="orderTitle">구매후기</div>
         <div>
-          <a id="write-review" href="/myPage/myreview/write-review?sort=">
+          <a id="write-review" href="/myPage/myreview/write-review">
             후기 작성
           </a>{" "}
           /{" "}
-          <a id="review-history" href="/myPage/myreview/review-history?sort=">
+          <a id="review-history" href="/myPage/myreview/review-history">
             후기 내역
           </a>
         </div>
@@ -48,6 +58,9 @@ const MyReview = () => {
       <hr></hr>
       {reviewState === "write-review" ? <Table {...orders} /> : <ReviewTable {...reviews} />}
       <hr></hr>
+      <Routes>
+        <Route path="/:productId" element={<ReviewWriteForm />} />
+      </Routes>
     </StyledOrder>
   );
 };

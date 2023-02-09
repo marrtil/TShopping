@@ -15,10 +15,6 @@ class OrderDetail extends Model {
 
 OrderDetail.init(
   {
-    userId: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-    },
     orderId: {
       type: DataTypes.STRING(10),
       allowNull: false,

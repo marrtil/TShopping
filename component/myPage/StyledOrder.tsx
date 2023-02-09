@@ -15,6 +15,7 @@ const StyledOrder = styled.div`
     margin-right: 5px;
     :hover {
       color: blue;
+      cursor: pointer;
     }
   }
 

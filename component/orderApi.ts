@@ -97,8 +97,8 @@ export async function addressLoad(userId: string) {
 }
 
 // order 가져오기
-export async function orderLoad(userId: string) {
-  const res = await fetch(`${URL}/order/orderLoad/${userId}`);
+export async function orderLoad(userId: string, order_state: number, date: number) {
+  const res = await fetch(`${URL}/order/orderLoad?userId=${userId}&orderState=${order_state}&date=${date}`);
   const body = await res.json();
   console.log(body);
   return body;

@@ -37,23 +37,24 @@ export type orderState =
   | "전체보기";
 
 export interface Order {
+  orderDate: string;
+  id: number;
+  orderState: number;
+  detail: detail[];
+}
+export interface detail {
   productId: string;
   productName: string;
   price: number;
   count: number;
-  orderDate: string;
-  orderId: number;
-  orderState: number;
+  color: string;
 }
 
 export const INIITIAL_ORDERLIST: Order = {
-  productId: "",
-  productName: "",
-  price: 0,
-  count: 0,
   orderDate: "",
-  orderId: 0,
+  id: 0,
   orderState: 0,
+  detail: [{ productId: "", productName: "", price: 0, count: 0, color: "" }],
 };
 
 export interface Review {
@@ -64,6 +65,15 @@ export interface Review {
   content: string;
   reviewDate: string;
 }
+
+export const INITIAL_REVIEW = {
+  name: "",
+  userId: "",
+  orderId: 0,
+  rating: 0,
+  content: "",
+  reviewDate: "",
+};
 
 ///////////////상품리스트관련/////////////////
 

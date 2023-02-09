@@ -71,8 +71,8 @@ const MyPageForm = ({ userInfo }: any) => {
       <Routes>
         <Route path="/myorder" element={<MyOrderRecord />} />
         <Route path="/myorder?order_state=state" element={<MyOrderRecord />} />
-        <Route path="/myreview" element={<MyReview />} />
-        <Route path="/myreview/:state" element={<MyReview />} />
+        <Route path="/myreview/*" element={<MyReview />} />
+        <Route path="/myreview/:state/*" element={<MyReview />} />
         <Route path="/mysize" element={<MySize />} />
         <Route path="/viewed-goods" element={<ViewedGoods />} />
         <Route path="/modForm" element={<ModForm userInfo={userInfo} />} />

@@ -32,18 +32,10 @@ const OrderSearch: React.FC<Props> = ({ onClick }) => {
   return (
     <StyledOrderSearch>
       <div>
-        <button onClick={() => onClick(0)}>
-          <a href={`${path}&sort=0`}>1주일</a>
-        </button>
-        <button onClick={() => onClick(1)}>
-          <a href={`${path}&sort=1`}>1개월</a>
-        </button>
-        <button onClick={() => onClick(2)}>
-          <a href={`${path}&sort=3`}>3개월</a>
-        </button>
-        <button onClick={() => onClick(-1)}>
-          <a href={`${path}&sort=-1`}>전체</a>
-        </button>
+        <button onClick={() => onClick(20160000)}>1주일</button>
+        <button onClick={() => onClick(86400000)}>1개월</button>
+        <button onClick={() => onClick(7776000000)}>3개월</button>
+        <button onClick={() => onClick(0)}>전체</button>
       </div>
       <div>날짜선택</div>
       <select>
