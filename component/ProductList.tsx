@@ -7,6 +7,7 @@ import { productManT, productWomenT } from "./Types";
 import { initialProducts, product } from "./product";
 import { allProducts, viewedProducts } from "./api";
 import { salePrice } from "./CartForm";
+import PageButtons from "./PageButtons";
 
 type tableType = {
   [index: string]: string;
@@ -33,6 +34,8 @@ const colorTable: tableType = {
   생지: "blue",
   샐비지: "navy",
   워싱: "skyblue",
+  브라운:"brown",
+  퍼플:"purple",
 };
 
 const ProductList = () => {
@@ -41,6 +44,8 @@ const ProductList = () => {
   const { search, pathname } = useLocation();
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
+  const allPage=useMemo(()=>{if(listProduct)return Math.ceil(listProduct.length/16)},[listProduct]);
+  const [page,setPage]=useState<number>(1);
   const sessionStorage = window.sessionStorage;
   const local = window.localStorage;
   const colorList = useMemo(() => {
@@ -75,6 +80,7 @@ const ProductList = () => {
     }
   }, []);
 
+
   // console.log(search);
 
   useEffect(() => {
@@ -105,6 +111,8 @@ const ProductList = () => {
     setOrder(value);
   };
 
+  console.log(initialProduct);
+
   return (
     <StyledProductList>
       <div id="productFilter">
@@ -132,8 +140,8 @@ const ProductList = () => {
         )}
       </div>
       <div id="productList">
-        {listProduct.length ? (
-          listProduct.map((product: product) => {
+        {(listProduct.length&&page) ? (
+          listProduct.slice(0+(page-1)*16,16*page).map((product: product) => {
             return (
               <div className="listProduct">
                 <Link to={`/productForm/${product.id}`}>
@@ -175,6 +183,7 @@ const ProductList = () => {
           <div id="empty">찾으시는 종류의 상품이 없습니다</div>
         )}
       </div>
+      <PageButtons allPage={allPage} pageSet={setPage}/>
     </StyledProductList>
   );
 };

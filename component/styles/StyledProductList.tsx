@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const StyledProductList = styled.div`
   background-color: rgb(230, 230, 230);
+
   #productList {
     display: flex;
     flex-direction: row;
@@ -68,6 +69,17 @@ const StyledProductList = styled.div`
     min-height: 200px;
     text-align: center;
     padding-top: 120px;
+  }
+
+  #pageButtons {
+    margin-left: 645px;
+
+    .pages {
+      margin:5px;
+      border:solid 1px;
+      background-color: rgb(230, 230, 230);
+      cursor:pointer;
+    }
   }
 `;
 
