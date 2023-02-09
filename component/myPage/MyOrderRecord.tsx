@@ -2,6 +2,7 @@ import * as React from "react";
 import { useLocation } from "react-router";
 import { orderComplete, orderLoad } from "../orderApi";
 import { INIITIAL_ORDERLIST, Order, orderState } from "../Types";
+import OrderSearch from "./OrderSearch";
 import StyledOrder from "./StyledOrder";
 import Table from "./Table";
 
@@ -17,26 +18,37 @@ export const OrderSortList: orderState[] = [
 ];
 
 const MyOrderRecord = () => {
-  const { search } = useLocation();
+  // const { search } = useLocation();
   const session = window.sessionStorage;
-  const path = 0;
-  if (search) search.split("order_state=")[1].slice(0, 1);
-  const [order_state, setOrder_state] = React.useState(path);
+  // const path = 0;
+  // if (search) search.split("order_state=")[1].slice(0, 1);
+  const [order_state, setOrder_state] = React.useState<number>(8);
   const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
+  const [date, setDate] = React.useState<number>(0);
 
+  const onClick = (value: number): void => {
+    setDate(value);
+  };
   const handleLoad = async () => {
-    // await orderComplete("2");
-    const orderList: Order[] = await orderLoad(JSON.parse(session.getItem("userInfo")!).userId);
+    const orderList: Order[] = await orderLoad(JSON.parse(session.getItem("userInfo")!).userId, order_state + 1, date);
     setOrders(orderList);
   };
 
+  const styleClear = () => {
+    for (let i = 0; i < 8; i++) {
+      (document.querySelector(`#orderState${i}`) as HTMLAnchorElement).style.fontWeight = "normal";
+      (document.querySelector(`#orderState${i}`) as HTMLAnchorElement).style.color = "rgb(80, 80, 80)";
+    }
+  };
+
   React.useEffect(() => {
+    styleClear();
     handleLoad();
-    if (order_state) {
+    if (order_state < 8) {
       (document.querySelector(`#orderState${order_state}`) as HTMLAnchorElement).style.fontWeight = "bold";
       (document.querySelector(`#orderState${order_state}`) as HTMLAnchorElement).style.color = "rgb(0,0,0)";
     }
-  }, [order_state]);
+  }, [order_state, date]);
   return (
     <StyledOrder>
       <div>
@@ -46,20 +58,35 @@ const MyOrderRecord = () => {
         <div>
           {OrderSortList.map((item, index) => {
             return (
-              <a key={index} id={`orderState${index}`} className="orderSort" href={`?order_state=${index}`}>
+              <a
+                key={index}
+                id={`orderState${index}`}
+                className="orderSort"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOrder_state(index);
+                }}
+              >
                 {item}
               </a>
             );
           })}
         </div>
         <div className="alignRight">
-          <a className="orderAll" href="./">
+          <a
+            className="orderAll"
+            onClick={(e) => {
+              e.preventDefault();
+              setOrder_state(8);
+              setDate(0);
+            }}
+          >
             전체보기
           </a>
         </div>
       </div>
       <hr></hr>
-
+      <OrderSearch onClick={onClick} />
       <Table {...orders} />
       <hr></hr>
     </StyledOrder>

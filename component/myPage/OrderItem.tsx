@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Order, Review } from "../Types";
 import { OrderSortList } from "./MyOrderRecord";
 import StyledTr from "./StyledTr";
@@ -8,20 +8,33 @@ import StyledTr from "./StyledTr";
 //   item: string[];
 // }
 
-const OrderItem: React.FC<Order> = ({ productId, productName, count, orderId, orderDate, orderState }) => {
+const OrderItem: React.FC<Order> = (arr) => {
   const navigate = useNavigate();
-  const navigateToPoduct = () => {
-    // navigate(`/ProductForm/1`);
-    navigate(`/ProductForm/${productId}`);
-  };
+  const session = window.sessionStorage;
+  const { pathname } = useLocation();
   return (
-    <StyledTr onClick={() => navigateToPoduct()}>
-      <td>{productName}</td>
-      <td>{count}</td>
-      <td>{orderDate.split("T")[0]}</td>
-      <td>{orderId}</td>
-      <td>{OrderSortList[orderState]}</td>
-    </StyledTr>
+    <>
+      {Object.values(arr["detail"]).map((item) => {
+        return (
+          <>
+            <StyledTr
+              onClick={() => {
+                if (pathname.split("/")[2] === "myreview") {
+                  session.setItem("reviewInfo", JSON.stringify(item));
+                  navigate(`./${item.productId}`);
+                } else navigate(`/ProductForm/${item.productId}`);
+              }}
+            >
+              <td>{item.productName}</td>
+              <td>{item.count}</td>
+              <td>{arr.orderDate.split("T")[0]}</td>
+              <td>{arr.id}</td>
+              <td>{OrderSortList[arr.orderState - 1]}</td>
+            </StyledTr>
+          </>
+        );
+      })}
+    </>
   );
 };
 

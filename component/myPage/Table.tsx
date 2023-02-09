@@ -1,19 +1,10 @@
 import * as React from "react";
 import { Order, Review } from "../Types";
 import OrderItem from "./OrderItem";
-import OrderSearch from "./OrderSearch";
 
 const Table: React.FC<Order[]> = (arr) => {
-  const [sort, setSort] = React.useState<number>(-1);
-  const nowDate = new Date();
-  const nowDay = nowDate.getDate();
-  const nowMonth = nowDate.getMonth() + 1;
-  const onClick = (value: number): void => {
-    setSort(value);
-  };
   return (
     <>
-      <OrderSearch onClick={onClick} />
       <hr></hr>
       <table>
         <thead>
@@ -32,15 +23,7 @@ const Table: React.FC<Order[]> = (arr) => {
             </td>
           </tr>
           {Object.values(arr).map((item) => {
-            if (sort < 0) {
-              return <OrderItem key={item.orderId} {...item} />;
-            } else if (sort === 0) {
-              const diff = (nowDay - Number(item.orderDate.slice(6, 8)) + 30) % 30;
-              if (diff <= 7) return <OrderItem key={item.orderId} {...item} />;
-            } else {
-              const diff = (nowMonth - Number(item.orderDate.slice(4, 6)) + 12) % 12;
-              if (diff <= sort) return <OrderItem key={item.orderId} {...item} />;
-            }
+            return <OrderItem key={item.id} {...item} />;
           })}
         </tbody>
         <tfoot></tfoot>

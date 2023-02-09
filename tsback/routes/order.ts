@@ -5,6 +5,7 @@ import Cart from "../models/cart";
 import { isLoggedIn } from "./middleware";
 import OrderDetail from "../models/orderDetail";
 import Address from "../models/address";
+import { Op } from "sequelize";
 
 const router = express.Router();
 
@@ -150,17 +151,54 @@ router.get("/addressLoad/:userId", async (req, res) => {
   if (address) res.send(address);
 });
 
-router.get("/orderLoad/:userId", async (req, res) => {
-  const { userId } = req.params;
-  const order = await Order.findAll({ where: { userId }, attributes: ["id", "orderState", "orderDate"] });
+router.get("/orderLoad", async (req, res) => {
+  const { userId, orderState, date } = req.query;
+  let order;
+  if (orderState !== "9" && date !== "0") {
+    order = await Order.findAll({
+      where: {
+        userId,
+        orderState,
+        orderDate: {
+          [Op.gte]: new Date(Date.parse(String(new Date())) - Number(date)),
+        },
+      },
+      attributes: ["id", "orderState", "orderDate"],
+    });
+  } else if (orderState !== "9" && date === "0") {
+    order = await Order.findAll({
+      where: {
+        userId,
+        orderState,
+      },
+      attributes: ["id", "orderState", "orderDate"],
+    });
+  } else if (orderState === "9" && date !== "0") {
+    order = await Order.findAll({
+      where: {
+        userId,
+        orderDate: {
+          [Op.gte]: new Date(Date.parse(String(new Date())) - Number(date)),
+        },
+      },
+      attributes: ["id", "orderState", "orderDate"],
+    });
+  } else {
+    order = await Order.findAll({
+      where: {
+        userId,
+      },
+      attributes: ["id", "orderState", "orderDate"],
+    });
+  }
   let orderList = [];
   for (let o of order) {
-    const detail = await OrderDetail.findOne({
+    const detail = await OrderDetail.findAll({
       where: { orderId: o.id },
-      attributes: ["orderId", "productId", "productName", "size", "count", "color"],
+      attributes: ["productId", "productName", "size", "count", "color"],
     });
 
-    const newObj = { ...o.dataValues, ...detail!.dataValues };
+    const newObj = { ...o.dataValues, detail };
     orderList.push(newObj);
   }
   res.json(orderList);
