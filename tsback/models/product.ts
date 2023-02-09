@@ -5,7 +5,6 @@ class Product extends Model {
   public name!: string;
   public gender!: string;
   public kind!: string;
-  public size!: string;
   public color!: string;
   public image!: string;
   public price!: number;
@@ -30,10 +29,7 @@ Product.init(
       type: DataTypes.STRING(10),
       allowNull: false,
     },
-    size: {
-      type: DataTypes.STRING(3),
-      allowNull: false,
-    },
+
     color: {
       type: DataTypes.STRING(30),
       allowNull: false,

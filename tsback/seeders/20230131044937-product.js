@@ -10,6 +10,8 @@ module.exports = {
         kind: "맨투맨",
         color: "블랙,퍼플,오렌지",
         image: "http://localhost:3001/image/럭비 맨투맨.jpg",
+        color: "블랙,네이비,화이트,베이지",
+        image: "http://localhost:3001/image/moomin1.jpeg",
         price: 20000,
         discount: 15,
         count: 1,
@@ -23,7 +25,7 @@ module.exports = {
         price: 130000,
         discount: 25,
         count: 1,
-        sales:50
+        sales: 50,
       },
       {
         name: "발수 카 코트",
@@ -31,6 +33,8 @@ module.exports = {
         kind: "아우터",
         color: "블랙,화이트,그린",
         image: "http://localhost:3001/image/발수 카 코트.jpeg",
+        color: "블랙,화이트",
+        image: "http://localhost:3001/image/moomin3.jpeg",
         price: 10000,
         discount: 10,
         count: 1,
@@ -41,10 +45,13 @@ module.exports = {
         kind: "데님",
         color: "블랙,베이지",
         image: "http://localhost:3001/image/레귤러 진.jpg",
+        color: "생지,샐비지,워싱",
+        image: "http://localhost:3001/image/moomin4.jpeg",
+
         price: 50000,
         discount: 15,
         count: 1,
-        sales:100,
+        sales: 100,
       },
       {
         name: "레귤러핏 조거 팬츠",
@@ -475,10 +482,12 @@ module.exports = {
         kind: "탑",
         color: "블랙,화이트,베이지",
         image: "http://localhost:3001/image/오버사이즈 저지 탑.jpg",
+        color: "블랙,오렌지,네이비",
+        image: "http://localhost:3001/image/moomin5.jpeg",
         price: 15000,
         discount: 20,
         count: 1,
-        sales:30
+        sales: 30,
       },
     ]);
   },
