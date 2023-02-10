@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useParams } from "react-router";
+import { productDetail } from "../api";
 import { reviewWrite } from "../orderApi";
+import { product, initialProducts } from "../product";
 import { detail, INITIAL_REVIEW, Review } from "../Types";
 import RatingInput from "./RatingInput";
 
@@ -9,6 +11,7 @@ const ReviewWriteForm = (orders: any) => {
   const orderId = productInfo!.split("_")[0];
   const productId = productInfo!.split("_")[1];
   const [review, setReview] = React.useState<Review>(INITIAL_REVIEW);
+  const [product, setProduct] = React.useState<product>(initialProducts[0]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,15 +41,36 @@ const ReviewWriteForm = (orders: any) => {
         }
       });
     }
-    reviewWrite({ ...review, ...myOrder, ...{ orderId: orderId } });
+    // reviewWrite({ ...review, ...myOrder, ...{ orderId: orderId } });
+    console.log({ ...review, ...myOrder, ...{ orderId: orderId } });
   };
+  const handleLoad = async () => {
+    const product = await productDetail(Number(productId));
+    setProduct(product);
+  };
+  React.useEffect(() => {
+    handleLoad();
+  }, []);
 
   return (
-    <div>
-      <textarea name="content" onChange={handleChange} />
-      <RatingInput name="rating" value={review.rating} onChange={ratingChange} />
-      <button onClick={handleSubmit}>작성</button>
-    </div>
+    <>
+      <tr>
+        <td colSpan={5}>
+          <hr></hr>
+        </td>
+      </tr>
+      <tr id="reviewTr">
+        {product ? <td>{product.name}</td> : <></>}
+        <td colSpan={3}>
+          <textarea name="content" id="reviewTextArea" onChange={handleChange} />
+        </td>
+        <td>
+          {" "}
+          <RatingInput name="rating" value={review.rating} onChange={ratingChange} />
+          <button onClick={handleSubmit}>작성</button>
+        </td>
+      </tr>
+    </>
   );
 };
 

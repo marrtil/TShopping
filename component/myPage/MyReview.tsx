@@ -3,14 +3,13 @@ import { Route, Routes, useParams } from "react-router";
 import { orderLoad, reviewLoad } from "../orderApi";
 import { INIITIAL_ORDERLIST, INITIAL_REVIEW, Order, Review } from "../Types";
 import ReviewTable from "./ReviewTable";
-import ReviewWriteForm from "./ReviewWriteForm";
 import StyledOrder from "./StyledOrder";
 import Table from "./Table";
 const MyReview = () => {
   type reviewState = "write-review" | "review-history";
   const { state } = useParams();
   const session = window.sessionStorage;
-  const [reviewState, setReviewState] = React.useState<reviewState>(state as reviewState);
+  const [reviewState, setReviewState] = React.useState<reviewState>((state as reviewState) || "review-history");
   const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
   const [reviews, setReviews] = React.useState<Review[]>([INITIAL_REVIEW]);
 
@@ -19,6 +18,7 @@ const MyReview = () => {
     setOrders(orderList);
     const reviewList = await reviewLoad(JSON.parse(session.getItem("userInfo")!).userId);
     setReviews(reviewList);
+    setReviewState(state as reviewState);
   };
 
   React.useEffect(() => {
@@ -43,9 +43,6 @@ const MyReview = () => {
       <hr></hr>
       {reviewState === "write-review" ? <Table {...orders} /> : <ReviewTable {...reviews} />}
       <hr></hr>
-      <Routes>
-        <Route path="/:productInfo" element={<ReviewWriteForm {...orders} />} />
-      </Routes>
     </StyledOrder>
   );
 };
