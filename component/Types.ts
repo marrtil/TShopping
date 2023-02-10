@@ -57,22 +57,27 @@ export const INIITIAL_ORDERLIST: Order = {
   detail: [{ productId: "", productName: "", price: 0, count: 0, color: "" }],
 };
 
-export interface Review {
+export interface Review extends detail {
   name: string;
   userId: string;
   orderId: number;
   rating: number;
   content: string;
-  reviewDate: string;
+  createdAt: string;
 }
 
-export const INITIAL_REVIEW = {
+export const INITIAL_REVIEW: Review = {
   name: "",
   userId: "",
   orderId: 0,
   rating: 0,
   content: "",
-  reviewDate: "",
+  createdAt: "",
+  productId: "",
+  productName: "",
+  price: 0,
+  count: 0,
+  color: "",
 };
 
 ///////////////상품리스트관련/////////////////

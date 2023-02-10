@@ -1,4 +1,4 @@
-import { CartData, CartProduct, DelveriyInfo } from "./Types";
+import { CartData, CartProduct, DelveriyInfo, Review } from "./Types";
 
 const URL = "http://localhost:3001";
 
@@ -108,4 +108,27 @@ export async function orderComplete(id: string) {
   const res = await fetch(`${URL}/order/orderComplete/${id}`, {
     method: "delete",
   });
+}
+
+export async function reviewWrite(review: any) {
+  const res = await fetch(`${URL}/order/review/write`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body: JSON.stringify(review),
+    credentials: "include",
+  });
+}
+
+export async function reviewLoadProduct(productId: string) {
+  const res = await fetch(`${URL}/order/review/product/${productId}`);
+  const body = await res.json();
+  return body;
+}
+
+export async function reviewLoad(userId: string) {
+  const res = await fetch(`${URL}/order/reviewList/${userId}`);
+  const body = await res.json();
+  return body;
 }

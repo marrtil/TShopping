@@ -2,7 +2,9 @@ import { Model, DataTypes, Sequelize } from "sequelize";
 import { sequelize } from "./sequelize";
 class Review extends Model {
   public readonly id!: number;
+  public name!: string;
   public userId!: string;
+  public orderId!: string;
   public productId!: string;
   public rating!: number;
   public size!: string;
@@ -16,6 +18,13 @@ Review.init(
   {
     userId: {
       type: DataTypes.STRING(20),
+      allowNull: false,
+    },
+    name: {
+      type: DataTypes.STRING(20),
+    },
+    orderId: {
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     productId: {

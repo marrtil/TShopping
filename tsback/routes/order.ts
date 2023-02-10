@@ -6,6 +6,7 @@ import { isLoggedIn } from "./middleware";
 import OrderDetail from "../models/orderDetail";
 import Address from "../models/address";
 import { Op } from "sequelize";
+import Review from "../models/review";
 
 const router = express.Router();
 
@@ -201,12 +202,37 @@ router.get("/orderLoad", async (req, res) => {
     const newObj = { ...o.dataValues, detail };
     orderList.push(newObj);
   }
-  res.json(orderList);
+  res.send(orderList);
 });
 
 router.delete("/orderComplete/:id", async (req, res) => {
   const { id } = req.params;
   await Order.destroy({ where: { id } });
+});
+
+router.post("/review/write", isLoggedIn, async (req, res) => {
+  const { userId } = req.user?.dataValues;
+  const { orderId, productId, size, color, rating, content } = req.body;
+  const productName = await Product.findOne({ where: { id: productId }, attributes: ["name"] });
+  if (productName) {
+    const { name } = productName.dataValues;
+    await Review.create({ name, userId, orderId, productId, size, color, rating, content });
+  }
+});
+
+router.get("/reviewList/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const review = await Review.findAll({ where: { userId } });
+  res.send(review);
+});
+router.get("/review/product/:productId", async (req, res) => {
+  const { productId } = req.params;
+  const review = await Review.findAll({ where: { productId } });
+  res.send(review);
+});
+
+router.delete("/review/delete/:id", isLoggedIn, async (req, res) => {
+  const { id } = req.params;
 });
 
 export default router;

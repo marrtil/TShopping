@@ -34,8 +34,6 @@ const StyledProductForm = styled.div`
     margin: 50px;
   }
 
-  
-
   .payButton {
     width: 300px;
     margin-left: 50px;
@@ -45,14 +43,26 @@ const StyledProductForm = styled.div`
     border-radius: 10px;
     display: block;
     margin-top: 10px;
-    a{
-      text-decoration-line:none;
-      color:black;
+    a {
+      text-decoration-line: none;
+      color: black;
     }
   }
   del {
     color: grey;
     font-weight: 200;
+  }
+  /////////////////
+  h3 {
+    margin-left: 50px;
+  }
+  hr {
+    width: 920px;
+    margin: 0px 0px 0px 40px;
+  }
+  table {
+    width: 920px;
+    // margin-left: 40px;
   }
 `;
 

@@ -1,24 +1,30 @@
 import * as React from "react";
 import { useNavigate } from "react-router";
 import { Order, Review } from "../Types";
+import Rating from "./Rating";
 import StyledTr from "./StyledTr";
 
 // interface Props {
 //   item: string[];
 // }
 
-const ReviewItem: React.FC<Review> = ({ name, rating, content, reviewDate }) => {
+const ReviewItem: React.FC<Review> = ({ id, name, productId, size, color, rating, content, createdAt }: any) => {
   const navigate = useNavigate();
-  const navigateToPoduct = () => {
-    navigate(`/ProductForm/1`);
-    // navigate(`/ProductForm/${orderNum}`);
-  };
+
+  const handleDelete = () => {};
   return (
-    <StyledTr onClick={() => navigateToPoduct()}>
-      <td>{name}</td>
-      <td>{rating}</td>
+    <StyledTr onClick={() => navigate(`/ProductForm/${productId}`)}>
+      <td>
+        {name} - {size}-{color}
+      </td>
+      <td>
+        <Rating value={rating} />
+      </td>
       <td>{content}</td>
-      <td>{reviewDate}</td>
+      <td>{createdAt.split("T")[0]}</td>
+      <td>
+        <button onClick={handleDelete}>삭제</button>
+      </td>
     </StyledTr>
   );
 };

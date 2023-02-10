@@ -3,10 +3,12 @@ import { useState, FunctionComponent } from "react";
 import { useNavigate, useParams } from "react-router";
 import StyledProductForm from "./styles/StyledProductForm";
 import { product } from "./product";
-import { cart, cartIn } from "./orderApi";
+import { cart, cartIn, reviewLoadProduct } from "./orderApi";
 import { productDetail } from "./api";
 import { salePrice } from "./CartForm";
 import { Link } from "react-router-dom";
+import { INITIAL_REVIEW, Review } from "./Types";
+import ReviewTable from "./myPage/ReviewTable";
 
 const initialproduct: product = {
   id: 1,
@@ -28,6 +30,7 @@ const ProductForm = () => {
   const session = window.sessionStorage;
   const [product, setProduct] = useState<product>(initialproduct);
   const [select, setSelect] = useState({ color: "select", size: "select" });
+  const [review, setReview] = useState<Review[]>([INITIAL_REVIEW]);
 
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -37,6 +40,8 @@ const ProductForm = () => {
   const loadProduct = async () => {
     const productNum = await productDetail(Number(id));
     setProduct(productNum);
+    const review = await reviewLoadProduct(String(id));
+    setReview(review);
   };
 
   React.useEffect(() => {
@@ -136,6 +141,11 @@ const ProductForm = () => {
             장바구니
           </button>
         </div>
+      </div>
+      <div>
+        <h3>리뷰</h3>
+        <hr />
+        <ReviewTable {...review} />
       </div>
     </StyledProductForm>
   );

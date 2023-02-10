@@ -21,9 +21,10 @@ const OrderItem: React.FC<Order> = (arr) => {
               onClick={() => {
                 if (pathname.split("/")[2] === "myreview") {
                   session.setItem("reviewInfo", JSON.stringify(item));
-                  navigate(`./${item.productId}`);
+                  navigate(`./${arr.id}_${item.productId}`);
                 } else navigate(`/ProductForm/${item.productId}`);
               }}
+              id={`orderTable${arr.id}_${item.productId}`}
             >
               <td>{item.productName}</td>
               <td>{item.count}</td>

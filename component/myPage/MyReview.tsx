@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Route, Routes, useParams } from "react-router";
-import { orderLoad } from "../orderApi";
-import { INIITIAL_ORDERLIST, Order, Review } from "../Types";
+import { orderLoad, reviewLoad } from "../orderApi";
+import { INIITIAL_ORDERLIST, INITIAL_REVIEW, Order, Review } from "../Types";
 import ReviewTable from "./ReviewTable";
 import ReviewWriteForm from "./ReviewWriteForm";
 import StyledOrder from "./StyledOrder";
@@ -12,28 +12,13 @@ const MyReview = () => {
   const session = window.sessionStorage;
   const [reviewState, setReviewState] = React.useState<reviewState>(state as reviewState);
   const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
-  const [reviews, setReviews] = React.useState<Review[]>([
-    {
-      name: "상품정보1",
-      userId: "marrtil",
-      orderId: 1,
-      rating: 3,
-      content: "옷이 너무 꽉 껴요",
-      reviewDate: "20230105",
-    },
-    {
-      name: "상품정보2",
-      userId: "marrtil",
-      orderId: 2,
-      rating: 5,
-      content: "보던 그대로네요 너무 좋아요",
-      reviewDate: "20230107",
-    },
-  ]);
+  const [reviews, setReviews] = React.useState<Review[]>([INITIAL_REVIEW]);
 
   const handleLoad = async () => {
     const orderList: Order[] = await orderLoad(JSON.parse(session.getItem("userInfo")!).userId, 9, 0);
     setOrders(orderList);
+    const reviewList = await reviewLoad(JSON.parse(session.getItem("userInfo")!).userId);
+    setReviews(reviewList);
   };
 
   React.useEffect(() => {
@@ -59,7 +44,7 @@ const MyReview = () => {
       {reviewState === "write-review" ? <Table {...orders} /> : <ReviewTable {...reviews} />}
       <hr></hr>
       <Routes>
-        <Route path="/:productId" element={<ReviewWriteForm />} />
+        <Route path="/:productInfo" element={<ReviewWriteForm {...orders} />} />
       </Routes>
     </StyledOrder>
   );

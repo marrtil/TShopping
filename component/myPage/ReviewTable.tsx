@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Order, Review } from "../Types";
-import OrderItem from "./OrderItem";
 import ReviewItem from "./ReviewItem";
+import StyledTable from "./StyledTable";
 
 const ReviewTable: React.FC<Review[]> = (arr) => {
   console.log(arr);
   return (
-    <table>
+    <StyledTable>
       <thead>
         <tr>
           <td>상품정보</td>
@@ -26,7 +26,7 @@ const ReviewTable: React.FC<Review[]> = (arr) => {
         })}
       </tbody>
       <tfoot></tfoot>
-    </table>
+    </StyledTable>
   );
 };
 

@@ -19,12 +19,6 @@ const StyledOrder = styled.div`
     }
   }
 
-  table {
-    width: 1000px;
-    text-align: center;
-    border-collapse: collapse;
-  }
-
   padding-top: 20px;
   #orderTitle {
     font-size: 20px;

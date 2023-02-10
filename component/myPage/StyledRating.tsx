@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-const StyledReviewWrite = styled.div`
+const StyledRating = styled.div`
 
-.RatingInput {
-    cursor: pointer;
-  }
-  
+
 .Rating-star {
     color: rgb(193, 197, 202);
     font-size: 20px;
@@ -18,4 +15,4 @@ const StyledReviewWrite = styled.div`
   }
 `;
 
-export default StyledReviewWrite;
+export default StyledRating;

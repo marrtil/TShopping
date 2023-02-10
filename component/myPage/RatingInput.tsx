@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Rating from "./Rating";
 import * as React from "react";
+import StyledRatingInput from "./StyledRatingInput";
 function RatingInput({ name, value, onChange }: any) {
   const [rating, setRating] = useState(value);
 
@@ -11,13 +12,15 @@ function RatingInput({ name, value, onChange }: any) {
   // 마우스 떼면 초기화.
 
   return (
-    <Rating
-      className="RatingInput"
-      value={rating}
-      onSelect={handleSelect}
-      onHover={setRating}
-      onMouseOut={handleMouseOut}
-    ></Rating>
+    <StyledRatingInput>
+      <Rating
+        className="RatingInput"
+        value={rating}
+        onSelect={handleSelect}
+        onHover={setRating}
+        onMouseOut={handleMouseOut}
+      ></Rating>
+    </StyledRatingInput>
   );
 }
 export default RatingInput;
