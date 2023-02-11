@@ -50,7 +50,7 @@ const ProductGrid = ({userInfo}:any) => {
     <StyledGrid>
       <div className="listTitle">
         {option === "new" ? (
-          <h2>새제품</h2>
+          <h2>새 제품</h2>
         ) : option === "major" ? (
           <h2>인기상품</h2>
         ) : (
@@ -58,7 +58,7 @@ const ProductGrid = ({userInfo}:any) => {
         )}
         <select onChange={optionChange}>
           <option key="new" value="new">
-            새제품
+            새 제품
           </option>
           <option key="major" value="major">
             인기상품
