@@ -47,7 +47,7 @@ const LoginForm = ({ onLogin }: any) => {
           로그인
         </button>
         <hr />
-        <a className="joinAnchor" href="#">
+        <a className="joinAnchor" href="./join">
           회원가입
         </a>
       </form>

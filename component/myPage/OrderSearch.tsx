@@ -37,7 +37,7 @@ const OrderSearch: React.FC<Props> = ({ onClick }) => {
         <button onClick={() => onClick(7776000000)}>3개월</button>
         <button onClick={() => onClick(0)}>전체</button>
       </div>
-      <div>날짜선택</div>
+      {/* <div>날짜선택</div>
       <select>
         <option key="0" value="">
           입금/결제
@@ -61,7 +61,7 @@ const OrderSearch: React.FC<Props> = ({ onClick }) => {
           환불완료
         </option>
       </select>
-      <button>조회</button>
+      <button>조회</button> */}
     </StyledOrderSearch>
   );
 };
