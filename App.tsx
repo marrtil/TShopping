@@ -24,16 +24,9 @@ const App: FC = () => {
     await logOut_process();
   };
 
-  const testDel = async () => {
-    await fetch(`http://localhost:3001/order/cart/allDel`, {
-      method: "delete",
-    });
-  };
-
   return (
     <>
       <BrowserRouter>
-        <button onClick={testDel}>테스트</button>
         <Routes>
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
           <Route path="/join" element={<JoinForm />} />
