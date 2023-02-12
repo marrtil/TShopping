@@ -35,6 +35,12 @@ var storage = multer.diskStorage({
 var upload = multer({ storage });
 app.use("/image", express.static("upload"));
 
+const path = require("path");
+app.use(express.static(path.join("../")));
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join("../", "index.html"));
+});
+
 sequelize
   .sync({ force: false })
   .then(() => {
@@ -47,7 +53,6 @@ sequelize
 app.use(morgan("dev"));
 app.use(cors({ origin: "http://localhost:4000", credentials: true }));
 
-app.use("/", express.static("uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -79,11 +84,11 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
-  // req, res, next 타입은 생략가능.
-  res.send("tsback 정상 작동!");
-  return "tsback 정상 작동!";
-});
+// app.get("/", (req: Request, res: Response, next: NextFunction) => {
+//   // req, res, next 타입은 생략가능.
+//   res.send("tsback 정상 작동!");
+//   return "tsback 정상 작동!";
+// });
 
 // app.listen(app.get("port"), () => {
 //   console.log(`server is running on ${app.get("port")}`);
