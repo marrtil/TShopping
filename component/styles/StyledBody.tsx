@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const StyledBody = styled.div`
   width: 1200px;
+  
   #buttons {
     position:relative;
     left:708px;

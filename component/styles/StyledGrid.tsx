@@ -19,6 +19,12 @@ const StyledGrid = styled.div`
       width: 250px;
       // height: 30px;
     }
+
+    select {
+      
+      padding:4px;
+      font-weight:600;
+    }
   }
   #hrDivider {
     width: 87%;
