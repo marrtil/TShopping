@@ -29,6 +29,7 @@ const OrderSearch: React.FC<Props> = ({ onClick }) => {
   if (!path) {
     path = "?order_state=";
   }
+  // test
   return (
     <StyledOrderSearch>
       <div>
@@ -37,31 +38,6 @@ const OrderSearch: React.FC<Props> = ({ onClick }) => {
         <button onClick={() => onClick(7776000000)}>3개월</button>
         <button onClick={() => onClick(0)}>전체</button>
       </div>
-      {/* <div>날짜선택</div>
-      <select>
-        <option key="0" value="">
-          입금/결제
-        </option>
-        <option key="1" value="">
-          배송중/픽업대기
-        </option>
-        <option key="2" value="">
-          배송완료/픽업완료
-        </option>
-        <option key="3" value="">
-          교환
-        </option>
-        <option key="4" value="">
-          교환완료
-        </option>
-        <option key="5" value="">
-          환불
-        </option>
-        <option key="6" value="">
-          환불완료
-        </option>
-      </select>
-      <button>조회</button> */}
     </StyledOrderSearch>
   );
 };
