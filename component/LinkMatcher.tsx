@@ -6,13 +6,13 @@ import ProductGrid from "./ProductGrid";
 import ProductForm from "./ProductForm";
 import ProductList from "./ProductList";
 import Payment from "./Payment";
+import ProductListType from "./ProductListType";
 const LinkMatcher = () => {
   return (
     <Routes>
       <Route path="/cart" element={<CartForm />} />
       <Route path="/productList/" element={<ProductList />} />
-      <Route path="/newGoods" element={<ProductGrid  />} />
-      <Route path="/majorGoods" element={<ProductGrid />} />
+      <Route path="/productType/:type" element={<ProductListType />} />
       <Route path="/payment" element={<Payment />} />
       <Route path={`/productForm/:id`} element={<ProductForm />} />
       <Route path="/" element={<Body />} />

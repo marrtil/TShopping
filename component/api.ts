@@ -156,6 +156,14 @@ export async function allProducts(search: string) {
   const product = await res.json();
   return product;
 }
+
+export async function typeProducts(type: string) {
+  const res = await fetch(`${URL}/product/productType/${type}`);
+  if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
+  const product = await res.json();
+  return product;
+}
+
 export async function viewedProducts(search: string) {
   console.log(search);
   const res = await fetch(`${URL}/product/viewedProductList/${search}`);

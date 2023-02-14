@@ -127,10 +127,10 @@ const Header = ({ userInfo, handleLogout }: any) => {
               <Link to="/productList">전체상품</Link>
             </li>
             <li>
-              <Link to="/newGoods">신제품</Link>
+              <Link to="/productType/new">신제품</Link>
             </li>
             <li>
-              <Link to="/majorGoods">인기상품</Link>
+              <Link to="/productType/major">인기상품</Link>
             </li>
           </ul>
         </StyledMenuBar>

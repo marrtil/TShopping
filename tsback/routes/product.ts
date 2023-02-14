@@ -67,6 +67,23 @@ router.get("/productList", async (req, res) => {
   }
 });
 
+router.get("/productType/:type", async (req, res) => {
+  const { type } = req.params;
+  var product = null;
+  if (type == "new") {
+    product = await Product.findAll({
+      order: [["updatedAt", "DESC"]],
+      limit: 16,
+    });
+  } else {
+    product = await Product.findAll({
+      order: [["sales", "DESC"]],
+      limit: 16,
+    });
+  }
+  res.send(product);
+});
+
 router.get("/productLists/:id", async (req, res) => {
   const { id } = req.params;
 

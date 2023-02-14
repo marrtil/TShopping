@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [num, setNum] = useState<number>(0);
@@ -10,12 +11,19 @@ const Banner = () => {
     "http://localhost:3001/image/moomin4.jpeg",
   ]); //지금은 state인데 어떻게될지모름
   const [stop, setStop] = useState<boolean>(false);
-  const thumbImage = useMemo(() => {
+  const thumbImage = useMemo<React.CSSProperties>(() => {
     const thumb = {
-      backgroundImage: `url(${thumbnail[num]})`,
+      backgroundImage: `url(http://localhost:3001/image/moomin${num + 1}.jpeg)`,
     };
     return thumb;
   }, [num]);
+
+  const link: string[] = [
+    "/productList",
+    "/productType/new",
+    "/productType/major",
+    "/productList",
+  ];
 
   const prevBtn = () => {
     if (num <= 0) {
@@ -51,6 +59,7 @@ const Banner = () => {
 
   return (
     <div id="banner" style={thumbImage}>
+      <Link to={link[num]}></Link>
       <div id="buttons">
         <button onClick={prevBtn}>{"<"}</button>
         <button
