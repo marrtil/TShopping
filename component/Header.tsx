@@ -95,13 +95,13 @@ const Header = ({ userInfo, handleLogout }: any) => {
               <ul className="menuUl">
                 <li>
                   <div className="gender">
-                    <a href="/productList?gender=남성">남성</a>
+                    <Link to="/productList?gender=남성">남성</Link>
                     <hr />
                     {Object.keys(productMan).map((value) => (
                       <div>
-                        <a href={`/productList?gender=남성&kind=${value}`}>
+                        <Link to={`/productList?gender=남성&kind=${value}`}>
                           {value}
-                        </a>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -109,14 +109,14 @@ const Header = ({ userInfo, handleLogout }: any) => {
                 <li>
                   <div className="gender">
                     <div>
-                      <a href="/productList?gender=여성">여성</a>
+                      <Link to="/productList?gender=여성">여성</Link>
                     </div>
                     <hr />
                     {Object.keys(productWomen).map((value) => (
                       <div>
-                        <a href={`/productList?gender=여성&kind=${value}`}>
+                        <Link to={`/productList?gender=여성&kind=${value}`}>
                           {value}
-                        </a>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -124,7 +124,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
               </ul>
             </li>
             <li>
-              <a href="/productList">전체상품</a>
+              <Link to="/productList">전체상품</Link>
             </li>
             <li>
               <Link to="/newGoods">신제품</Link>

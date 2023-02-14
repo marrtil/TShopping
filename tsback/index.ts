@@ -37,7 +37,7 @@ app.use("/image", express.static("upload"));
 
 const path = require("path");
 app.use(express.static(path.join(__dirname, "../")));
-app.get("/check", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   console.log("이걸로됨?");
   res.sendFile(path.join(__dirname, "../index.html"));
 });
