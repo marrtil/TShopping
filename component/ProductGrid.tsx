@@ -1,51 +1,41 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import product1 from "../upload/moomin5.jpeg";
-import product2 from "../upload/moomin6.jpeg";
-import product3 from "../upload/moomin7.png";
 import StyledGrid from "./styles/StyledGrid";
 import { ProductSort } from "./Types";
 import { product } from "./product";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { gridLoad } from "./api";
 
 interface Props {
   sort: ProductSort;
 }
 
-
-
-
-const ProductGrid = ({userInfo}:any) => {
-  const [products,setProducts] = useState<product[]>([]); // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
+const ProductGrid = ({ userInfo }: any) => {
+  const [products, setProducts] = useState<product[]>([]); // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
   const [option, setOption] = React.useState<ProductSort>("new");
 
-  
   const optionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOption(e.target.value as ProductSort);
   };
 
-  const gridImage = async()=>{
+  const gridImage = async () => {
     var grid = null;
-    if(userInfo){
-      var gender="";
-      if(userInfo.gender=="M") gender="남성";
-      else gender="여성";
-      grid=await gridLoad(option,gender);
-    
-    }
-     else grid=await gridLoad(option)
+    if (userInfo) {
+      var gender = "";
+      if (userInfo.gender == "M") gender = "남성";
+      else gender = "여성";
+      grid = await gridLoad(option, gender);
+    } else grid = await gridLoad(option);
     setProducts(grid);
-  }
+  };
 
   console.log(userInfo);
-  
 
   useEffect(() => {
     gridImage();
   }, [option]);
 
-    console.log(products);
+  console.log(products);
   return (
     <StyledGrid>
       <div className="listTitle">

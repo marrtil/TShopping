@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
-import { useParams, useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductList from "./styles/StyledProductList";
-import { productManT, productWomenT } from "./Types";
-import { initialProducts, product } from "./product";
+import { product } from "./product";
 import { allProducts, viewedProducts } from "./api";
 import { salePrice } from "./CartForm";
 import PageButtons from "./PageButtons";
@@ -34,8 +33,8 @@ const colorTable: tableType = {
   생지: "blue",
   샐비지: "navy",
   워싱: "skyblue",
-  브라운:"brown",
-  퍼플:"purple",
+  브라운: "brown",
+  퍼플: "purple",
 };
 
 const ProductList = () => {
@@ -44,8 +43,10 @@ const ProductList = () => {
   const { search, pathname } = useLocation();
   const [order, setOrder] = useState<string>("0");
   const [color, setColor] = useState<string>("");
-  const allPage=useMemo(()=>{if(listProduct)return Math.ceil(listProduct.length/16)},[listProduct]);
-  const [page,setPage]=useState<number>(1);
+  const allPage = useMemo(() => {
+    if (listProduct) return Math.ceil(listProduct.length / 16);
+  }, [listProduct]);
+  const [page, setPage] = useState<number>(1);
   const sessionStorage = window.sessionStorage;
   const local = window.localStorage;
   const colorList = useMemo(() => {
@@ -80,14 +81,15 @@ const ProductList = () => {
     }
   }, []);
 
-
   // console.log(search);
 
   useEffect(() => {
     if (color) {
       if (color == "default") setListProduct(initialProduct);
       else {
-        setListProduct(initialProduct.filter((values) => values["color"].includes(color)));
+        setListProduct(
+          initialProduct.filter((values) => values["color"].includes(color))
+        );
       }
     }
   }, [color]);
@@ -96,9 +98,13 @@ const ProductList = () => {
     if (order == "1") {
       setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
     } else if (order == "2") {
-      setListProduct((prevValue) => [...prevValue].sort((a, b) => a.price - b.price));
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => a.price - b.price)
+      );
     } else if (order == "3") {
-      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.price - a.price));
+      setListProduct((prevValue) =>
+        [...prevValue].sort((a, b) => b.price - a.price)
+      );
     }
   }, [order, color]);
 
@@ -140,50 +146,54 @@ const ProductList = () => {
         )}
       </div>
       <div id="productList">
-        {(listProduct.length&&page) ? (
-          listProduct.slice(0+(page-1)*16,16*page).map((product: product) => {
-            return (
-              <div className="listProduct">
-                <Link to={`/productForm/${product.id}`}>
-                  <img src={product.image} className="listImage" />
-                </Link>
-                <div className="productInfo">
+        {listProduct.length && page ? (
+          listProduct
+            .slice(0 + (page - 1) * 16, 16 * page)
+            .map((product: product) => {
+              return (
+                <div className="listProduct">
                   <Link to={`/productForm/${product.id}`}>
-                    <div>{product.name}</div>
+                    <img src={product.image} className="listImage" />
                   </Link>
-                  <div>
-                    {" "}
-                    {product.discount > 0 ? (
-                      <>
-                        <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>
-                        &nbsp;
-                        {"₩" + salePrice(product).toLocaleString("ko-KR")}
-                      </>
-                    ) : (
-                      product.price.toLocaleString("ko-KR")
-                    )}
+                  <div className="productInfo">
+                    <Link to={`/productForm/${product.id}`}>
+                      <div>{product.name}</div>
+                    </Link>
+                    <div>
+                      {" "}
+                      {product.discount > 0 ? (
+                        <>
+                          <del>
+                            {"₩" + product.price.toLocaleString("ko-KR")}
+                          </del>
+                          &nbsp;
+                          {"₩" + salePrice(product).toLocaleString("ko-KR")}
+                        </>
+                      ) : (
+                        product.price.toLocaleString("ko-KR")
+                      )}
+                    </div>
+                    <ul id="colors">
+                      {product.color.split(",").map((colors: string) => {
+                        const style = {
+                          backgroundColor: colorTable[colors],
+                        };
+                        return (
+                          <li key={colors}>
+                            <a className="color" style={style}></a>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
-                  <ul id="colors">
-                    {product.color.split(",").map((colors: string) => {
-                      const style = {
-                        backgroundColor: colorTable[colors],
-                      };
-                      return (
-                        <li key={colors}>
-                          <a className="color" style={style}></a>
-                        </li>
-                      );
-                    })}
-                  </ul>
                 </div>
-              </div>
-            );
-          })
+              );
+            })
         ) : (
           <div id="empty">찾으시는 종류의 상품이 없습니다</div>
         )}
       </div>
-      <PageButtons allPage={allPage} pageSet={setPage}/>
+      <PageButtons allPage={allPage} pageSet={setPage} />
     </StyledProductList>
   );
 };

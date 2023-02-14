@@ -21,11 +21,15 @@ router.get("/productList", async (req, res) => {
       condition = kind.split(",");
       condition.length == 2
         ? (product = await Product.findAll({
-            where: {gender:gender, [Op.or]: [{ kind: condition[0] }, { kind: condition[1] }] },
+            where: {
+              gender: gender,
+              [Op.or]: [{ kind: condition[0] }, { kind: condition[1] }],
+            },
           }))
         : (product = await Product.findAll({
             where: {
-              kind: condition[0],gender:gender
+              kind: condition[0],
+              gender: gender,
             },
           }));
       res.send(product);
@@ -46,7 +50,9 @@ router.get("/productList", async (req, res) => {
       condition = kind.split(",");
       condition.length == 2
         ? (product = await Product.findAll({
-            where: { [Op.or]: [{ kind: condition[0] }, { kind: condition[1] }] },
+            where: {
+              [Op.or]: [{ kind: condition[0] }, { kind: condition[1] }],
+            },
           }))
         : (product = await Product.findAll({
             where: {
@@ -75,31 +81,30 @@ router.get("/productLists/:id", async (req, res) => {
 
 router.get("/productGrid/:option", async (req, res) => {
   const { option } = req.params;
-  const {gender}=req.query;
+  const { gender } = req.query;
 
   var product = null;
   if (option == "new") {
-    
     product = await Product.findAll({
       order: [["id", "DESC"]],
       limit: 3,
     });
-  } else if (option=="major") {
-    
+  } else if (option == "major") {
     product = await Product.findAll({
-      order:[["sales","DESC"]],
+      order: [["sales", "DESC"]],
       limit: 3,
     });
-  } else if (option=="recomend") {
-    gender?
-    product = await Product.findAll({
-      where:{gender},
-      order:[["sales","DESC"]],
-      limit: 3,
-    }):product = await Product.findAll({
-      order:[["sales","DESC"]],
-      limit: 3,
-    })
+  } else if (option == "recomend") {
+    gender
+      ? (product = await Product.findAll({
+          where: { gender },
+          order: [["sales", "DESC"]],
+          limit: 3,
+        }))
+      : (product = await Product.findAll({
+          order: [["sales", "DESC"]],
+          limit: 3,
+        }));
   }
   res.send(product);
 });

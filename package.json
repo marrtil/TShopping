@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack serve --env development",
-    "start": "webpack serve --mode development",
     "prebuild": "rimraf dist",
-    "build": "webpack --progress --mode production"
+    "build": "webpack --progress --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack serve --env development"
   },
   "repository": {
     "type": "git",
@@ -17,6 +16,9 @@
   "author": "marrtil,dudghks1045",
   "license": "ISC",
   "dependencies": {
+    "@parcel/runtime-react-refresh": "^2.8.3",
+    "@parcel/transformer-react-refresh-babel": "^2.0.0-alpha.3",
+    "@parcel/transformer-react-refresh-wrap": "^2.8.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
@@ -38,6 +40,7 @@
     "react-refresh": "^0.14.0",
     "react-router": "^6.6.1",
     "react-router-dom": "^6.6.1",
+    "react-script": "^2.0.5",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "styled-components": "^5.3.6",

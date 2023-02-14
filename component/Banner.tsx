@@ -1,25 +1,21 @@
 import * as React from "react";
-import { useState, useEffect,useMemo } from "react";
-import moomin1 from "../upload/moomin1.jpeg";
-import moomin2 from "../upload/moomin2.jpeg";
-import moomin3 from "../upload/moomin3.jpeg";
-import moomin4 from "../upload/moomin4.jpeg";
+import { useState, useEffect, useMemo } from "react";
 
 const Banner = () => {
   const [num, setNum] = useState<number>(0);
   const [thumbnail, setThumbnail] = useState<string[]>([
-    moomin1,
-    moomin2,
-    moomin3,
-    moomin4,
+    "http://localhost:3001/image/moomin1.jpeg",
+    "http://localhost:3001/image/moomin2.jpeg",
+    "http://localhost:3001/image/moomin3.jpeg",
+    "http://localhost:3001/image/moomin4.jpeg",
   ]); //지금은 state인데 어떻게될지모름
   const [stop, setStop] = useState<boolean>(false);
-  const thumbImage=useMemo(()=>{
-   const thumb= {
-    backgroundImage:`url(${thumbnail[num]})`
-  }
-  return thumb;
-},[num]);
+  const thumbImage = useMemo(() => {
+    const thumb = {
+      backgroundImage: `url(${thumbnail[num]})`,
+    };
+    return thumb;
+  }, [num]);
 
   const prevBtn = () => {
     if (num <= 0) {
