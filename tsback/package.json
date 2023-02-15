@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "cd .. && npm run build && cd tsback &&nodemon index",
     "dev": "nodemon",
     "server": "npm run dev",
     "client": "cd ../ && npm run dev",
