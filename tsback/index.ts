@@ -36,11 +36,6 @@ var upload = multer({ storage });
 app.use("/image", express.static("upload"));
 
 const path = require("path");
-app.use(express.static(path.join(__dirname, "../")));
-app.get("/", (req: Request, res: Response) => {
-  console.log("이걸로됨?");
-  res.sendFile(path.join(__dirname, "../index.html"));
-});
 
 sequelize
   .sync({ force: false })
@@ -52,7 +47,8 @@ sequelize
   });
 
 app.use(morgan("dev"));
-app.use(cors({ origin: "http://localhost:4000", credentials: true }));
+// app.use(cors({ origin: "http://localhost:4000", credentials: true }));
+app.use(cors({ origin: "http://localhost:3001", credentials: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -80,11 +76,21 @@ app.use(
 passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
-// app.set("port", prod ? process.env.PORT : 3065);
-app.use("/user", userRouter);
-app.use("/product", productRouter);
-app.use("/order", orderRouter);
 
+app.use(express.static(path.join(__dirname, "../")));
+// app.get("/", (req: Request, res: Response) => {
+//   console.log("이걸로됨?");
+//   res.sendFile(path.join(__dirname, "../", "index.html"));
+// });
+
+// app.set("port", prod ? process.env.PORT : 3065);
+app.use("/api/user", userRouter);
+app.use("/api/product", productRouter);
+app.use("/api/order", orderRouter);
+app.get("*", (req: Request, res: Response) => {
+  console.log("이걸로됨?");
+  res.sendFile(path.join(__dirname, "../", "index.html"));
+});
 // app.get("/", (req: Request, res: Response, next: NextFunction) => {
 //   // req, res, next 타입은 생략가능.
 //   res.send("tsback 정상 작동!");

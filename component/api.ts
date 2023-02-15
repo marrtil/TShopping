@@ -2,7 +2,7 @@ import { LOGIN_INFO } from "./LoginForm";
 import { product } from "./product";
 import { ProductSort } from "./Types";
 
-const URL = "http://localhost:3001";
+const URL = "http://localhost:3001/api";
 
 export async function loginCheck_process() {
   const res = await fetch(`${URL}/user/`, {
@@ -110,10 +110,7 @@ export async function idCheck_process(userId: string) {
   return true;
 }
 
-export async function passwordCheck_process(checkData: {
-  userId: string;
-  password: string;
-}) {
+export async function passwordCheck_process(checkData: { userId: string; password: string }) {
   // password 중복이면 true, 아니면 false
   console.log(checkData);
   const res = await fetch(`${URL}/user/passwordCheck`, {
@@ -181,9 +178,7 @@ export async function productDetail(id: number) {
 }
 
 export async function gridLoad(option: ProductSort, gender: string = "") {
-  const res = await fetch(
-    `${URL}/product/productGrid/${option}?gender=${gender}`
-  );
+  const res = await fetch(`${URL}/product/productGrid/${option}?gender=${gender}`);
   if (!res) throw new Error("상품정보를 불러오는데 실패 했습니다.");
   const product = await res.json();
   return product;
