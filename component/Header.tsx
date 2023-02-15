@@ -95,13 +95,13 @@ const Header = ({ userInfo, handleLogout }: any) => {
               <ul className="menuUl">
                 <li>
                   <div className="gender">
-                    <Link to="/productList?gender=남성">남성</Link>
+                    <a href="/productList?gender=남성">남성</a>
                     <hr />
                     {Object.keys(productMan).map((value) => (
                       <div>
-                        <Link to={`/productList?gender=남성&kind=${value}`}>
+                        <a href={`/productList?gender=남성&kind=${value}`}>
                           {value}
-                        </Link>
+                        </a>
                       </div>
                     ))}
                   </div>
@@ -109,14 +109,14 @@ const Header = ({ userInfo, handleLogout }: any) => {
                 <li>
                   <div className="gender">
                     <div>
-                      <Link to="/productList?gender=여성">여성</Link>
+                      <a href="/productList?gender=여성">여성</a>
                     </div>
                     <hr />
                     {Object.keys(productWomen).map((value) => (
                       <div>
-                        <Link to={`/productList?gender=여성&kind=${value}`}>
+                        <a href={`/productList?gender=여성&kind=${value}`}>
                           {value}
-                        </Link>
+                        </a>
                       </div>
                     ))}
                   </div>
@@ -124,13 +124,13 @@ const Header = ({ userInfo, handleLogout }: any) => {
               </ul>
             </li>
             <li>
-              <Link to="/productList">전체상품</Link>
+              <a href="/productList">전체상품</a>
             </li>
             <li>
-              <Link to="/productType/new">신제품</Link>
+              <a href="/productType/new">신제품</a>
             </li>
             <li>
-              <Link to="/productType/major">인기상품</Link>
+              <a href="/productType/major">인기상품</a>
             </li>
           </ul>
         </StyledMenuBar>

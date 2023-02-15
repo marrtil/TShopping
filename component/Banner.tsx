@@ -59,7 +59,9 @@ const Banner = () => {
 
   return (
     <div id="banner" style={thumbImage}>
-      <Link to={link[num]}></Link>
+      <Link to={link[num]}>
+        <div className="imageLink"></div>
+      </Link>
       <div id="buttons">
         <button onClick={prevBtn}>{"<"}</button>
         <button
