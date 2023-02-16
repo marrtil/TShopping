@@ -17,10 +17,10 @@ module.exports = {
     dialect: "mysql",
   },
   production: {
-    username: "root",
-    password: process.env.DB_PASSWORD!,
-    database: "tshop-pro",
-    host: "127.0.0.1",
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB,
+    host: process.env.HOST,
     dialect: "mysql",
   },
 };
