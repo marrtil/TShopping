@@ -48,9 +48,7 @@ sequelize
 
 app.use(morgan("dev"));
 // app.use(cors({ origin: "http://localhost:4000", credentials: true }));
-app.use(
-  cors({ origin: "https://tshopping-app.herokuapp.com", credentials: true })
-);
+app.use(cors({ origin: "https://tshopping-app.herokuapp.com", credentials: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -63,7 +61,7 @@ app.use(
   session({
     resave: false,
     saveUninitialized: true,
-    secret: process.env.COOKIE_SECRET!,
+    secret: process.env.COOKIE_SECRET! || "tsbackcookie",
     store: new FileStore(fileStoreOptions),
     cookie: {
       httpOnly: true,
