@@ -48,7 +48,9 @@ sequelize
 
 app.use(morgan("dev"));
 // app.use(cors({ origin: "http://localhost:4000", credentials: true }));
-app.use(cors({ origin: "http://localhost:3001", credentials: true }));
+app.use(
+  cors({ origin: "https://tshopping-app.herokuapp.com", credentials: true })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
