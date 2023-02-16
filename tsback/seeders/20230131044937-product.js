@@ -1,5 +1,5 @@
 "use strict";
-const baseURL = "${baseURL}";
+const baseURL = "https://tshopping-app.herokuapp.com";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
