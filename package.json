@@ -9,8 +9,8 @@
     "build": "webpack --progress --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve --env development",
-    "migrate": "cd tsback && sequelize db:migrate",
-    "seed": "cd tsback && sequelize db:seed:all"
+    "migrate": "cd tsback && ./node_modules/.bin/ts-node ./migrations/create-table/create-table-all.ts",
+    "seed": "cd tsback && npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
