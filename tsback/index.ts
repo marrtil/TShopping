@@ -65,7 +65,7 @@ app.use(
     store: new FileStore(fileStoreOptions),
     cookie: {
       httpOnly: true,
-      secure: false, //개발할때만 false
+      secure: true, //개발할때만 false
     },
     // cookie: { secure: false, maxAge: 4 * 60 * 60 * 1000 },
   })
