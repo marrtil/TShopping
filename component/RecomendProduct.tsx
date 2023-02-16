@@ -48,9 +48,7 @@ const categoryWomen: categoryWomenT = {
   Ftshirts: "티셔츠,탑",
 };
 
-const RecomendProduct = ({userInfo}:any) => {
- 
-  
+const RecomendProduct = ({ userInfo }: any) => {
   return (
     <StyledRecommend>
       {userInfo ? (
@@ -59,7 +57,7 @@ const RecomendProduct = ({userInfo}:any) => {
             return (
               <div className="recommend">
                 <a href={`/productList?gender=남성&kind=${categoryMan[value]}`}>
-                  <img src={`http://localhost:3001/image/${value}.png`} />
+                  <img src={`https://tshopping-app.herokuapp.com/image/${value}.png`} />
                 </a>
               </div>
             );
@@ -69,7 +67,7 @@ const RecomendProduct = ({userInfo}:any) => {
             return (
               <div className="recommend">
                 <a href={`/productList?gender=여성&kind=${categoryWomen[value]}`}>
-                  <img src={`http://localhost:3001/image/${value}.png`} />
+                  <img src={`https://tshopping-app.herokuapp.com/image/${value}.png`} />
                 </a>
               </div>
             );
