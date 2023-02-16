@@ -2,7 +2,7 @@ import { LOGIN_INFO } from "./LoginForm";
 import { product } from "./product";
 import { ProductSort } from "./Types";
 
-const URL = "http://https://tshopping-app.herokuapp.com/api";
+const URL = "https://tshopping-app.herokuapp.com/api";
 
 export async function loginCheck_process() {
   const res = await fetch(`${URL}/user/`, {

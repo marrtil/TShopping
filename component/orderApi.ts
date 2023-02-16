@@ -1,6 +1,6 @@
 import { CartData, CartProduct, DelveriyInfo, Review } from "./Types";
 
-const URL = "http://https://tshopping-app.herokuapp.com/api";
+const URL = "https://tshopping-app.herokuapp.com/api";
 
 // 결제하기 눌렀을 때 (productData: { productId, size, color, count})
 export async function order(orderData: CartProduct[]) {
