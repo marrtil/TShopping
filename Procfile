@@ -1,0 +1,1 @@
+web: cd tsback && npm run dev
