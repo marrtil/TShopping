@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix tsback && npm run build --prefix ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix tsback && npm run build --prefix && mkdir session && npm run migrate",
     "prebuild": "rimraf dist",
     "build": "webpack --progress --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve --env development",
-    "migrate": "cd tsback && ./node_modules/.bin/ts-node ./migrations/create-table/create-table-all.ts",
-    "seed": "cd tsback && npx sequelize db:seed:all"
+    "migrate": "cd tsback && ./node_modules/.bin/ts-node ./migrations/create-table/create-table-all.ts && npx sequelize db:seed:all",
+    "//seed": "cd tsback && npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
