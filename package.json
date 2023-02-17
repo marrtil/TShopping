@@ -19,6 +19,11 @@
   "author": "marrtil,dudghks1045",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@parcel/runtime-react-refresh": "^2.8.3",
     "@parcel/transformer-react-refresh-babel": "^2.0.0-alpha.3",
     "@parcel/transformer-react-refresh-wrap": "^2.8.3",
