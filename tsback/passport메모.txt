@@ -10,7 +10,33 @@ index.ts 작성 시 주의사항
  - passport/index
  - passport/localStrategy : 로그인 코드.
  - routes/middleware : 로그인 여부 파악하는 코드.
+   
  - routes/user - router.post('/login', ...) : 로그인!
+
+진짜 대충 개념
+ - 로그인하면 세션에 이를 저장하고, 로그인 관련 동작할 떄 db에 가서 체크하는게 아닌
+ - 세션에서 찾아보는 것.
+
+대충 돌아가는 사이클
+   - 로그인 체크
+      router.get("/", isLoggedIn, (req, res) ~~ 호출
+      > isLoggedIn 먼저 실행한 뒤 (req, res) => {}를 실행함
+      ( isLoggendIn : 로그인중인 경우 > 다음 콜백함수로 / 로그인중이 아닌 경우 > 에러, 다음 콜백 실행x )
+      ( isNotLoggendIn : 반대 )
+      isLoggedIn을 실행 하면 req.isAuthenticated()를 실행
+      ( isLoggedIn, isNotLoggedIn은 생략하고 즉시 isAuthenticated을 사용해도 됨. )
+      isAuthenticated()는 로그인 여부를 뱉어냄.(passport 내부 함수라고 보면될듯)
+
+passport 규칙 설정
+   - passport/index.ts 에 대한 설명은 해당 파일에 상세히 기술해놓음
+   - passport/localStrategy.ts : 로그인 방법(규칙)
+      -  usernameField: "userId",
+         passwordField: "password", > 사용할 변수명 설정
+      - db검색해서 로그인하는건데 걍 passport 안써도 되는 거 아니냐?
+      - db검색은 중요한게 아니고 >> 로그인 -> 로그인 정보 세션에 저장 << 이 중요한것.
+      - local로그인의 경우 localStrategy를 쓰듯이
+      - 다른 로그인 방법도 kakaoStrategy 이런식으로 쓸 수 있다~(안써봄)
+
 
 
 0128 ////
