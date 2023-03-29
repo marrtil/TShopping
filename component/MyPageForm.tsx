@@ -6,7 +6,6 @@ import MyOrderRecord from "./myPage/MyOrderRecord";
 import MyReview from "./myPage/MyReview";
 import ModForm from "./myPage/ModForm";
 import ViewedGoods from "./myPage/ViewedGoods";
-import { loginCheck_process } from "./api";
 const MyPageForm = ({ userInfo }: any) => {
   const session = window.sessionStorage;
   const location = useLocation();
@@ -22,19 +21,6 @@ const MyPageForm = ({ userInfo }: any) => {
       (document.querySelector(`#myPage`) as HTMLAnchorElement).style.color = "rgb(20,20,20)";
     }
   }, [menu]);
-
-  const myPageLoad = async () => {
-    console.log("mypageLoad");
-    // setUserInfo(await loginCheck_process());
-    // if (session.getItem("userInfo") && !userInfo) {
-    // setUserInfo(loginCheck_process());
-    console.log(await loginCheck_process());
-    // console.log
-    // }
-  };
-  React.useEffect(() => {
-    // myPageLoad();
-  }, []);
 
   return (
     <StyledMyPage>
