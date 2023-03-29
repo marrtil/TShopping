@@ -44,22 +44,14 @@ function ModForm({ userInfo }: any) {
     const { userId } = userInfo;
     const check = modData.password;
     const checkText = document.querySelector("#passwordCheckText") as HTMLParagraphElement;
-    // const check = await getUserInfo(joinData.userId);
-    // if (check.userId) {
-    // console.log(await passwordCheck_process({ userId: userId, password: check }));
+
     if (check.length < 4 || check.length > 12) {
       checkText.textContent = "패스워드는 4~12글자 이내이어야 합니다.";
       checkText.style.color = "red";
     } else if (checkSpace(check)) {
       checkText.textContent = "공백이 포함될 수 없습니다.";
       checkText.style.color = "red";
-    }
-    //  else if (await passwordCheck_process({ userId: userId, password: check })) {
-    //   setPassConfirm(false);
-    //   checkText.textContent = "이미 사용중인 비밀번호입니다.";
-    //   checkText.style.color = "red";
-    // }
-    else {
+    } else {
       setPassConfirm(true);
       checkText.textContent = "사용 가능한 비밀번호입니다.";
       checkText.style.color = "green";
@@ -94,11 +86,9 @@ function ModForm({ userInfo }: any) {
       }
     }
     await modMember(userInfo.userId, { nickname: modData.nickname, password: modData.password });
-    // navi("/");
   };
   return (
     <StyledMyInfo>
-      {/* <form onSubmit={handleModSubmit}> */}
       <table>
         <tr>
           <td className="infoName">아이디</td>
@@ -155,7 +145,6 @@ function ModForm({ userInfo }: any) {
           </td>
         </tr>
       </table>
-      {/* </form> */}
       <hr />
     </StyledMyInfo>
   );

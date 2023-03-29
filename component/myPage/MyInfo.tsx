@@ -20,11 +20,6 @@ function MyInfo({ userInfo }: any) {
           <td className="infoSlash">|</td>
           <td className="infoValue">{userInfo.nickname}</td>
         </tr>
-        {/* <tr>
-          <td className="infoName">이메일</td>
-          <td className="infoSlash">|</td>
-          <td className="infoValue">{userInfo.email}</td>
-        </tr> */}
         <tr>
           <td></td>
           <td></td>
