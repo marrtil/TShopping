@@ -6,4 +6,6 @@ tsback/.env
 
 tsback/sessions
 
+tsback/package-lock.json
+
 .env
