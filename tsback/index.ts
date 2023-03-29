@@ -47,7 +47,6 @@ sequelize
   });
 
 app.use(morgan("dev"));
-// app.use(cors({ origin: "http://localhost:4000", credentials: true }));
 // app.use(cors({ origin: "https://tshopping-app.herokuapp.com", credentials: true }));
 app.use(cors({ credentials: true }));
 
@@ -72,19 +71,11 @@ app.use(
   })
 );
 
-// 세션 설정 뒤에 passport.initialize()와 passport.session()이 들어와야함.
-
 passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, "../")));
-// app.get("/", (req: Request, res: Response) => {
-//   console.log("이걸로됨?");
-//   res.sendFile(path.join(__dirname, "../", "index.html"));
-// });
-
-// app.set("port", prod ? process.env.PORT : 3065);
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/order", orderRouter);
@@ -92,15 +83,6 @@ app.get("*", (req: Request, res: Response) => {
   console.log("이걸로됨?");
   res.sendFile(path.join(__dirname, "../", "index.html"));
 });
-// app.get("/", (req: Request, res: Response, next: NextFunction) => {
-//   // req, res, next 타입은 생략가능.
-//   res.send("tsback 정상 작동!");
-//   return "tsback 정상 작동!";
-// });
-
-// app.listen(app.get("port"), () => {
-//   console.log(`server is running on ${app.get("port")}`);
-// });
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
