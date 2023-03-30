@@ -11,9 +11,9 @@ function Star({ selected = false, rating, onSelect, onHover }: any) {
     </span>
   );
 }
-// selected값이 true 일 때 seleted 스타일을 추가
 
 function Rating({ className, value = 0, onSelect, onHover, onMouseOut }: any) {
+  // { className: string, value:0, onSelect:, onHover:, onMouseOut: }) {
   return (
     <StyledRating>
       <div className={className} onMouseOut={onMouseOut}>

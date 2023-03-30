@@ -1,18 +1,17 @@
 import * as React from "react";
 import { useParams } from "react-router";
+import Order from "../../tsback/models/order";
 import { productDetail } from "../api";
 import { reviewWrite } from "../orderApi";
 import { product } from "../product";
 import { detail, INITIAL_REVIEW, Review } from "../Types";
 import RatingInput from "./RatingInput";
 
-const ReviewWriteForm = (orders: any) => {
+const ReviewWriteForm = ({ order, productId }: { order: Order | any; productId: number }) => {
   const { productInfo } = useParams();
-  const orderId = productInfo!.split("_")[0];
-  const productId = productInfo!.split("_")[1];
   const [review, setReview] = React.useState<Review>(INITIAL_REVIEW);
   const [product, setProduct] = React.useState<product>({
-    id: 1,
+    id: productId,
     name: "",
     kind: "",
     size: "",
@@ -22,7 +21,6 @@ const ReviewWriteForm = (orders: any) => {
     discount: 0,
     count: 0,
   });
-
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -30,37 +28,28 @@ const ReviewWriteForm = (orders: any) => {
   const ratingChange = (name: string, value: number) => {
     setReview((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleSubmit = () => {
     //리뷰 작성
     if (review.rating == 0) {
       alert("별점을 입력해주세요");
       return;
     }
-    let myOrder: any;
-    Object.values(orders).map((item: any) => {
-      if (item["id"] == orderId) {
-        myOrder = item;
-        return;
-      }
-    });
-    if (myOrder) {
-      Object.values(myOrder["detail"]).map((item: any) => {
-        if (item["productId"] == productId) {
-          myOrder = item;
-          return;
-        }
-      });
+    let myOrder: detail;
+
+    if (order["id"] !== "") {
+      myOrder = order["detail"].filter((x: detail) => x.productId === productId);
+      reviewWrite({ ...review, ...myOrder, ...{ orderId: order.id } });
     }
-    // reviewWrite({ ...review, ...myOrder, ...{ orderId: orderId } });
-    console.log({ ...review, ...myOrder, ...{ orderId: orderId } });
   };
   const handleLoad = async () => {
-    const product = await productDetail(Number(productId));
-    setProduct(product);
+    const pr = await productDetail(productId);
+    setProduct(pr);
   };
   React.useEffect(() => {
+    console.log(product);
     handleLoad();
-  }, []);
+  }, [productId]);
 
   return (
     <>
@@ -72,19 +61,11 @@ const ReviewWriteForm = (orders: any) => {
       <tr id="reviewTr">
         {product ? <td>{product.name}</td> : <></>}
         <td colSpan={3}>
-          <textarea
-            name="content"
-            id="reviewTextArea"
-            onChange={handleChange}
-          />
+          <textarea name="content" id="reviewTextArea" onChange={handleChange} />
         </td>
         <td>
           {" "}
-          <RatingInput
-            name="rating"
-            value={review.rating}
-            onChange={ratingChange}
-          />
+          <RatingInput name="rating" value={review.rating} onChange={ratingChange} />
           <button onClick={handleSubmit}>작성</button>
         </td>
       </tr>

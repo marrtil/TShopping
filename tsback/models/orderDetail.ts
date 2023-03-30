@@ -24,7 +24,7 @@ OrderDetail.init(
       allowNull: false,
     },
     productName: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     size: {

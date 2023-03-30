@@ -5,7 +5,12 @@ import OrderItem from "./OrderItem";
 import ReviewWriteForm from "./ReviewWriteForm";
 import StyledTable from "./StyledTable";
 
-const Table: React.FC<Order[]> = (arr) => {
+const Table = ({ arr }: { arr: Order[] }) => {
+  const [selectedItem, setSelectedItem] = React.useState<number[]>([1, 1]);
+  const itemChange = (orderId: number, productId: number) => {
+    setSelectedItem([orderId, productId]);
+  };
+
   return (
     <>
       <hr></hr>
@@ -26,10 +31,15 @@ const Table: React.FC<Order[]> = (arr) => {
             </td>
           </tr>
           {Object.values(arr).map((item) => {
-            return <OrderItem key={item.id} {...item} />;
+            return <OrderItem key={item.id} arr={item} onClick={itemChange} />;
           })}
           <Routes>
-            <Route path="/:productInfo" element={<ReviewWriteForm {...arr} />} />
+            <Route
+              path="/:productInfo"
+              element={
+                <ReviewWriteForm order={arr.filter((x) => x.id === selectedItem[0])[0]} productId={selectedItem[1]} />
+              }
+            />
           </Routes>
         </tbody>
         <tfoot></tfoot>
