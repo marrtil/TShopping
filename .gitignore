@@ -9,3 +9,6 @@ tsback/sessions
 tsback/package-lock.json
 
 .env
+component/.DS_Store
+tsback/.DS_Store
+.DS_Store

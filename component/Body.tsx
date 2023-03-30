@@ -3,11 +3,9 @@ import StyledBody from "./styles/StyledBody";
 import Banner from "./Banner";
 import RecomendProduct from "./RecomendProduct";
 import ProductGrid from "./ProductGrid";
-import {useState} from "react";
+import { useState } from "react";
 
-
-
-type UserInfo = {
+export type UserInfo = {
   userId: string;
   nickname: string;
   password: string;
@@ -15,17 +13,20 @@ type UserInfo = {
   gender: string;
 };
 
+export type infoProps = {
+  userInfo: UserInfo;
+};
 
 const Body = () => {
   const sessionStorage = window.sessionStorage;
   const [userInfo, setuserInfo] = useState<UserInfo>(
     JSON.parse(sessionStorage.getItem("userInfo")!)
   );
-    
+
   return (
     <StyledBody>
       <Banner />
-       <RecomendProduct userInfo={userInfo} />
+      <RecomendProduct userInfo={userInfo} />
       <ProductGrid userInfo={userInfo} />
       {/* 새제품,인기상품 통합 - props로 구분할 수 있게 */}
     </StyledBody>

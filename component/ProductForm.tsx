@@ -76,7 +76,9 @@ const ProductForm = () => {
         count: 1,
       });
       if (check.id) {
-        let result = confirm("물품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
+        let result = confirm(
+          "물품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?"
+        );
         if (result) navi("../cart");
       }
     } else alert("로그인 후 이용가능합니다.");
@@ -133,7 +135,11 @@ const ProductForm = () => {
             </select>
           </div>
           <button className="payButton">
-            <Link to="../payment" state={[{ ...product, ...select }]} onClick={handleOptionCheck}>
+            <Link
+              to="../payment"
+              state={[{ ...product, ...select }]}
+              onClick={handleOptionCheck}
+            >
               결제하기
             </Link>
           </button>
