@@ -25,7 +25,6 @@ const MyReview = () => {
     handleLoad();
     if (reviewState) (document.querySelector(`#${reviewState}`) as HTMLAnchorElement).style.fontWeight = "bold";
   }, [reviewState]);
-
   return (
     <StyledOrder>
       <div>
@@ -41,7 +40,7 @@ const MyReview = () => {
         </div>
       </div>
       <hr></hr>
-      {reviewState === "write-review" ? <Table {...orders} /> : <ReviewTable {...reviews} />}
+      {reviewState === "write-review" ? <Table arr={orders} /> : <ReviewTable {...reviews} />}
       <hr></hr>
     </StyledOrder>
   );

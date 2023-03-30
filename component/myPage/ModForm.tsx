@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { modMember, passwordCheck_process } from "../api";
 import { checkSpace } from "../funtion";
-import { InputName } from "../Types";
+import { InputName, UserInfo } from "../Types";
 import StyledMyInfo from "./StyledMyInfo";
 
 interface SetUser {
@@ -28,7 +28,7 @@ const inputName: InputName = {
   email: "이메일",
 };
 
-function ModForm({ userInfo }: any) {
+function ModForm({ userInfo }: { userInfo: UserInfo }) {
   const [modData, setModData] = useState(INITIAL_VALUES);
   const [passConfirm, setPassConfirm] = useState(false);
   const navi = useNavigate();

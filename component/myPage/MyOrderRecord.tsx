@@ -18,10 +18,7 @@ export const OrderSortList: orderState[] = [
 ];
 
 const MyOrderRecord = () => {
-  // const { search } = useLocation();
   const session = window.sessionStorage;
-  // const path = 0;
-  // if (search) search.split("order_state=")[1].slice(0, 1);
   const [order_state, setOrder_state] = React.useState<number>(8);
   const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
   const [date, setDate] = React.useState<number>(0);
@@ -87,7 +84,7 @@ const MyOrderRecord = () => {
       </div>
       <hr></hr>
       <OrderSearch onClick={onClick} />
-      <Table {...orders} />
+      <Table arr={orders} />
       <hr></hr>
     </StyledOrder>
   );

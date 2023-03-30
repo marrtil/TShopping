@@ -1,12 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { User } from "../Types";
+import { User, UserInfo } from "../Types";
 import StyledMyInfo from "./StyledMyInfo";
 
-function MyInfo({ userInfo }: any) {
-  // let l1 = document.getElementById("myInfoLink");
-  // l1!.style.color = "black";
-  console.log(userInfo);
+function MyInfo({ userInfo }: { userInfo: UserInfo }) {
   return (
     <StyledMyInfo>
       <table>

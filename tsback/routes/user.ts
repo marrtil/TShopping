@@ -8,14 +8,14 @@ import * as passport from "passport";
 const router = express.Router();
 
 router.get("/", isLoggedIn, (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
   const user = req.user!;
   return res.send({ ...user.dataValues, password: null });
 });
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   // isNotLoggedIn을 통해 로그인 여부를 파악. 로그인중이 아니라면 next();
   // > 다음 콜백함수를 실행.
   console.log(" |||||||||||||||||||| post/login");
@@ -48,7 +48,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 });
 
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   const { userId, nickname, password, email, gender } = req.body;
   try {
     // const existUser = await User.findOne({ where: { userId } });
@@ -73,32 +73,22 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
 });
 
 router.post("/logout", isLoggedIn, (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   req.logout((err) => {
     if (err) return next(err);
+    req.session.save(() => res.redirect("/"));
   });
-  // req.session.destroy((err) => res.redirect("/"));
-  req.session.save(() => res.redirect("/"));
-});
-
-router.get("/userInfo", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  // get이 있어야 req, res 타입추론이 가능. 이외의 경우는 직접 타이핑해줘야함
-  console.log("userInfo test");
-  // const user = req.user!;
-  // console.log(" ||||||||||||||||| get/userInfo", user);
-  // return res.send({ ...user, password: null });
 });
 
 router.get("/idCheck/:userid", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   const { userid } = req.params;
   const check = await User.findOne({ where: { userid }, attributes: ["id"] });
   res.send(check);
 });
 
 router.post("/passwordCheck", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   const { userId, password } = req.body;
   const check = await User.findOne({
     where: { userId },
@@ -108,19 +98,16 @@ router.post("/passwordCheck", async (req, res) => {
 });
 
 router.get("/userList", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "*");
   const userList = await User.findAll();
   res.send(userList);
 });
 
-// router.post('delUser', (req, res) => {
-//   User.destroy
-// })
 router.put(
   "/mod/:userId",
   // upload.single("imageUrl"),
   async (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Origin", "*");
     //회원정보 수정
     const { userId } = req.params;
     const { nickname, password } = req.body;

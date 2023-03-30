@@ -6,21 +6,22 @@ import Footer from "./component/Footer";
 import Header from "./component/Header";
 import JoinForm from "./component/JoinForm";
 import LoginForm from "./component/LoginForm";
+import { UserInfo, INITIAL_USERINFO } from "./component/Types";
 
 const App: FC = () => {
   const session = window.sessionStorage;
-  const [userInfo, setuserInfo] = React.useState<any>(JSON.parse(session.getItem("userInfo")!));
+  const [userInfo, setuserInfo] = React.useState<UserInfo>(
+    JSON.parse(session.getItem("userInfo")!) || INITIAL_USERINFO
+  );
 
-  const handleLogin = async (loginInfo: any) => {
+  const handleLogin = async (loginInfo: UserInfo) => {
     session.setItem("userInfo", JSON.stringify(loginInfo));
     await setuserInfo(loginInfo);
   };
 
-  console.log(userInfo);
-
   const handleLogout = async () => {
     session.removeItem("userInfo");
-    setuserInfo("");
+    setuserInfo(INITIAL_USERINFO);
     await logOut_process();
   };
 
