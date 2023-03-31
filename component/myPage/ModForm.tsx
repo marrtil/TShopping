@@ -20,6 +20,11 @@ const INITIAL_VALUES: SetUser = {
   email: "",
 };
 
+export interface modInfo {
+  nickname: string;
+  password: string;
+}
+
 const inputName: InputName = {
   userId: "아이디",
   name: "이름",
@@ -43,7 +48,9 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
   const passwordCheck = async () => {
     const { userId } = userInfo;
     const check = modData.password;
-    const checkText = document.querySelector("#passwordCheckText") as HTMLParagraphElement;
+    const checkText = document.querySelector(
+      "#passwordCheckText"
+    ) as HTMLParagraphElement;
 
     if (check.length < 4 || check.length > 12) {
       checkText.textContent = "패스워드는 4~12글자 이내이어야 합니다.";
@@ -58,7 +65,9 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
     }
   };
   const passCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checkText = document.getElementById("passwordCheckText2") as HTMLParagraphElement;
+    const checkText = document.getElementById(
+      "passwordCheckText2"
+    ) as HTMLParagraphElement;
     if (checkText !== null) {
       if (e.target.value == modData.password) {
         checkText.textContent = "비밀번호가 일치합니다.";
@@ -73,7 +82,9 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
     }
   };
   const handleModSubmit = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const inputs = document.querySelectorAll(".joinInput") as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll(
+      ".joinInput"
+    ) as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].value == "") {
         alert(`${inputName[inputs[i].name]}을 입력해주세요`);
@@ -85,7 +96,10 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
         break;
       }
     }
-    await modMember(userInfo.userId, { nickname: modData.nickname, password: modData.password });
+    await modMember(userInfo.userId, {
+      nickname: modData.nickname,
+      password: modData.password,
+    });
   };
   return (
     <StyledMyInfo>
@@ -99,7 +113,11 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
           <td className="infoName">비밀번호</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input name="password" onChange={handleChange} onBlur={passwordCheck} />
+            <input
+              name="password"
+              onChange={handleChange}
+              onBlur={passwordCheck}
+            />
           </td>
         </tr>
         <tr>
@@ -112,7 +130,11 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
           <td className="infoName">비밀번호 확인</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input name="passwordCheck" onChange={handleChange} onBlur={passCheck} />
+            <input
+              name="passwordCheck"
+              onChange={handleChange}
+              onBlur={passCheck}
+            />
           </td>
         </tr>
         <tr>
@@ -125,7 +147,8 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
           <td className="infoName">닉네임</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input name="nickname" onChange={handleChange} /> <button>중복체크</button>
+            <input name="nickname" onChange={handleChange} />{" "}
+            <button>중복체크</button>
           </td>
         </tr>
         <tr>
