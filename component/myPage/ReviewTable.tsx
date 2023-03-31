@@ -4,7 +4,6 @@ import ReviewItem from "./ReviewItem";
 import StyledTable from "./StyledTable";
 
 const ReviewTable: React.FC<Review[]> = (arr) => {
-  console.log(arr);
   return (
     <StyledTable>
       <thead>
