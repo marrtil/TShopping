@@ -20,11 +20,6 @@ const INITIAL_VALUES: SetUser = {
   email: "",
 };
 
-export interface modInfo {
-  nickname: string;
-  password: string;
-}
-
 const inputName: InputName = {
   userId: "아이디",
   name: "이름",
@@ -90,10 +85,7 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
         break;
       }
     }
-    await modMember(userInfo.userId, {
-      nickname: modData.nickname,
-      password: modData.password,
-    });
+    await modMember(userInfo.userId, { nickname: modData.nickname, password: modData.password });
   };
   return (
     <StyledMyInfo>
