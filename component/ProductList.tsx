@@ -86,9 +86,7 @@ const ProductList = () => {
     if (color) {
       if (color == "default") setListProduct(initialProduct);
       else {
-        setListProduct(
-          initialProduct.filter((values) => values["color"].includes(color))
-        );
+        setListProduct(initialProduct.filter((values) => values["color"].includes(color)));
       }
     }
   }, [color]);
@@ -97,13 +95,9 @@ const ProductList = () => {
     if (order == "1") {
       setListProduct((prevValue) => [...prevValue].sort((a, b) => b.id - a.id));
     } else if (order == "2") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => a.price - b.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => a.price - b.price));
     } else if (order == "3") {
-      setListProduct((prevValue) =>
-        [...prevValue].sort((a, b) => b.price - a.price)
-      );
+      setListProduct((prevValue) => [...prevValue].sort((a, b) => b.price - a.price));
     }
   }, [order, color]);
 
@@ -146,48 +140,44 @@ const ProductList = () => {
       </div>
       <div id="productList">
         {listProduct.length && page ? (
-          listProduct
-            .slice((page - 1) * 16, 16 * page)
-            .map((product: product) => {
-              return (
-                <div className="listProduct">
+          listProduct.slice((page - 1) * 16, 16 * page).map((product: product) => {
+            return (
+              <div className="listProduct">
+                <Link to={`/productForm/${product.id}`}>
+                  <img src={product.image} className="listImage" />
+                </Link>
+                <div className="productInfo">
                   <Link to={`/productForm/${product.id}`}>
-                    <img src={product.image} className="listImage" />
+                    <div>{product.name}</div>
                   </Link>
-                  <div className="productInfo">
-                    <Link to={`/productForm/${product.id}`}>
-                      <div>{product.name}</div>
-                    </Link>
-                    <div>
-                      {" "}
-                      {product.discount > 0 ? (
-                        <>
-                          <del>
-                            {"₩" + product.price.toLocaleString("ko-KR")}
-                          </del>
-                          &nbsp;
-                          {"₩" + salePrice(product).toLocaleString("ko-KR")}
-                        </>
-                      ) : (
-                        product.price.toLocaleString("ko-KR")
-                      )}
-                    </div>
-                    <ul id="colors">
-                      {product.color.split(",").map((colors: string) => {
-                        const style = {
-                          backgroundColor: colorTable[colors],
-                        };
-                        return (
-                          <li key={colors}>
-                            <a className="color" style={style}></a>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                  <div>
+                    {" "}
+                    {product.discount > 0 ? (
+                      <>
+                        <del>{"₩" + product.price.toLocaleString("ko-KR")}</del>
+                        &nbsp;
+                        {"₩" + salePrice(product).toLocaleString("ko-KR")}
+                      </>
+                    ) : (
+                      product.price.toLocaleString("ko-KR")
+                    )}
                   </div>
+                  <ul id="colors">
+                    {product.color.split(",").map((colors: string) => {
+                      const style = {
+                        backgroundColor: colorTable[colors],
+                      };
+                      return (
+                        <li key={colors}>
+                          <a className="color" style={style}></a>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-              );
-            })
+              </div>
+            );
+          })
         ) : (
           <div id="empty">찾으시는 종류의 상품이 없습니다</div>
         )}

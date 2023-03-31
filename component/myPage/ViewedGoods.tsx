@@ -1,6 +1,6 @@
 import * as React from "react";
 import ProductList from "../ProductList";
-import StyledOrder from "./StyledOrder";
+import StyledOrder from "./styles/StyledOrder";
 const ViewedGoods = () => {
   const local = window.localStorage;
   React.useEffect(() => {

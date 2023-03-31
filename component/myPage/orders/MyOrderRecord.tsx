@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useLocation } from "react-router";
-import { orderComplete, orderLoad } from "../orderApi";
-import { INIITIAL_ORDERLIST, Order, orderState } from "../Types";
+import { orderComplete, orderLoad } from "../../orderApi";
+import { INIITIAL_ORDERLIST, Order, orderState } from "../../Types";
 import OrderSearch from "./OrderSearch";
-import StyledOrder from "./StyledOrder";
-import Table from "./Table";
+import StyledOrder from "../styles/StyledOrder";
+import Table from "../Table";
 
 export const OrderSortList: orderState[] = [
   "입금/결제",
