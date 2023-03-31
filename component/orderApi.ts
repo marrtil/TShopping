@@ -47,7 +47,7 @@ export async function cart(userId: string) {
 // => 장바구니 비우기.
 
 // 장바구니에서 빼기
-export async function cartOut(cartId: string) {
+export async function cartOut(cartId: number) {
   const res = await fetch(`${URL}/order/cartOut/${cartId}`, {
     method: "delete",
   });
@@ -67,7 +67,10 @@ export async function payCartOut(cartInfo: CartProduct[]) {
   });
 }
 
-export async function payOrderIn(cartInfo: CartProduct[], delveriyInfo: DelveriyInfo) {
+export async function payOrderIn(
+  cartInfo: CartProduct[],
+  delveriyInfo: DelveriyInfo
+) {
   await fetch(`${URL}/order/pay/orderIn/${delveriyInfo.id}`, {
     method: "put",
     headers: {
@@ -97,8 +100,14 @@ export async function addressLoad(userId: string) {
 }
 
 // order 가져오기
-export async function orderLoad(userId: string, order_state: number, date: number) {
-  const res = await fetch(`${URL}/order/orderLoad?userId=${userId}&orderState=${order_state}&date=${date}`);
+export async function orderLoad(
+  userId: string,
+  order_state: number,
+  date: number
+) {
+  const res = await fetch(
+    `${URL}/order/orderLoad?userId=${userId}&orderState=${order_state}&date=${date}`
+  );
   const body = await res.json();
   console.log(body);
   return body;
