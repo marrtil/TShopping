@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import StyledRecommend from "./styles/StyledRecommend";
-import { infoProps } from "./Body";
 
 type categoryManT = {
   [index: string]: string;
@@ -23,6 +22,13 @@ type categoryWomenT = {
   Fpants: string;
   Ftshirts: string;
 };
+type UserInfo = {
+  userId: string;
+  nickname: string;
+  password: string;
+  email: string;
+  gender: string;
+};
 
 const categoryMan: categoryManT = {
   Mmanman: "맨투맨,후드티",
@@ -42,7 +48,7 @@ const categoryWomen: categoryWomenT = {
   Ftshirts: "티셔츠,탑",
 };
 
-const RecomendProduct = ({ userInfo }: infoProps) => {
+const RecomendProduct = ({ userInfo }: any) => {
   return (
     <StyledRecommend>
       {userInfo ? (
@@ -51,9 +57,7 @@ const RecomendProduct = ({ userInfo }: infoProps) => {
             return (
               <div className="recommend">
                 <a href={`/productList?gender=남성&kind=${categoryMan[value]}`}>
-                  <img
-                    src={`https://tshopping-app.herokuapp.com/image/${value}.png`}
-                  />
+                  <img src={`https://tshopping-app.herokuapp.com/image/${value}.png`} />
                 </a>
               </div>
             );
@@ -62,12 +66,8 @@ const RecomendProduct = ({ userInfo }: infoProps) => {
           Object.keys(categoryWomen).map((value) => {
             return (
               <div className="recommend">
-                <a
-                  href={`/productList?gender=여성&kind=${categoryWomen[value]}`}
-                >
-                  <img
-                    src={`https://tshopping-app.herokuapp.com/image/${value}.png`}
-                  />
+                <a href={`/productList?gender=여성&kind=${categoryWomen[value]}`}>
+                  <img src={`https://tshopping-app.herokuapp.com/image/${value}.png`} />
                 </a>
               </div>
             );

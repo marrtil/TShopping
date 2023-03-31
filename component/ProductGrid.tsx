@@ -5,9 +5,12 @@ import { ProductSort } from "./Types";
 import { product } from "./product";
 import { useState, useEffect } from "react";
 import { gridLoad } from "./api";
-import { infoProps } from "./Body";
 
-const ProductGrid = ({ userInfo }: infoProps) => {
+interface Props {
+  sort: ProductSort;
+}
+
+const ProductGrid = ({ userInfo }: any) => {
   const [products, setProducts] = useState<product[]>([]); // 얘도 지금은 그냥 배열이지만 state가 될지도모름 , 서버에서 받아올 정보 일듯?
   const [option, setOption] = React.useState<ProductSort>("new");
 

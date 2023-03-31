@@ -3,31 +3,22 @@ import StyledCartForm from "./styles/StyledCartForm";
 import { useNavigate } from "react-router-dom";
 
 import { useState, useMemo } from "react";
-import { cart } from "./orderApi";
+import { cart, order } from "./orderApi";
 import { CartProduct, INITIAL_CARTPRODUCT } from "./Types";
 import { Link } from "react-router-dom";
 import CartTable from "./CartTable";
 
-export const salePrice = ({
-  price,
-  discount,
-}: {
-  price: number;
-  discount: number;
-}) => {
+export const salePrice = ({ price, discount }: { price: number; discount: number }) => {
   return (price * (100 - discount)) / 100;
 };
 
 const CartForm = ({ handle }: any) => {
   const session = window.sessionStorage;
   const navi = useNavigate();
-  const [cartInfo, setCartInfo] = useState<CartProduct[]>([
-    INITIAL_CARTPRODUCT,
-  ]);
+  const [cartInfo, setCartInfo] = useState<CartProduct[]>([INITIAL_CARTPRODUCT]);
 
   const cartLoad = async () => {
-    if (session.getItem("userInfo"))
-      setCartInfo(await cart(JSON.parse(session.getItem("userInfo")!).userId));
+    if (session.getItem("userInfo")) setCartInfo(await cart(JSON.parse(session.getItem("userInfo")!).userId));
     else {
       alert("로그인이 필요한 서비스입니다.");
       navi(-1);
@@ -40,8 +31,7 @@ const CartForm = ({ handle }: any) => {
 
   const sumPrice = useMemo(() => {
     var sum = 0;
-    if (cartInfo)
-      cartInfo.forEach((value) => (sum += value.count * salePrice(value)));
+    if (cartInfo) cartInfo.forEach((value) => (sum += value.count * salePrice(value)));
     return sum;
   }, [cartInfo]);
 
@@ -69,34 +59,21 @@ const CartForm = ({ handle }: any) => {
 
   return (
     <StyledCartForm>
-      {handle ? (
-        <h1 id="cartTitle">물건목록</h1>
-      ) : (
-        <h1 id="cartTitle">장바구니</h1>
-      )}
+      {handle ? <h1 id="cartTitle">물건목록</h1> : <h1 id="cartTitle">장바구니</h1>}
       <hr color="beige" />
       <div id="cartForm">
-        <CartTable
-          cartInfo={cartInfo}
-          handleLoad={cartLoad}
-          handleChange={setCartInfo}
-          state=""
-        />
+        <CartTable cartInfo={cartInfo} handleLoad={cartLoad} handleChange={setCartInfo} />
 
         <div id="bill">
           <div className="billMenu">
             <div className="price">총 주문금액</div>
             <div className="space"></div>
-            <div className="price2">
-              {"￦" + sumPrice.toLocaleString("ko-KR")}
-            </div>
+            <div className="price2">{"￦" + sumPrice.toLocaleString("ko-KR")}</div>
           </div>
           <div className="billMenu">
             <div className="price">배송비</div>
             <div className="space"></div>
-            <div className="price2">
-              {sumPrice > 30000 ? "￦" + 0 : "￦" + 3000}
-            </div>
+            <div className="price2">{sumPrice > 30000 ? "￦" + 0 : "￦" + 3000}</div>
             <hr className="bill-border" />
           </div>
           <div className="billMenu">
@@ -112,12 +89,7 @@ const CartForm = ({ handle }: any) => {
           {handle ? (
             <></>
           ) : (
-            <Link
-              onClick={handlePay}
-              to="../payment"
-              type="button"
-              state={cartInfo}
-            >
+            <Link onClick={handlePay} to="../payment" type="button" state={cartInfo}>
               <button id="payButton">결제하기</button>
             </Link>
           )}

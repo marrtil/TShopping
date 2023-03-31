@@ -2,21 +2,8 @@ import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { salePrice } from "./CartForm";
 import { cartOut } from "./orderApi";
-import { CartProduct } from "./Types";
 
-type cartProps = {
-  cartInfo: CartProduct[];
-  handleLoad: Function;
-  handleChange: Function;
-  state: string;
-};
-
-const CartTable = ({
-  cartInfo,
-  handleLoad,
-  handleChange,
-  state,
-}: cartProps) => {
+const CartTable = ({ cartInfo, handleLoad, handleChange, state }: any) => {
   const navi = useNavigate();
   const btnPM = (e: React.MouseEvent<HTMLButtonElement>) => {
     const a = e.currentTarget;
@@ -41,7 +28,7 @@ const CartTable = ({
       }
       handleChange(delinfo);
     } else {
-      await cartOut(cartInfo[Number(index)].id);
+      await cartOut(cartInfo[index].id);
       handleLoad();
     }
   };
@@ -83,9 +70,7 @@ const CartTable = ({
                         {" "}
                         {info.discount > 0 ? (
                           <>
-                            <del>
-                              {"₩" + info.price.toLocaleString("ko-KR")}
-                            </del>
+                            <del>{"₩" + info.price.toLocaleString("ko-KR")}</del>
                             &nbsp;
                             {"₩" + salePrice(info).toLocaleString("ko-KR")}
                           </>
@@ -99,25 +84,16 @@ const CartTable = ({
                       <button onClick={btnPM} value={index} className="btnPM">
                         -
                       </button>
-                      <input
-                        type="text"
-                        className="countInput"
-                        value={info.count}
-                      />
+                      <input type="text" className="countInput" value={info.count} />
                       <button onClick={btnPM} value={index} className="btnPM">
                         +
                       </button>
                     </td>
                     <td width="150" className="total">
-                      {"￦" +
-                        (info.count * salePrice(info)).toLocaleString("ko-KR")}
+                      {"￦" + (info.count * salePrice(info)).toLocaleString("ko-KR")}
                     </td>
                     <td width="100">
-                      <label
-                        id={String(index)}
-                        onClick={delInfo}
-                        className="deleter"
-                      >
+                      <label id={String(index)} onClick={delInfo} className="deleter">
                         x
                       </label>
                     </td>
