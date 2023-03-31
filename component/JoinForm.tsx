@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { join_process, idCheck_process } from "./api";
+import Confirmer from "./Confirmer";
 import { checkSpace, checkSpecial } from "./funtion";
 import StyledJoin from "./styles/StyledJoin";
 import { InputName } from "./Types";
@@ -23,8 +24,11 @@ const inputName: InputName = {
 
 function JoinForm() {
   const [joinData, setJoinData] = useState(INITIAL_VALUES);
-  const [idConfrim, setIdConfirm] = useState(false);
-  const [passConfirm, setPassConfirm] = useState(false);
+  const [checkPass, setCheckPass] = useState("");
+  const [confirmColor, setConfirmColor] = useState<boolean>(false);
+  const [confirmText, setConfirmText] = useState<number>(-1);
+  const [confirmColorP, setConfirmColorP] = useState<boolean>(false);
+  const [confirmTextP, setConfirmTextP] = useState<number>(-1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setJoinData((prev) => ({
@@ -34,17 +38,19 @@ function JoinForm() {
   };
 
   const handleJoinSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const inputs = document.querySelectorAll(".joinInput") as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll(
+      ".joinInput"
+    ) as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].value == "") {
         e.preventDefault();
         alert(`${inputName[inputs[i].name]}을 입력해주세요`);
         return;
-      } else if (!idConfrim) {
+      } else if (!confirmColor) {
         e.preventDefault();
         alert("사용할 수 없는 아이디입니니다.");
         return;
-      } else if (!passConfirm) {
+      } else if (!confirmColorP) {
         e.preventDefault();
         alert("비밀번호를 확인해 주세요!!");
         return;
@@ -61,39 +67,34 @@ function JoinForm() {
 
   const idCheck = async () => {
     const check = joinData.userId;
-    const checkText = document.querySelector("#idCheck") as HTMLParagraphElement;
     joinData.userId;
     // const check = await getUserInfo(joinData.userId);
     // if (check.userId) {
     if (check.length < 5) {
-      checkText.textContent = "아이디는 5글자 이상이어야 합니다.";
-      checkText.style.color = "red";
+      setConfirmColor(false);
+      setConfirmText(0);
     } else if (checkSpace(check) || checkSpecial(check)) {
-      checkText.textContent = "공백 또는 특수문자(!,@,#,$...)가 포함될 수 없습니다.";
-      checkText.style.color = "red";
+      setConfirmColor(false);
+      setConfirmText(1);
     } else if (await idCheck_process(check)) {
-      setIdConfirm(false);
-      checkText.textContent = "이미 사용중이거나 탈퇴한 아이디입니다.";
-      checkText.style.color = "red";
+      setConfirmColor(false);
+      setConfirmText(2);
     } else {
-      setIdConfirm(true);
-      checkText.textContent = "사용 가능한 이이디입니다.";
-      checkText.style.color = "green";
+      setConfirmColor(true);
+      setConfirmText(3);
     }
   };
 
   const passCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checkText: HTMLElement | null = document.getElementById("passwordCheck");
-    if (checkText !== null) {
+    setCheckPass(e.currentTarget.value);
+    if (checkPass !== null) {
       if (e.target.value == joinData.password) {
-        checkText.innerText = "비밀번호가 일치합니다.";
-        setPassConfirm(true);
-        checkText.style.color = "Green";
-      } else if (e.target.value == "") setPassConfirm(false);
+        setConfirmColorP(true);
+        setConfirmTextP(4);
+      } else if (e.target.value == "") setConfirmColorP(false);
       else {
-        checkText.innerText = "비밀번호가 일치하지 않습니다!!";
-        setPassConfirm(false);
-        checkText.style.color = "red";
+        setConfirmColorP(false);
+        setConfirmTextP(5);
       }
     }
   };
@@ -102,17 +103,45 @@ function JoinForm() {
     <StyledJoin>
       <form onSubmit={handleJoinSubmit} className="joinForm" action="/">
         <p>아이디</p>
-        <input name="userId" onChange={handleChange} className="joinInput" onBlur={idCheck} />
-        <p id="idCheck"></p>
+        <input
+          name="userId"
+          onChange={handleChange}
+          className="joinInput"
+          onBlur={idCheck}
+        />
+        {joinData.userId.length ? (
+          <Confirmer colors={confirmColor} text={confirmText} />
+        ) : (
+          ""
+        )}
         <p>비밀번호</p>
-        <input name="password" type="password" onChange={handleChange} className="joinInput" />
+        <input
+          name="password"
+          type="password"
+          onChange={handleChange}
+          className="joinInput"
+        />
         <p>비밀번호 확인</p>
-        <input name="passwordCheck" type="password" onChange={passCheck} className="joinInput" />
-        <p id="passwordCheck"></p>
+        <input
+          name="passwordCheck"
+          type="password"
+          onChange={passCheck}
+          className="joinInput"
+        />
+        {joinData.password && passCheck.length ? (
+          <Confirmer colors={confirmColorP} text={confirmTextP} />
+        ) : (
+          ""
+        )}
         <p>이름</p>
         <input name="name" onChange={handleChange} className="joinInput" />
         <p>이메일</p>
-        <input type="email" name="email" onChange={handleChange} className="joinInput" />
+        <input
+          type="email"
+          name="email"
+          onChange={handleChange}
+          className="joinInput"
+        />
         <p>성별</p>
         남성
         <input type="radio" name="gender" onChange={handleChange} value="M" />
