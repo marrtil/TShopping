@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Route, Routes } from "react-router";
 import { Order, Review } from "../Types";
-import OrderItem from "./OrderItem";
-import ReviewWriteForm from "./ReviewWriteForm";
-import StyledTable from "./StyledTable";
+import OrderItem from "./orders/OrderItem";
+import ReviewWriteForm from "./review/ReviewWriteForm";
+import StyledTable from "./styles/StyledTable";
 
 const Table = ({ arr }: { arr: Order[] }) => {
   const [selectedItem, setSelectedItem] = React.useState<number[]>([1, 1]);

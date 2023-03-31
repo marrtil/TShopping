@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Route, Routes, useParams } from "react-router";
-import { orderLoad, reviewLoad } from "../orderApi";
-import { INIITIAL_ORDERLIST, INITIAL_REVIEW, Order, Review } from "../Types";
+import { orderLoad, reviewLoad } from "../../orderApi";
+import { INIITIAL_ORDERLIST, INITIAL_REVIEW, Order, Review } from "../../Types";
 import ReviewTable from "./ReviewTable";
-import StyledOrder from "./StyledOrder";
-import Table from "./Table";
+import StyledOrder from "../styles/StyledOrder";
+import Table from "../Table";
 type reviewState = "write-review" | "review-history";
 interface ReviewStateAnchor {
   id: reviewState;

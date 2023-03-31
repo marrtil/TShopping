@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Order, Review } from "../Types";
+import { Review } from "../../Types";
 import ReviewItem from "./ReviewItem";
-import StyledTable from "./StyledTable";
+import StyledTable from "../styles/StyledTable";
 
 const ReviewTable: React.FC<Review[]> = (arr) => {
   return (
@@ -20,7 +20,7 @@ const ReviewTable: React.FC<Review[]> = (arr) => {
             <hr></hr>
           </td>
         </tr>
-        {Object.values(arr).map((item) => {
+        {Object.values(arr).map((item: Review) => {
           return <ReviewItem key={item.orderId} {...item} />;
         })}
       </tbody>

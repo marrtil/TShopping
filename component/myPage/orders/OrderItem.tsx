@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
-import { Order, Review } from "../Types";
+import { Order, Review } from "../../Types";
 import { OrderSortList } from "./MyOrderRecord";
-import StyledTr from "./StyledTr";
+import StyledTr from "../styles/StyledTr";
 
 const OrderItem = ({ arr, onClick }: { arr: Order; onClick: (o: number, p: number) => void }) => {
   const navigate = useNavigate();
