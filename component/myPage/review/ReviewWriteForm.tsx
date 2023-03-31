@@ -1,14 +1,11 @@
 import * as React from "react";
-import { useParams } from "react-router";
-import Order from "../../tsback/models/order";
-import { productDetail } from "../api";
-import { reviewWrite } from "../orderApi";
-import { product } from "../product";
-import { detail, INITIAL_REVIEW, Review } from "../Types";
-import RatingInput from "./RatingInput";
+import { productDetail } from "../../api";
+import { reviewWrite } from "../../orderApi";
+import { product } from "../../product";
+import { detail, INITIAL_REVIEW, Review, Order } from "../../Types";
+import RatingInput from "../rating/RatingInput";
 
-const ReviewWriteForm = ({ order, productId }: { order: Order | any; productId: number }) => {
-  const { productInfo } = useParams();
+const ReviewWriteForm = ({ order, productId }: { order: Order; productId: number }) => {
   const [review, setReview] = React.useState<Review>(INITIAL_REVIEW);
   const [product, setProduct] = React.useState<product>({
     id: productId,
@@ -35,10 +32,9 @@ const ReviewWriteForm = ({ order, productId }: { order: Order | any; productId: 
       alert("별점을 입력해주세요");
       return;
     }
-    let myOrder: detail;
 
-    if (order["id"] !== "") {
-      myOrder = order["detail"].filter((x: detail) => x.productId === productId);
+    if (order["id"] > 0) {
+      var myOrder: detail[] = order["detail"].filter((x: detail) => x.productId === productId);
       reviewWrite({ ...review, ...myOrder, ...{ orderId: order.id } });
     }
   };
@@ -59,7 +55,7 @@ const ReviewWriteForm = ({ order, productId }: { order: Order | any; productId: 
         </td>
       </tr>
       <tr id="reviewTr">
-        {product ? <td>{product.name}</td> : <></>}
+        {product && <td>{product.name}</td>}
         <td colSpan={3}>
           <textarea name="content" id="reviewTextArea" onChange={handleChange} />
         </td>

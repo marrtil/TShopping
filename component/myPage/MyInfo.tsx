@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { User, UserInfo } from "../Types";
-import StyledMyInfo from "./StyledMyInfo";
+import StyledMyInfo from "./styles/StyledMyInfo";
 
 function MyInfo({ userInfo }: { userInfo: UserInfo }) {
   return (

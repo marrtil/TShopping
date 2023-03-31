@@ -60,13 +60,14 @@ export interface detail {
   price: number;
   count: number;
   color: string;
+  size: string;
 }
 
 export const INIITIAL_ORDERLIST: Order = {
   orderDate: "",
   id: 0,
   orderState: 0,
-  detail: [{ productId: 0, productName: "", price: 0, count: 0, color: "" }],
+  detail: [{ productId: 0, productName: "", price: 0, count: 0, color: "", size: "" }],
 };
 
 export interface Review extends detail {
@@ -90,6 +91,7 @@ export const INITIAL_REVIEW: Review = {
   price: 0,
   count: 0,
   color: "",
+  size: "",
 };
 
 ///////////////상품리스트관련/////////////////
