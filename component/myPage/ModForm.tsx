@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { modMember, passwordCheck_process } from "../api";
 import { checkSpace } from "../funtion";
-import { InputName, UserInfo } from "../Types";
-import StyledMyInfo from "./StyledMyInfo";
+import { InputName } from "../Types";
+import ModConfirmer from "./ModConfirmer";
+import StyledMyInfo from "./styles/StyledMyInfo";
 
 interface SetUser {
+  [index: string]: string;
   password: string;
   passwordCheck: string;
   nickname: string;
@@ -33,9 +35,12 @@ const inputName: InputName = {
   email: "이메일",
 };
 
-function ModForm({ userInfo }: { userInfo: UserInfo }) {
+function ModForm({ userInfo }: any) {
   const [modData, setModData] = useState(INITIAL_VALUES);
-  const [passConfirm, setPassConfirm] = useState(false);
+  const [confirmColor, setConfirmColor] = useState<boolean>(false);
+  const [confirmText, setConfirmText] = useState<number>(-1);
+  const [confirmColorP, setConfirmColorP] = useState<boolean>(false);
+  const [confirmTextP, setConfirmTextP] = useState<number>(-1);
   const navi = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,51 +51,40 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
   };
 
   const passwordCheck = async () => {
-    const { userId } = userInfo;
     const check = modData.password;
-    const checkText = document.querySelector(
-      "#passwordCheckText"
-    ) as HTMLParagraphElement;
 
     if (check.length < 4 || check.length > 12) {
-      checkText.textContent = "패스워드는 4~12글자 이내이어야 합니다.";
-      checkText.style.color = "red";
+      setConfirmColor(false);
+      setConfirmText(0);
     } else if (checkSpace(check)) {
-      checkText.textContent = "공백이 포함될 수 없습니다.";
-      checkText.style.color = "red";
+      setConfirmColor(false);
+      setConfirmText(1);
     } else {
-      setPassConfirm(true);
-      checkText.textContent = "사용 가능한 비밀번호입니다.";
-      checkText.style.color = "green";
+      setConfirmColor(true);
+      setConfirmText(2);
     }
   };
   const passCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checkText = document.getElementById(
-      "passwordCheckText2"
-    ) as HTMLParagraphElement;
-    if (checkText !== null) {
+    handleChange(e);
+    if (modData.passwordCheck !== null) {
       if (e.target.value == modData.password) {
-        checkText.textContent = "비밀번호가 일치합니다.";
-        setPassConfirm(true);
-        checkText.style.color = "Green";
-      } else if (e.target.value == "") setPassConfirm(false);
+        setConfirmColorP(true);
+        setConfirmTextP(3);
+      } else if (e.target.value == "") setConfirmColor(false);
       else {
-        checkText.textContent = "비밀번호가 일치하지 않습니다!!";
-        setPassConfirm(false);
-        checkText.style.color = "red";
+        setConfirmColorP(false);
+        setConfirmTextP(4);
       }
     }
   };
   const handleModSubmit = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const inputs = document.querySelectorAll(
-      ".joinInput"
-    ) as NodeListOf<HTMLInputElement>;
+    const inputs = Object.keys(modData);
     for (let i = 0; i < inputs.length; i++) {
-      if (inputs[i].value == "") {
-        alert(`${inputName[inputs[i].name]}을 입력해주세요`);
+      if (modData[inputs[i]] == "") {
+        alert(`${inputName[inputs[i]]}을 입력해주세요`);
         // e.preventDefault();
         break;
-      } else if (!passConfirm) {
+      } else if (!confirmColorP) {
         alert("비밀번호를 확인해 주세요!!");
         // e.preventDefault();
         break;
@@ -123,7 +117,11 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
         <tr>
           <td />
           <td colSpan={2}>
-            <p id="passwordCheckText"></p>
+            {modData.password ? (
+              <ModConfirmer colors={confirmColor} text={confirmText} />
+            ) : (
+              ""
+            )}
           </td>
         </tr>
         <tr>
@@ -132,7 +130,7 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
           <td className="infoValue">
             <input
               name="passwordCheck"
-              onChange={handleChange}
+              onChange={passCheck}
               onBlur={passCheck}
             />
           </td>
@@ -140,7 +138,11 @@ function ModForm({ userInfo }: { userInfo: UserInfo }) {
         <tr>
           <td />
           <td colSpan={2}>
-            <p id="passwordCheckText2"></p>
+            {modData.password && modData.passwordCheck ? (
+              <ModConfirmer colors={confirmColorP} text={confirmTextP} />
+            ) : (
+              ""
+            )}
           </td>
         </tr>
         <tr>
