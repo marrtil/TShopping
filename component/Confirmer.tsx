@@ -19,7 +19,11 @@ function Confirmer({ colors, text }: confirmProps) {
     if (colors) return { color: "green" };
     else return { color: "red" };
   }, [colors]);
-  return <div style={confirmStyle}>{confirmText[text]}</div>;
+  return (
+    <p id="passwordCheck" style={confirmStyle}>
+      {confirmText[text]}
+    </p>
+  );
 }
 
 export default Confirmer;
