@@ -8,7 +8,7 @@ import { productDetail } from "./api";
 import { salePrice } from "./CartForm";
 import { Link } from "react-router-dom";
 import { INITIAL_REVIEW, Review } from "./Types";
-import ReviewTable from "./myPage/ReviewTable";
+import ReviewTable from "./myPage/review/ReviewTable";
 
 const initialproduct: product = {
   id: 1,

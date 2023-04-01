@@ -12,7 +12,19 @@ const INITIAL_VALUES = {
   name: "",
   email: "",
   gender: "",
+  passwordCheck: "",
 };
+
+type joinDatas = {
+  [index: string]: string;
+  userId: string;
+  password: string;
+  name: string;
+  email: string;
+  gender: string;
+  passwordCheck: string;
+};
+
 const inputName: InputName = {
   userId: "아이디",
   name: "이름",
@@ -23,8 +35,7 @@ const inputName: InputName = {
 };
 
 function JoinForm() {
-  const [joinData, setJoinData] = useState(INITIAL_VALUES);
-  const [checkPass, setCheckPass] = useState("");
+  const [joinData, setJoinData] = useState<joinDatas>(INITIAL_VALUES);
   const [confirmColor, setConfirmColor] = useState<boolean>(false);
   const [confirmText, setConfirmText] = useState<number>(-1);
   const [confirmColorP, setConfirmColorP] = useState<boolean>(false);
@@ -38,13 +49,11 @@ function JoinForm() {
   };
 
   const handleJoinSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const inputs = document.querySelectorAll(
-      ".joinInput"
-    ) as NodeListOf<HTMLInputElement>;
+    const inputs = Object.keys(joinData);
     for (let i = 0; i < inputs.length; i++) {
-      if (inputs[i].value == "") {
+      if (joinData[inputs[i]] == "") {
         e.preventDefault();
-        alert(`${inputName[inputs[i].name]}을 입력해주세요`);
+        alert(`${inputName[inputs[i]]}을 입력해주세요`);
         return;
       } else if (!confirmColor) {
         e.preventDefault();
@@ -86,8 +95,8 @@ function JoinForm() {
   };
 
   const passCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckPass(e.currentTarget.value);
-    if (checkPass !== null) {
+    handleChange(e);
+    if (joinData.passwordCheck !== null) {
       if (e.target.value == joinData.password) {
         setConfirmColorP(true);
         setConfirmTextP(4);
@@ -128,7 +137,7 @@ function JoinForm() {
           onChange={passCheck}
           className="joinInput"
         />
-        {joinData.password && passCheck.length ? (
+        {joinData.password && joinData.passwordCheck ? (
           <Confirmer colors={confirmColorP} text={confirmTextP} />
         ) : (
           ""
