@@ -4,7 +4,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import StyledProductList from "./styles/StyledProductList";
 import { product } from "./product";
-import { allProducts, viewedProducts } from "./api";
+import { allProducts } from "./api";
 import { salePrice } from "./CartForm";
 import PageButtons from "./PageButtons";
 
@@ -47,11 +47,7 @@ const ProductList = () => {
     if (listProduct) return Math.ceil(listProduct.length / 16);
   }, [listProduct]);
   const [page, setPage] = useState<number>(1);
-  const local = window.localStorage;
-  const session = window.sessionStorage;
   const productList = React.useRef<HTMLDivElement>(null);
-  const viewedStyle: string = "width: 800px; margin: 5px; padding: auto;";
-  const userId = JSON.parse(session.getItem("userInfo")!).userId;
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -68,26 +64,9 @@ const ProductList = () => {
     setInitialProduct(product);
   };
 
-  const viewedProduct = async () => {
-    if (local.getItem("viewed_" + userId) && productList.current) {
-      productList.current.style.width = "800px";
-      productList.current.style.margin = "5px";
-      productList.current.style.padding = "5px";
-      const product = await viewedProducts(local.getItem("viewed_" + userId) || "");
-      setListProduct(product);
-      setInitialProduct(product);
-    }
-  };
-
   useEffect(() => {
-    if (pathname === "/myPage/viewed-goods") {
-      viewedProduct();
-    } else {
-      allProduct();
-    }
+    allProduct();
   }, []);
-
-  // console.log(search);
 
   useEffect(() => {
     if (color) {
@@ -122,28 +101,24 @@ const ProductList = () => {
   return (
     <StyledProductList>
       <div id="productFilter">
-        {pathname === "/myPage/viewed-goods" ? (
-          <></>
-        ) : (
-          <>
-            {" "}
-            <select name="order" onChange={changeOrder} className="filter">
-              <option value="1">최신순</option>
-              <option value="2">낮은 가격순</option>
-              <option value="3">높은 가격순</option>
-            </select>
-            <select name="color" onChange={optionColor} className="filter">
-              <option key="default" value="default">
-                전체 색상
+        <>
+          {" "}
+          <select name="order" onChange={changeOrder} className="filter">
+            <option value="1">최신순</option>
+            <option value="2">낮은 가격순</option>
+            <option value="3">높은 가격순</option>
+          </select>
+          <select name="color" onChange={optionColor} className="filter">
+            <option key="default" value="default">
+              전체 색상
+            </option>
+            {colorList.map((colors) => (
+              <option key={colors} value={colors}>
+                {colors}
               </option>
-              {colorList.map((colors) => (
-                <option key={colors} value={colors}>
-                  {colors}
-                </option>
-              ))}
-            </select>
-          </>
-        )}
+            ))}
+          </select>
+        </>
       </div>
       <div id="productList" ref={productList}>
         {listProduct.length && page ? (

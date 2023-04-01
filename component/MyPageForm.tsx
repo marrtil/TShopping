@@ -5,7 +5,7 @@ import MyInfo from "./myPage/MyInfo";
 import MyOrderRecord from "./myPage/orders/MyOrderRecord";
 import MyReview from "./myPage/review/MyReview";
 import ModForm from "./myPage/ModForm";
-import ViewedGoods from "./myPage/ViewedGoods";
+import ViewedGoods from "./myPage/viewed/ViewedGoods";
 import { UserInfo } from "./Types";
 const MyPageForm = ({ userInfo }: { userInfo: UserInfo }) => {
   const session = window.sessionStorage;
