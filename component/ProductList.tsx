@@ -48,6 +48,10 @@ const ProductList = () => {
   }, [listProduct]);
   const [page, setPage] = useState<number>(1);
   const local = window.localStorage;
+  const session = window.sessionStorage;
+  const productList = React.useRef<HTMLDivElement>(null);
+  const viewedStyle: string = "width: 800px; margin: 5px; padding: auto;";
+  const userId = JSON.parse(session.getItem("userInfo")!).userId;
   const colorList = useMemo(() => {
     var colors: string[] = [];
     initialProduct.forEach((value) => {
@@ -65,8 +69,11 @@ const ProductList = () => {
   };
 
   const viewedProduct = async () => {
-    if (local.getItem("viewed")) {
-      const product = await viewedProducts(local.getItem("viewed") || "");
+    if (local.getItem("viewed_" + userId) && productList.current) {
+      productList.current.style.width = "800px";
+      productList.current.style.margin = "5px";
+      productList.current.style.padding = "5px";
+      const product = await viewedProducts(local.getItem("viewed_" + userId) || "");
       setListProduct(product);
       setInitialProduct(product);
     }
@@ -138,7 +145,7 @@ const ProductList = () => {
           </>
         )}
       </div>
-      <div id="productList">
+      <div id="productList" ref={productList}>
         {listProduct.length && page ? (
           listProduct.slice((page - 1) * 16, 16 * page).map((product: product) => {
             return (
