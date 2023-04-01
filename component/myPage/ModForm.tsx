@@ -52,7 +52,6 @@ function ModForm({ userInfo }: any) {
 
   const passwordCheck = async () => {
     const check = modData.password;
-
     if (check.length < 4 || check.length > 12) {
       setConfirmColor(false);
       setConfirmText(0);
@@ -107,32 +106,18 @@ function ModForm({ userInfo }: any) {
           <td className="infoName">비밀번호</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input
-              name="password"
-              onChange={handleChange}
-              onBlur={passwordCheck}
-            />
+            <input name="password" onChange={handleChange} onBlur={passwordCheck} />
           </td>
         </tr>
         <tr>
           <td />
-          <td colSpan={2}>
-            {modData.password ? (
-              <ModConfirmer colors={confirmColor} text={confirmText} />
-            ) : (
-              ""
-            )}
-          </td>
+          <td colSpan={2}>{modData.password ? <ModConfirmer colors={confirmColor} text={confirmText} /> : ""}</td>
         </tr>
         <tr>
           <td className="infoName">비밀번호 확인</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input
-              name="passwordCheck"
-              onChange={passCheck}
-              onBlur={passCheck}
-            />
+            <input name="passwordCheck" onChange={passCheck} onBlur={passCheck} />
           </td>
         </tr>
         <tr>
@@ -149,8 +134,7 @@ function ModForm({ userInfo }: any) {
           <td className="infoName">닉네임</td>
           <td className="infoSlash">|</td>
           <td className="infoValue">
-            <input name="nickname" onChange={handleChange} />{" "}
-            <button>중복체크</button>
+            <input name="nickname" onChange={handleChange} /> <button>중복체크</button>
           </td>
         </tr>
         <tr>

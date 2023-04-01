@@ -70,7 +70,7 @@ const Header = ({ userInfo, handleLogout }: { userInfo: UserInfo; handleLogout: 
               <Link
                 to="/myPage"
                 onClick={(e) => {
-                  if (!userInfo) {
+                  if (!userInfo.userId) {
                     alert("로그인이 필요합니다!");
                     navi("/login");
                     e.preventDefault();

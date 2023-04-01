@@ -28,6 +28,7 @@ const ProductForm = () => {
   const navi = useNavigate();
   const local = window.localStorage;
   const session = window.sessionStorage;
+  const userId = JSON.parse(session.getItem("userInfo")!).userId;
   const [product, setProduct] = useState<product>(initialproduct);
   const [select, setSelect] = useState({ color: "select", size: "select" });
   const [review, setReview] = useState<Review[]>([INITIAL_REVIEW]);
@@ -46,16 +47,17 @@ const ProductForm = () => {
 
   React.useEffect(() => {
     loadProduct();
-    if (id) {
-      if (local.getItem("viewed")) {
+    if (id && userId) {
+      if (local.getItem("viewed_" + userId)) {
         let filltered = local
-          .getItem("viewed")
+          .getItem("viewed_" + userId)
           ?.split(",")
           .filter((item) => item !== id);
-        local.setItem("viewed", id + "," + filltered);
-      } else local.setItem("viewed", id);
+        local.setItem("viewed_" + userId, id + "," + filltered);
+      } else local.setItem("viewed_" + userId, id);
     }
   }, []);
+
   const handleOptionCheck = (e: any) => {
     if (select.color === "select" || select.size === "select") {
       alert("옵션을 선택해주세요.");
@@ -76,9 +78,7 @@ const ProductForm = () => {
         count: 1,
       });
       if (check.id) {
-        let result = confirm(
-          "물품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?"
-        );
+        let result = confirm("물품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
         if (result) navi("../cart");
       }
     } else alert("로그인 후 이용가능합니다.");
@@ -135,11 +135,7 @@ const ProductForm = () => {
             </select>
           </div>
           <button className="payButton">
-            <Link
-              to="../payment"
-              state={[{ ...product, ...select }]}
-              onClick={handleOptionCheck}
-            >
+            <Link to="../payment" state={[{ ...product, ...select }]} onClick={handleOptionCheck}>
               결제하기
             </Link>
           </button>
