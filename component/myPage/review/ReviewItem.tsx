@@ -1,14 +1,10 @@
 import * as React from "react";
 import { useNavigate } from "react-router";
-import { Order, Review } from "../Types";
-import Rating from "./Rating";
-import StyledTr from "./StyledTr";
+import { Order, Review } from "../../Types";
+import RatingSimple from "../rating/RatingSimple";
+import StyledTr from "../styles/StyledTr";
 
-// interface Props {
-//   item: string[];
-// }
-
-const ReviewItem: React.FC<Review> = ({ id, name, productId, size, color, rating, content, createdAt }: any) => {
+const ReviewItem: React.FC<Review> = ({ name, productId, size, color, rating, content, createdAt }) => {
   const navigate = useNavigate();
 
   const handleDelete = () => {};
@@ -18,7 +14,7 @@ const ReviewItem: React.FC<Review> = ({ id, name, productId, size, color, rating
         {name} - {size}-{color}
       </td>
       <td>
-        <Rating value={rating} />
+        <RatingSimple value={rating} />
       </td>
       <td>{content}</td>
       <td>{createdAt.split("T")[0]}</td>

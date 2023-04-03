@@ -2,14 +2,14 @@ import * as React from "react";
 import StyledMyPage from "./styles/StyledMyPage";
 import { Route, Routes, useLocation } from "react-router-dom";
 import MyInfo from "./myPage/MyInfo";
-import MyOrderRecord from "./myPage/MyOrderRecord";
-import MyReview from "./myPage/MyReview";
+import MyOrderRecord from "./myPage/orders/MyOrderRecord";
+import MyReview from "./myPage/review/MyReview";
 import ModForm from "./myPage/ModForm";
-import ViewedGoods from "./myPage/ViewedGoods";
-const MyPageForm = ({ userInfo }: any) => {
+import ViewedGoods from "./myPage/viewed/ViewedGoods";
+import { UserInfo } from "./Types";
+const MyPageForm = ({ userInfo }: { userInfo: UserInfo }) => {
   const session = window.sessionStorage;
   const location = useLocation();
-  // const [userInfo, setUserInfo] = React.useState<any>();
   const [menu, setMenu] = React.useState<string>(location.pathname.split("/")[2]);
   React.useEffect(() => {
     console.log(menu);

@@ -1,6 +1,7 @@
 import { CartData, CartProduct, DelveriyInfo, Review } from "./Types";
 
 const URL = "https://tshopping-app.herokuapp.com/api";
+// const URL = "http://localhost:3001/api";
 
 // 결제하기 눌렀을 때 (productData: { productId, size, color, count})
 export async function order(orderData: CartProduct[]) {
@@ -40,14 +41,13 @@ export async function cart(userId: string) {
   const res = await fetch(`${URL}/order/cart/${userId}`);
   if (!res) throw new Error("cartInfo is failed");
   const body = await res.json();
-  console.log(body);
   return body;
 }
 // 결제하기 (위에서 불러온 데이터)
 // => 장바구니 비우기.
 
 // 장바구니에서 빼기
-export async function cartOut(cartId: string) {
+export async function cartOut(cartId: number) {
   const res = await fetch(`${URL}/order/cartOut/${cartId}`, {
     method: "delete",
   });
@@ -100,7 +100,6 @@ export async function addressLoad(userId: string) {
 export async function orderLoad(userId: string, order_state: number, date: number) {
   const res = await fetch(`${URL}/order/orderLoad?userId=${userId}&orderState=${order_state}&date=${date}`);
   const body = await res.json();
-  console.log(body);
   return body;
 }
 

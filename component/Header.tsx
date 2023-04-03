@@ -7,8 +7,8 @@ import StyledMenuBar from "./styles/StyledMenuBar";
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import LinkMatcher from "./LinkMatcher";
 import MyPageForm from "./MyPageForm";
-import { productManT, productWomenT } from "./Types";
-const Header = ({ userInfo, handleLogout }: any) => {
+import { productManT, productWomenT, UserInfo } from "./Types";
+const Header = ({ userInfo, handleLogout }: { userInfo: UserInfo; handleLogout: () => void }) => {
   const navi = useNavigate();
   // const [userInfo, setUserInfo] = React.useState<any>();
   const productWomen: productWomenT = {
@@ -38,13 +38,12 @@ const Header = ({ userInfo, handleLogout }: any) => {
     데님: "under-wear",
     신발: "shoes",
   };
-
   return (
     <>
       <StyledHeader>
         <StyledLoginBar>
           <ul>
-            {userInfo ? (
+            {userInfo.userId ? (
               <li key="login">
                 <a href="/" onClick={handleLogout}>
                   로그아웃
@@ -71,7 +70,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
               <Link
                 to="/myPage"
                 onClick={(e) => {
-                  if (!userInfo) {
+                  if (!userInfo.userId) {
                     alert("로그인이 필요합니다!");
                     navi("/login");
                     e.preventDefault();
@@ -99,9 +98,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
                     <hr />
                     {Object.keys(productMan).map((value) => (
                       <div>
-                        <a href={`/productList?gender=남성&kind=${value}`}>
-                          {value}
-                        </a>
+                        <a href={`/productList?gender=남성&kind=${value}`}>{value}</a>
                       </div>
                     ))}
                   </div>
@@ -114,9 +111,7 @@ const Header = ({ userInfo, handleLogout }: any) => {
                     <hr />
                     {Object.keys(productWomen).map((value) => (
                       <div>
-                        <a href={`/productList?gender=여성&kind=${value}`}>
-                          {value}
-                        </a>
+                        <a href={`/productList?gender=여성&kind=${value}`}>{value}</a>
                       </div>
                     ))}
                   </div>

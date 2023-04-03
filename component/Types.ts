@@ -14,9 +14,21 @@ export interface UserInfo {
   password: string;
   passwordCheck: string;
   email: string;
-  imageUrl: string | any;
-  imageFile: string | any;
+  imageUrl: string;
+  imageFile: string;
 }
+
+export const INITIAL_USERINFO: UserInfo = {
+  userId: "",
+  nickname: "",
+  name: "",
+  password: "",
+  passwordCheck: "",
+  email: "",
+  imageUrl: "",
+  imageFile: "",
+};
+
 export interface User {
   [userId: string]: string;
   nickname: string;
@@ -43,18 +55,19 @@ export interface Order {
   detail: detail[];
 }
 export interface detail {
-  productId: string;
+  productId: number;
   productName: string;
   price: number;
   count: number;
   color: string;
+  size: string;
 }
 
 export const INIITIAL_ORDERLIST: Order = {
   orderDate: "",
   id: 0,
   orderState: 0,
-  detail: [{ productId: "", productName: "", price: 0, count: 0, color: "" }],
+  detail: [{ productId: 0, productName: "", price: 0, count: 0, color: "", size: "" }],
 };
 
 export interface Review extends detail {
@@ -73,11 +86,12 @@ export const INITIAL_REVIEW: Review = {
   rating: 0,
   content: "",
   createdAt: "",
-  productId: "",
+  productId: 0,
   productName: "",
   price: 0,
   count: 0,
   color: "",
+  size: "",
 };
 
 ///////////////상품리스트관련/////////////////

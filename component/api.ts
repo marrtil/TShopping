@@ -1,8 +1,10 @@
 import { LOGIN_INFO } from "./LoginForm";
+import { modInfo } from "./myPage/ModForm";
 import { product } from "./product";
 import { ProductSort } from "./Types";
 
 const URL = "https://tshopping-app.herokuapp.com/api";
+// const URL = "http://localhost:3001/api";
 
 export async function loginCheck_process() {
   const res = await fetch(`${URL}/user/`, {
@@ -129,8 +131,7 @@ export async function passwordCheck_process(checkData: { userId: string; passwor
   }
   return true;
 }
-export async function modMember(userId: string, member: any) {
-  console.log("modMember api");
+export async function modMember(userId: string, member: modInfo) {
   const res = await fetch(`${URL}/user/mod/${userId}`, {
     method: "PUT",
     headers: {

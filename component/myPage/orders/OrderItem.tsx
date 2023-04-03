@@ -1,24 +1,21 @@
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router";
-import { Order, Review } from "../Types";
+import { Order, Review } from "../../Types";
 import { OrderSortList } from "./MyOrderRecord";
-import StyledTr from "./StyledTr";
+import StyledTr from "../styles/StyledTr";
 
-// interface Props {
-//   item: string[];
-// }
-
-const OrderItem: React.FC<Order> = (arr) => {
+const OrderItem = ({ arr, onClick }: { arr: Order; onClick: (o: number, p: number) => void }) => {
   const navigate = useNavigate();
   const session = window.sessionStorage;
   const { pathname } = useLocation();
   return (
     <>
-      {Object.values(arr["detail"]).map((item) => {
+      {arr.detail.map((item) => {
         return (
           <>
             <StyledTr
               onClick={() => {
+                onClick(Number(arr.id), Number(item.productId));
                 if (pathname.split("/")[2] === "myreview") {
                   session.setItem("reviewInfo", JSON.stringify(item));
                   navigate(`./${arr.id}_${item.productId}`);

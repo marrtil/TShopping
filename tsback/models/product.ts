@@ -18,7 +18,7 @@ class Product extends Model {
 Product.init(
   {
     name: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     gender: {

@@ -8,7 +8,7 @@ import { productDetail } from "./api";
 import { salePrice } from "./CartForm";
 import { Link } from "react-router-dom";
 import { INITIAL_REVIEW, Review } from "./Types";
-import ReviewTable from "./myPage/ReviewTable";
+import ReviewTable from "./myPage/review/ReviewTable";
 
 const initialproduct: product = {
   id: 1,
@@ -28,6 +28,7 @@ const ProductForm = () => {
   const navi = useNavigate();
   const local = window.localStorage;
   const session = window.sessionStorage;
+  const userId = JSON.parse(session.getItem("userInfo")!).userId;
   const [product, setProduct] = useState<product>(initialproduct);
   const [select, setSelect] = useState({ color: "select", size: "select" });
   const [review, setReview] = useState<Review[]>([INITIAL_REVIEW]);
@@ -46,16 +47,17 @@ const ProductForm = () => {
 
   React.useEffect(() => {
     loadProduct();
-    if (id) {
-      if (local.getItem("viewed")) {
+    if (id && userId) {
+      if (local.getItem("viewed_" + userId)) {
         let filltered = local
-          .getItem("viewed")
+          .getItem("viewed_" + userId)
           ?.split(",")
           .filter((item) => item !== id);
-        local.setItem("viewed", id + "," + filltered);
-      } else local.setItem("viewed", id);
+        local.setItem("viewed_" + userId, id + "," + filltered);
+      } else local.setItem("viewed_" + userId, id);
     }
   }, []);
+
   const handleOptionCheck = (e: any) => {
     if (select.color === "select" || select.size === "select") {
       alert("옵션을 선택해주세요.");

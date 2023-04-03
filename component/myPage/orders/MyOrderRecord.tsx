@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useLocation } from "react-router";
-import { orderComplete, orderLoad } from "../orderApi";
-import { INIITIAL_ORDERLIST, Order, orderState } from "../Types";
+import { orderComplete, orderLoad } from "../../orderApi";
+import { INIITIAL_ORDERLIST, Order, orderState } from "../../Types";
 import OrderSearch from "./OrderSearch";
-import StyledOrder from "./StyledOrder";
-import Table from "./Table";
+import StyledOrder from "../styles/StyledOrder";
+import Table from "../Table";
 
 export const OrderSortList: orderState[] = [
   "입금/결제",
@@ -18,10 +18,7 @@ export const OrderSortList: orderState[] = [
 ];
 
 const MyOrderRecord = () => {
-  // const { search } = useLocation();
   const session = window.sessionStorage;
-  // const path = 0;
-  // if (search) search.split("order_state=")[1].slice(0, 1);
   const [order_state, setOrder_state] = React.useState<number>(8);
   const [orders, setOrders] = React.useState<Order[]>([INIITIAL_ORDERLIST]);
   const [date, setDate] = React.useState<number>(0);
@@ -87,7 +84,7 @@ const MyOrderRecord = () => {
       </div>
       <hr></hr>
       <OrderSearch onClick={onClick} />
-      <Table {...orders} />
+      <Table arr={orders} />
       <hr></hr>
     </StyledOrder>
   );
